@@ -44,6 +44,6 @@ site_list:
   Remote_MEP: 2
   login: 
    host: "10.91.121.87"
-   username: "admin"
-   password: "admin"
+   username: "dshaw"
+   password: "dshaw"
    device_type: "accedian"
