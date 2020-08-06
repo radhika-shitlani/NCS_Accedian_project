@@ -76,7 +76,7 @@ class Service:
             if node['login']['device_type'] == 'cisco_xr':
                 pass
             else:          
-                net_connect = Netmiko(**node['login'])
+                
                 print("****  Logged in node : {}".format(node['Node_name']))
                 node['index'] = {}
                 if node['Protected'] == 'YES':
@@ -84,6 +84,7 @@ class Service:
                 else:
                     node['out_port'] = 'PORT-{}'.format(node['Nni_port'])                                
                 for mep_meg_dmm_slm in mep_meg_dmm_slm_list:
+                    net_connect = Netmiko(**node['login'])
                     output = net_connect.send_command('cfm show {} configuration'.format(mep_meg_dmm_slm))
                     template = open(file_path + '/TEXTFSM/accedian_show_{}_index.textfsm'.format(mep_meg_dmm_slm))
                     re_table = textfsm.TextFSM(template)
@@ -97,7 +98,7 @@ class Service:
                         node['index'][mep_meg_dmm_slm] = 1
                     else:                   
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
-                net_connect.send_command('exit')
+                    net_connect.disconnect()
                 print("****  persing completed on {}".format(node['Node_name']))
 
         return node['index']
