@@ -97,7 +97,7 @@ class Service:
                         node['index'][mep_meg_dmm_slm] = 1
                     else:                   
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
-                net_connect.disconnect()
+                net_connect.send_command('exit')
                 print("****  persing completed on {}".format(node['Node_name']))
 
         return node['index']
