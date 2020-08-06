@@ -20,7 +20,7 @@ file_path = os.path.dirname(os.path.realpath(__file__))
 
 
 def Get_Spirent_Config():
-	data = yaml.load(open('templates/Spirent_Test_Topology.yaml'), Loader=yaml.Loader)
+	data = yaml.load(open(file_path + '/../Topology/Spirent_Test_Topology.yaml'), Loader=yaml.Loader)
 
 	# with open( file_path + 'Spirent_Test_Topology.yaml') as data_file:
 	#     data = yaml.load(data_file,Loader=yaml.FullLoader)

@@ -1,0 +1,881 @@
+############# Spirent HLTAPI STC Export Log File #############
+puts "package require SpirentTestCenter"
+package require SpirentTestCenter
+#puts "source SpirentTestCenter.tcl"
+#source SpirentTestCenter.tcl
+
+
+
+::stc::create project -under system1
+
+puts "stc::create project"
+set status [stc::create project]
+puts $status
+
+puts "::stc::get project1 -parent"
+set status [::stc::get project1 -parent]
+puts $status
+
+puts "::stc::get system1 -children-sequencer"
+set status [::stc::get system1 -children-sequencer]
+puts $status
+
+puts "stc::connect 10.91.113.124"
+set status [stc::connect 10.91.113.124]
+puts $status
+
+puts "stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8"
+set status [stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8]
+puts $status
+
+puts "stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true"
+set status [stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorconfig"
+set status [stc::get generator1 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig1 -SchedulingMode RATE_BASED"
+set status [stc::config generatorconfig1 -SchedulingMode RATE_BASED]
+puts $status
+
+puts "stc::create Port -under project1 -location 10.91.113.124/8/10 -name 10.91.113.124-8-10"
+set status [stc::create Port -under project1 -location 10.91.113.124/8/10 -name 10.91.113.124-8-10]
+puts $status
+
+puts "stc::perform ReservePort -Location 10.91.113.124/8/10 -RevokeOwner true"
+set status [stc::perform ReservePort -Location 10.91.113.124/8/10 -RevokeOwner true]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorconfig"
+set status [stc::get generator2 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig2 -SchedulingMode RATE_BASED"
+set status [stc::config generatorconfig2 -SchedulingMode RATE_BASED]
+puts $status
+
+puts "stc::perform setupPortMappings"
+set status [stc::perform setupPortMappings]
+puts $status
+
+puts "stc::get port1 -ActivePhy-targets"
+set status [stc::get port1 -ActivePhy-targets]
+puts $status
+
+puts "stc::get port1 -supportedPhys"
+set status [stc::get port1 -supportedPhys]
+puts $status
+
+puts "stc::get ethernet10gigfiber1 -LineSpeed"
+set status [stc::get ethernet10gigfiber1 -LineSpeed]
+puts $status
+
+puts "stc::get port1 -Online"
+set status [stc::get port1 -Online]
+puts $status
+
+puts "stc::get port1 -activephy-Targets"
+set status [stc::get port1 -activephy-Targets]
+puts $status
+
+puts "stc::get ethernet10gigfiber1 -LineSpeed"
+set status [stc::get ethernet10gigfiber1 -LineSpeed]
+puts $status
+
+puts "stc::get port1 -children-Ethernet10GigFiber"
+set status [stc::get port1 -children-Ethernet10GigFiber]
+puts $status
+
+puts "stc::config ethernet10gigfiber1 -Mtu 1500 -FlowControl FALSE -DataPathMode NORMAL -AutoNegotiation true"
+set status [stc::config ethernet10gigfiber1 -Mtu 1500 -FlowControl FALSE -DataPathMode NORMAL -AutoNegotiation true]
+puts $status
+
+puts "stc::perform PortSetupSetActivePhy -activephy ethernet10gigfiber1"
+set status [stc::perform PortSetupSetActivePhy -activephy ethernet10gigfiber1]
+puts $status
+
+puts "stc::get ethernet10gigfiber1 -isSpeedAutoNegotiationConfigurable"
+set status [stc::get ethernet10gigfiber1 -isSpeedAutoNegotiationConfigurable]
+puts $status
+
+puts "stc::config ethernet10gigfiber1 -AutoNegotiation true"
+set status [stc::config ethernet10gigfiber1 -AutoNegotiation true]
+puts $status
+
+puts "stc::get port1 -children-Ethernet10GigCopper"
+set status [stc::get port1 -children-Ethernet10GigCopper]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorconfig"
+set status [stc::get generator1 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig1 -SchedulingMode RATE_BASED"
+set status [stc::config generatorconfig1 -SchedulingMode RATE_BASED]
+puts $status
+
+puts "stc::get port1 -AffiliationPort-Sources"
+set status [stc::get port1 -AffiliationPort-Sources]
+puts $status
+
+puts "stc::get port1 -children-StreamBlock"
+set status [stc::get port1 -children-StreamBlock]
+puts $status
+
+puts "stc::perform ArpNdStart -HandleList port1"
+set status [stc::perform ArpNdStart -HandleList port1]
+puts $status
+
+puts "stc::get port1 -children-Ethernet10GigCopper"
+set status [stc::get port1 -children-Ethernet10GigCopper]
+puts $status
+
+puts "stc::get port2 -ActivePhy-targets"
+set status [stc::get port2 -ActivePhy-targets]
+puts $status
+
+puts "stc::get port2 -supportedPhys"
+set status [stc::get port2 -supportedPhys]
+puts $status
+
+puts "stc::get ethernetcopper1 -LineSpeed"
+set status [stc::get ethernetcopper1 -LineSpeed]
+puts $status
+
+puts "stc::get port2 -Online"
+set status [stc::get port2 -Online]
+puts $status
+
+puts "stc::get port2 -activephy-Targets"
+set status [stc::get port2 -activephy-Targets]
+puts $status
+
+puts "stc::get ethernetcopper1 -LineSpeed"
+set status [stc::get ethernetcopper1 -LineSpeed]
+puts $status
+
+puts "stc::get port2 -children-EthernetCopper"
+set status [stc::get port2 -children-EthernetCopper]
+puts $status
+
+puts "stc::get port2 -children-Ethernet10GigCopper"
+set status [stc::get port2 -children-Ethernet10GigCopper]
+puts $status
+
+puts "stc::config ethernetcopper1 -Mtu 1500 -LineSpeed SPEED_1G -AutoNegotiation true -Duplex FULL"
+set status [stc::config ethernetcopper1 -Mtu 1500 -LineSpeed SPEED_1G -AutoNegotiation true -Duplex FULL]
+puts $status
+
+puts "stc::perform PortSetupSetActivePhy -activephy ethernetcopper1"
+set status [stc::perform PortSetupSetActivePhy -activephy ethernetcopper1]
+puts $status
+
+puts "stc::get ethernetcopper1 -isSpeedAutoNegotiationConfigurable"
+set status [stc::get ethernetcopper1 -isSpeedAutoNegotiationConfigurable]
+puts $status
+
+puts "stc::get port2 -children-Ethernet10GigCopper"
+set status [stc::get port2 -children-Ethernet10GigCopper]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorconfig"
+set status [stc::get generator2 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig2 -SchedulingMode RATE_BASED"
+set status [stc::config generatorconfig2 -SchedulingMode RATE_BASED]
+puts $status
+
+puts "stc::get port2 -AffiliationPort-Sources"
+set status [stc::get port2 -AffiliationPort-Sources]
+puts $status
+
+puts "stc::get port2 -children-StreamBlock"
+set status [stc::get port2 -children-StreamBlock]
+puts $status
+
+puts "stc::perform ArpNdStart -HandleList port2"
+set status [stc::perform ArpNdStart -HandleList port2]
+puts $status
+
+puts "stc::get port2 -children-Ethernet10GigCopper"
+set status [stc::get port2 -children-Ethernet10GigCopper]
+puts $status
+
+puts "::stc::create streamBlock -under port1 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true"
+set status [::stc::create streamBlock -under port1 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true]
+puts $status
+
+puts "stc::perform StreamBlockUpdate -streamblock streamblock1"
+set status [stc::perform StreamBlockUpdate -streamblock streamblock1]
+puts $status
+
+puts "stc::get streamblock1 -children"
+set status [stc::get streamblock1 -children]
+puts $status
+
+puts "::stc::delete ethernet:ethernetii3"
+set status [::stc::delete ethernet:ethernetii3]
+puts $status
+
+puts "::stc::delete ipv4:ipv43"
+set status [::stc::delete ipv4:ipv43]
+puts $status
+
+puts "::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true"
+set status [::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true]
+puts $status
+
+puts "stc::perform StreamBlockUpdate -streamblock streamblock2"
+set status [stc::perform StreamBlockUpdate -streamblock streamblock2]
+puts $status
+
+puts "stc::get streamblock2 -children"
+set status [stc::get streamblock2 -children]
+puts $status
+
+puts "::stc::delete ethernet:ethernetii6"
+set status [::stc::delete ethernet:ethernetii6]
+puts $status
+
+puts "::stc::delete ipv4:ipv46"
+set status [::stc::delete ipv4:ipv46]
+puts $status
+
+puts "stc::get project1 -children-port"
+set status [stc::get project1 -children-port]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1.GeneratorConfig -DurationMode"
+set status [stc::get generator1.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2.GeneratorConfig -DurationMode"
+set status [stc::get generator2.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorconfig"
+set status [stc::get generator1 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 30"
+set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 30]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorconfig"
+set status [stc::get generator2 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 30"
+set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 30]
+puts $status
+
+puts "stc::get project1 -children-port"
+set status [stc::get project1 -children-port]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1.GeneratorConfig -DurationMode"
+set status [stc::get generator1.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2.GeneratorConfig -DurationMode"
+set status [stc::get generator2.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get project1 -children-trafficoptions"
+set status [stc::get project1 -children-trafficoptions]
+puts $status
+
+puts "stc::config trafficoptions1 -TrafficStartMode asynchronous"
+set status [stc::config trafficoptions1 -TrafficStartMode asynchronous]
+puts $status
+
+puts "stc::get port1 -children-Analyzer"
+set status [stc::get port1 -children-Analyzer]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get port2 -children-Analyzer"
+set status [stc::get port2 -children-Analyzer]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}"
+set status [stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}]
+puts $status
+
+puts "stc::get port1 -affiliationport-Sources"
+set status [stc::get port1 -affiliationport-Sources]
+puts $status
+
+puts "stc::get port1 -children-streamblock"
+set status [stc::get port1 -children-streamblock]
+puts $status
+
+puts "stc::perform ArpNdStart -HandleList streamblock1"
+set status [stc::perform ArpNdStart -HandleList streamblock1]
+puts $status
+
+puts "stc::get port2 -affiliationport-Sources"
+set status [stc::get port2 -affiliationport-Sources]
+puts $status
+
+puts "stc::get port2 -children-streamblock"
+set status [stc::get port2 -children-streamblock]
+puts $status
+
+puts "stc::perform ArpNdStart -HandleList streamblock2"
+set status [stc::perform ArpNdStart -HandleList streamblock2]
+puts $status
+
+puts "stc::perform generatorstart -GeneratorList {generator1 generator2}"
+set status [stc::perform generatorstart -GeneratorList {generator1 generator2}]
+puts $status
+
+puts "stc::perform ResultsClearAll -PortList {port1 port2}"
+set status [stc::perform ResultsClearAll -PortList {port1 port2}]
+puts $status
+
+puts "stc::get project1 -children-port"
+set status [stc::get project1 -children-port]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorconfig"
+set status [stc::get generator1 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 10"
+set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 10]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorconfig"
+set status [stc::get generator2 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 10"
+set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 10]
+puts $status
+
+puts "stc::get project1 -children-port"
+set status [stc::get project1 -children-port]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1.GeneratorConfig -DurationMode"
+set status [stc::get generator1.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2.GeneratorConfig -DurationMode"
+set status [stc::get generator2.GeneratorConfig -DurationMode]
+puts $status
+
+puts "stc::get project1 -children-trafficoptions"
+set status [stc::get project1 -children-trafficoptions]
+puts $status
+
+puts "stc::config trafficoptions1 -TrafficStartMode asynchronous"
+set status [stc::config trafficoptions1 -TrafficStartMode asynchronous]
+puts $status
+
+puts "stc::get port1 -children-Analyzer"
+set status [stc::get port1 -children-Analyzer]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get port2 -children-Analyzer"
+set status [stc::get port2 -children-Analyzer]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}"
+set status [stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}]
+puts $status
+
+puts "stc::perform generatorstart -GeneratorList {generator1 generator2}"
+set status [stc::perform generatorstart -GeneratorList {generator1 generator2}]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -State"
+set status [stc::get generator1 -State]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Analyzer -resulttype AnalyzerPortResults -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Analyzer -resulttype AnalyzerPortResults -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Generator -resulttype GeneratorPortResults -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Generator -resulttype GeneratorPortResults -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Analyzer -resulttype OverflowResults -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port1 -ConfigType Analyzer -resulttype OverflowResults -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port1 -ConfigType StreamBlock -resulttype RxStreamBlockResults -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}"
+set status [stc::subscribe -Parent project1 -ResultParent port1 -ConfigType StreamBlock -resulttype RxStreamBlockResults -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}]
+puts $status
+
+puts "stc::perform RefreshResultView -ResultDataSet resultdataset4"
+set status [stc::perform RefreshResultView -ResultDataSet resultdataset4]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port1 -ConfigType StreamBlock -resulttype TxStreamBlockResults -viewAttributeList {OctetCount FrameCount BitRate FrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port1 -ConfigType StreamBlock -resulttype TxStreamBlockResults -viewAttributeList {OctetCount FrameCount BitRate FrameRate}]
+puts $status
+
+puts "stc::sleep 3"
+set status [stc::sleep 3]
+puts $status
+
+puts "stc::get port1 -children-capture"
+set status [stc::get port1 -children-capture]
+puts $status
+
+puts "stc::get capture1 -children-CaptureFilter"
+set status [stc::get capture1 -children-CaptureFilter]
+puts $status
+
+puts "stc::get capturefilter1 -children-CaptureAnalyzerFilter"
+set status [stc::get capturefilter1 -children-CaptureAnalyzerFilter]
+puts $status
+
+puts "stc::get resultdataset1 -TotalPageCount"
+set status [stc::get resultdataset1 -TotalPageCount]
+puts $status
+
+puts "stc::get resultdataset1 -ResultHandleList"
+set status [stc::get resultdataset1 -ResultHandleList]
+puts $status
+
+puts "stc::get analyzerportresults1"
+set status [stc::get analyzerportresults1]
+puts $status
+
+puts "stc::get analyzerportresults1 -parent"
+set status [stc::get analyzerportresults1 -parent]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorportresults"
+set status [stc::get generator1 -children-generatorportresults]
+puts $status
+
+puts "stc::get generatorportresults1"
+set status [stc::get generatorportresults1]
+puts $status
+
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -state"
+set status [stc::get generator1 -state]
+puts $status
+
+puts "stc::get port1 -children-analyzer"
+set status [stc::get port1 -children-analyzer]
+puts $status
+
+puts "stc::get analyzer1 -children-overflowresults"
+set status [stc::get analyzer1 -children-overflowresults]
+puts $status
+
+puts "stc::get overflowresults1"
+set status [stc::get overflowresults1]
+puts $status
+
+puts "stc::get resultdataset4 -totalPageCount"
+set status [stc::get resultdataset4 -totalPageCount]
+puts $status
+
+puts "stc::get resultdataset4 -resultChild-targets"
+set status [stc::get resultdataset4 -resultChild-targets]
+puts $status
+
+puts "stc::get rxstreamblockresults1 -parent"
+set status [stc::get rxstreamblockresults1 -parent]
+puts $status
+
+puts "stc::get streamblock1 -parent"
+set status [stc::get streamblock1 -parent]
+puts $status
+
+puts "stc::get rxstreamblockresults1"
+set status [stc::get rxstreamblockresults1]
+puts $status
+
+puts "stc::get resultdataset5 -totalPageCount"
+set status [stc::get resultdataset5 -totalPageCount]
+puts $status
+
+puts "stc::get resultdataset5 -resultChild-targets"
+set status [stc::get resultdataset5 -resultChild-targets]
+puts $status
+
+puts "stc::get txstreamblockresults1 -parent"
+set status [stc::get txstreamblockresults1 -parent]
+puts $status
+
+puts "stc::get streamblock1 -parent"
+set status [stc::get streamblock1 -parent]
+puts $status
+
+puts "stc::get txstreamblockresults1"
+set status [stc::get txstreamblockresults1]
+puts $status
+
+puts "stc::get streamblock1 -RunningState"
+set status [stc::get streamblock1 -RunningState]
+puts $status
+
+puts "stc::unsubscribe resultdataset2"
+set status [stc::unsubscribe resultdataset2]
+puts $status
+
+puts "stc::delete resultdataset2"
+set status [stc::delete resultdataset2]
+puts $status
+
+puts "stc::unsubscribe resultdataset1"
+set status [stc::unsubscribe resultdataset1]
+puts $status
+
+puts "stc::delete resultdataset1"
+set status [stc::delete resultdataset1]
+puts $status
+
+puts "stc::unsubscribe resultdataset3"
+set status [stc::unsubscribe resultdataset3]
+puts $status
+
+puts "stc::delete resultdataset3"
+set status [stc::delete resultdataset3]
+puts $status
+
+puts "stc::unsubscribe resultdataset5"
+set status [stc::unsubscribe resultdataset5]
+puts $status
+
+puts "stc::delete resultdataset5"
+set status [stc::delete resultdataset5]
+puts $status
+
+puts "stc::unsubscribe resultdataset4"
+set status [stc::unsubscribe resultdataset4]
+puts $status
+
+puts "stc::delete resultdataset4"
+set status [stc::delete resultdataset4]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -State"
+set status [stc::get generator2 -State]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Analyzer -resulttype AnalyzerPortResults -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Analyzer -resulttype AnalyzerPortResults -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Generator -resulttype GeneratorPortResults -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Generator -resulttype GeneratorPortResults -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Analyzer -resulttype OverflowResults -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port2 -ConfigType Analyzer -resulttype OverflowResults -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port2 -ConfigType StreamBlock -resulttype RxStreamBlockResults -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}"
+set status [stc::subscribe -Parent project1 -ResultParent port2 -ConfigType StreamBlock -resulttype RxStreamBlockResults -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}]
+puts $status
+
+puts "stc::perform RefreshResultView -ResultDataSet resultdataset9"
+set status [stc::perform RefreshResultView -ResultDataSet resultdataset9]
+puts $status
+
+puts "stc::subscribe -Parent project1 -ResultParent port2 -ConfigType StreamBlock -resulttype TxStreamBlockResults -viewAttributeList {OctetCount FrameCount BitRate FrameRate}"
+set status [stc::subscribe -Parent project1 -ResultParent port2 -ConfigType StreamBlock -resulttype TxStreamBlockResults -viewAttributeList {OctetCount FrameCount BitRate FrameRate}]
+puts $status
+
+puts "stc::sleep 3"
+set status [stc::sleep 3]
+puts $status
+
+puts "stc::get port2 -children-capture"
+set status [stc::get port2 -children-capture]
+puts $status
+
+puts "stc::get capture2 -children-CaptureFilter"
+set status [stc::get capture2 -children-CaptureFilter]
+puts $status
+
+puts "stc::get capturefilter2 -children-CaptureAnalyzerFilter"
+set status [stc::get capturefilter2 -children-CaptureAnalyzerFilter]
+puts $status
+
+puts "stc::get resultdataset6 -TotalPageCount"
+set status [stc::get resultdataset6 -TotalPageCount]
+puts $status
+
+puts "stc::get resultdataset6 -ResultHandleList"
+set status [stc::get resultdataset6 -ResultHandleList]
+puts $status
+
+puts "stc::get analyzerportresults2"
+set status [stc::get analyzerportresults2]
+puts $status
+
+puts "stc::get analyzerportresults2 -parent"
+set status [stc::get analyzerportresults2 -parent]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorportresults"
+set status [stc::get generator2 -children-generatorportresults]
+puts $status
+
+puts "stc::get generatorportresults2"
+set status [stc::get generatorportresults2]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -state"
+set status [stc::get generator2 -state]
+puts $status
+
+puts "stc::get port2 -children-analyzer"
+set status [stc::get port2 -children-analyzer]
+puts $status
+
+puts "stc::get analyzer2 -children-overflowresults"
+set status [stc::get analyzer2 -children-overflowresults]
+puts $status
+
+puts "stc::get overflowresults2"
+set status [stc::get overflowresults2]
+puts $status
+
+puts "stc::get resultdataset9 -totalPageCount"
+set status [stc::get resultdataset9 -totalPageCount]
+puts $status
+
+puts "stc::get resultdataset9 -resultChild-targets"
+set status [stc::get resultdataset9 -resultChild-targets]
+puts $status
+
+puts "stc::get rxstreamblockresults2 -parent"
+set status [stc::get rxstreamblockresults2 -parent]
+puts $status
+
+puts "stc::get streamblock2 -parent"
+set status [stc::get streamblock2 -parent]
+puts $status
+
+puts "stc::get rxstreamblockresults2"
+set status [stc::get rxstreamblockresults2]
+puts $status
+
+puts "stc::get resultdataset10 -totalPageCount"
+set status [stc::get resultdataset10 -totalPageCount]
+puts $status
+
+puts "stc::get resultdataset10 -resultChild-targets"
+set status [stc::get resultdataset10 -resultChild-targets]
+puts $status
+
+puts "stc::get txstreamblockresults2 -parent"
+set status [stc::get txstreamblockresults2 -parent]
+puts $status
+
+puts "stc::get streamblock2 -parent"
+set status [stc::get streamblock2 -parent]
+puts $status
+
+puts "stc::get txstreamblockresults2"
+set status [stc::get txstreamblockresults2]
+puts $status
+
+puts "stc::get streamblock2 -RunningState"
+set status [stc::get streamblock2 -RunningState]
+puts $status
+
+puts "stc::unsubscribe resultdataset7"
+set status [stc::unsubscribe resultdataset7]
+puts $status
+
+puts "stc::delete resultdataset7"
+set status [stc::delete resultdataset7]
+puts $status
+
+puts "stc::unsubscribe resultdataset6"
+set status [stc::unsubscribe resultdataset6]
+puts $status
+
+puts "stc::delete resultdataset6"
+set status [stc::delete resultdataset6]
+puts $status
+
+puts "stc::unsubscribe resultdataset8"
+set status [stc::unsubscribe resultdataset8]
+puts $status
+
+puts "stc::delete resultdataset8"
+set status [stc::delete resultdataset8]
+puts $status
+
+puts "stc::unsubscribe resultdataset10"
+set status [stc::unsubscribe resultdataset10]
+puts $status
+
+puts "stc::delete resultdataset10"
+set status [stc::delete resultdataset10]
+puts $status
+
+puts "stc::unsubscribe resultdataset9"
+set status [stc::unsubscribe resultdataset9]
+puts $status
+
+puts "stc::delete resultdataset9"
+set status [stc::delete resultdataset9]
+puts $status
+
+puts "stc::get project1 -children-port"
+set status [stc::get project1 -children-port]
+puts $status
+
+puts "stc::get port1 -children-streamblock"
+set status [stc::get port1 -children-streamblock]
+puts $status
+
+puts "stc::get port2 -children-streamblock"
+set status [stc::get port2 -children-streamblock]
+puts $status
+
+puts "stc::perform DeleteCommand -ConfigList {streamblock1 streamblock2}"
+set status [stc::perform DeleteCommand -ConfigList {streamblock1 streamblock2}]
+puts $status
+
+puts "stc::get port1 -online"
+set status [stc::get port1 -online]
+puts $status
+
+puts "stc::release 10.91.113.124/7/8"
+set status [stc::release 10.91.113.124/7/8]
+puts $status
+
+puts "stc::delete port1"
+set status [stc::delete port1]
+puts $status
+
+puts "stc::get port2 -online"
+set status [stc::get port2 -online]
+puts $status
+
+puts "stc::release 10.91.113.124/8/10"
+set status [stc::release 10.91.113.124/8/10]
+puts $status
+
+puts "stc::delete port2"
+set status [stc::delete port2]
+puts $status
+
+puts "stc::get system1 -children-physicalchassismanager"
+set status [stc::get system1 -children-physicalchassismanager]
+puts $status
+
+puts "stc::get physicalchassismanager1 -children-physicalchassis"
+set status [stc::get physicalchassismanager1 -children-physicalchassis]
+puts $status
+
+puts "stc::get physicalchassis1 -Hostname"
+set status [stc::get physicalchassis1 -Hostname]
+puts $status
+
+puts "stc::disconnect 10.91.113.124"
+set status [stc::disconnect 10.91.113.124]
+puts $status

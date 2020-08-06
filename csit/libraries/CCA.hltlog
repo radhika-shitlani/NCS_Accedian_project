@@ -1,18 +1,18 @@
-[2020-07-30 07:20:25]: Started process.  Command line: 
-[2020-07-30 07:20:25]:      port number: 32811
-[2020-07-30 07:20:25]:    timeout value: 120
-[2020-07-30 07:20:25]:       log option: log
-[2020-07-30 07:20:25]: results dir path: /home/colt123/Dipankar/NCS_Accedian
-[2020-07-30 07:20:25]:    log file name: CCA.hltlog
-[2020-07-30 07:20:25]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian
-[2020-07-30 07:20:25]: Sourcing initialization file "stcinit.srv".
-[2020-07-30 07:20:25]: Connecting to port 32811 on 127.0.0.1.
-[2020-07-30 07:20:25]: Creating server socket.
-[2020-07-30 07:20:25]: Generated port number: 39625
-[2020-07-30 07:20:25]: Setting up timeout check.
-[2020-07-30 07:20:25]: Waiting for client connection.
-[2020-07-30 07:20:25]: Client connection from 127.0.0.1 port 55642.
-[2020-07-30 07:20:25]: Executing: <package require SpirentHltApi>
-[2020-07-30 07:20:55]: Return value: <4.67>
-[2020-07-30 07:20:55]: custom_path--/home/colt123/Dipankar/NCS_Accedian
-[2020-07-30 07:21:04]: Client connection has been broken.  Exiting.
+[2020-08-06 12:58:02]: Started process.  Command line: 
+[2020-08-06 12:58:02]:      port number: 39041
+[2020-08-06 12:58:02]:    timeout value: 120
+[2020-08-06 12:58:02]:       log option: log
+[2020-08-06 12:58:02]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-08-06 12:58:02]:    log file name: CCA.hltlog
+[2020-08-06 12:58:02]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-08-06 12:58:02]: Sourcing initialization file "stcinit.srv".
+[2020-08-06 12:58:02]: Connecting to port 39041 on 127.0.0.1.
+[2020-08-06 12:58:02]: Creating server socket.
+[2020-08-06 12:58:02]: Generated port number: 37029
+[2020-08-06 12:58:02]: Setting up timeout check.
+[2020-08-06 12:58:02]: Waiting for client connection.
+[2020-08-06 12:58:02]: Client connection from 127.0.0.1 port 36592.
+[2020-08-06 12:58:02]: Executing: <package require SpirentHltApi>
+[2020-08-06 12:58:32]: Return value: <4.67>
+[2020-08-06 12:58:32]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-08-06 12:59:06]: Client connection has been broken.  Exiting.

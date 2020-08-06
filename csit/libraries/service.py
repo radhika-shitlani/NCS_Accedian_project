@@ -39,16 +39,17 @@ class Service:
     def push_config(self):
         for node in self.data["site_list"]:
             net_connect = Netmiko(**node['login'])
+            print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
                 output = net_connect.send_config_set(f2)
                 if node['login']['device_type'] == 'cisco_xr':
                     net_connect.commit()
+                    net_connect.exit_config_mode()
                 else:
                     pass
-                #print(output)
+                print(output)
                 print("****  Configration completed on {}".format(node['Node_name']))
-                net_connect.exit_config_mode()
                 net_connect.disconnect()
             
 
@@ -61,9 +62,9 @@ class Service:
                 print(output)
                 if node['login']['device_type'] == 'cisco_xr':
                     net_connect.commit()
+                    net_connect.exit_config_mode()
                 else:
                     pass
-                net_connect.exit_config_mode()
                 net_connect.disconnect()
     def parse_accedian(self):
         for node in self.data["site_list"]:
@@ -71,6 +72,7 @@ class Service:
                 pass
             else:          
                 net_connect = Netmiko(**node['login'])
+                print("****  Logged in node : {}".format(node['Node_name']))
                 node['index'] = {}
                 if node['Protected'] == 'YES':
                     node['out_port'] = 'LAG-{}'.format(node['Nni_port'] // 2 + 1)

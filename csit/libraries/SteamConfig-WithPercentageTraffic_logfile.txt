@@ -1,0 +1,546 @@
+############# Spirent HLTAPI Log File #############
+Hlt Api (Ver. 4.67) was successfully loaded and initialized
+Internal Version: 4.67GA.0116
+Thu Aug 06 12:30:10 UTC 2020 [hltcall] ::sth::test_control {-action enable}
+Thu Aug 06 12:30:10 UTC 2020 [hltcall] ::sth::connect {-device 10.91.113.124 -port_list {7/8 8/10} -break_locks 1 -offline 0}
+Thu Aug 06 12:30:10 UTC 2020 [stccall] stc::create project
+Thu Aug 06 12:30:10 UTC 2020 [debug] return value: project1 
+Thu Aug 06 12:30:10 UTC 2020 [debug] {Calling sth::connect}
+Thu Aug 06 12:30:10 UTC 2020 [info] {Generating session table}
+Thu Aug 06 12:30:11 UTC 2020 [info] {Calling: _none_}
+Thu Aug 06 12:30:11 UTC 2020 [info] {Calling: ::sth::Session::processConnectDevice}
+Thu Aug 06 12:30:11 UTC 2020 [info] {Calling processConnectDevice}
+Thu Aug 06 12:30:11 UTC 2020 [stccall] stc::connect 10.91.113.124
+Thu Aug 06 12:30:11 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:11 UTC 2020 [debug] {::sth::sthCore::invoke stc::connect Chassis: 10.91.113.124: Status: }
+Thu Aug 06 12:30:11 UTC 2020 [debug] Connected to chassis: 10.91.113.124
+Thu Aug 06 12:30:11 UTC 2020 [info] {Successfully completed processing switch: device for HltCmd: Connect}
+Thu Aug 06 12:30:11 UTC 2020 [info] {Calling: ::sth::Session::processConnectPort_list}
+Thu Aug 06 12:30:11 UTC 2020 [stccall] stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8
+Thu Aug 06 12:30:11 UTC 2020 [debug] return value: port1 
+Thu Aug 06 12:30:11 UTC 2020 [stccall] stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: -parent system1 -Name {ReservePortCommand 1} -Location //10.91.113.124/7/8 -PortList {} -RevokeOwner true -AbortOnError true -State COMPLETED -Status Completed! -StartTime 1596717011.48019 -EndTime 1596717012.04686 -ElapsedTime 567 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Reserving ports...} -ProgressMaxValue 2 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::get generator1 -children-generatorconfig
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: generatorconfig1 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::config generatorconfig1 -SchedulingMode RATE_BASED
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::create Port -under project1 -location 10.91.113.124/8/10 -name 10.91.113.124-8-10
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: port2 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::perform ReservePort -Location 10.91.113.124/8/10 -RevokeOwner true
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: -parent system1 -Name {ReservePortCommand 2} -Location //10.91.113.124/8/10 -PortList {} -RevokeOwner true -AbortOnError true -State COMPLETED -Status Completed! -StartTime 1596717012.07475 -EndTime 1596717012.32309 -ElapsedTime 248 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Reserving ports...} -ProgressMaxValue 2 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::get generator2 -children-generatorconfig
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value: generatorconfig2 
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::config generatorconfig2 -SchedulingMode RATE_BASED
+Thu Aug 06 12:30:12 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:12 UTC 2020 [stccall] stc::perform setupPortMappings 
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: -parent system1 -Name {SetupPortMappingsCommand 1} -State COMPLETED -Status {} -StartTime 1596717012.34681 -EndTime 1596717015.87679 -ElapsedTime 3530 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling: _none_}
+Thu Aug 06 12:30:15 UTC 2020 [hltcall] ::sth::interface_config {-mode config -port_handle port1 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1}
+Thu Aug 06 12:30:15 UTC 2020 [debug] {Calling: sth::interface_config}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Generating session table}
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -ActivePhy-targets
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: ethernet10gigfiber1 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -supportedPhys
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: ETHERNET_10_GIG_FIBER 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get ethernet10gigfiber1 -LineSpeed
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: SPEED_10G 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -Online
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: true 
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling interface_config for mode: config}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling: ::sth::Session::interface_config_config_modify}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling interface_config_config_modify}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling: processConfigCmd}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:15 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -activephy-Targets
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: ethernet10gigfiber1 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get ethernet10gigfiber1 -LineSpeed
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: SPEED_10G 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -children-Ethernet10GigFiber
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: ethernet10gigfiber1 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::config ethernet10gigfiber1 -Mtu 1500 -FlowControl FALSE -DataPathMode NORMAL -AutoNegotiation true
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::perform PortSetupSetActivePhy -activephy ethernet10gigfiber1
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: -parent system1 -Name {PortSetup: PortSetupSetActivePhyCommand 1} -ActivePhy ethernet10gigfiber1 -State COMPLETED -Status {} -StartTime 1596717015.93932 -EndTime 1596717015.94064 -ElapsedTime 1 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get ethernet10gigfiber1 -isSpeedAutoNegotiationConfigurable
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: false 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::config ethernet10gigfiber1 -AutoNegotiation true
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get generator1 -children-generatorconfig
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value: generatorconfig1 
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::config generatorconfig1 -SchedulingMode RATE_BASED
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -AffiliationPort-Sources
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::get port1 -children-StreamBlock
+Thu Aug 06 12:30:15 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:15 UTC 2020 [stccall] stc::perform ArpNdStart -HandleList port1
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: -parent system1 -Name {Learning: Start ArpNd 1} -HandleList port1 -ArpNdState IDLE -WaitForArpToFinish true -ForceArp true -State COMPLETED -Status {None of the input items require ARP/ND at this time} -StartTime 1596717015.977 -EndTime 1596717033.56842 -ElapsedTime 17591 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [hltcall] ::sth::interface_config {-mode config -port_handle port2 -create_host false -intf_mode ethernet -phy_mode copper -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -speed ether1000 -autonegotiation 1 -duplex full}
+Thu Aug 06 12:30:33 UTC 2020 [debug] {Calling: sth::interface_config}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Generating session table}
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -ActivePhy-targets
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ethernetcopper1 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -supportedPhys
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ETHERNET_COPPER|ETHERNET_FIBER 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get ethernetcopper1 -LineSpeed
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: SPEED_1G 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -Online
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: true 
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling interface_config for mode: config}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling: ::sth::Session::interface_config_config_modify}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling interface_config_config_modify}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling: processConfigCmd}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Calling processConfigFwdCmd}
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -activephy-Targets
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ethernetcopper1 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get ethernetcopper1 -LineSpeed
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: SPEED_1G 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -children-EthernetCopper
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ethernetcopper1 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -children-Ethernet10GigCopper
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::config ethernetcopper1 -Mtu 1500 -LineSpeed SPEED_1G -AutoNegotiation true -Duplex FULL
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::perform PortSetupSetActivePhy -activephy ethernetcopper1
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: -parent system1 -Name {PortSetup: PortSetupSetActivePhyCommand 2} -ActivePhy ethernetcopper1 -State COMPLETED -Status {} -StartTime 1596717033.61395 -EndTime 1596717033.61519 -ElapsedTime 1 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get ethernetcopper1 -isSpeedAutoNegotiationConfigurable
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: true 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get generator2 -children-generatorconfig
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: generatorconfig2 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::config generatorconfig2 -SchedulingMode RATE_BASED
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -AffiliationPort-Sources
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get port2 -children-StreamBlock
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::perform ArpNdStart -HandleList port2
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: -parent system1 -Name {Learning: Start ArpNd 2} -HandleList port2 -ArpNdState IDLE -WaitForArpToFinish true -ForceArp true -State COMPLETED -Status {None of the input items require ARP/ND at this time} -StartTime 1596717033.64305 -EndTime 1596717033.6492 -ElapsedTime 6 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [hltcall] ::sth::traffic_config {-mode create -port_handle port1 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false}
+Thu Aug 06 12:30:33 UTC 2020 [debug] processHLTporthandle: Calling stc::create streamBlock port1 retHandle
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::create streamBlock -under port1 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: streamblock1 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: stc::create. Handle is streamblock1
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::perform StreamBlockUpdate -streamblock streamblock1
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: -parent system1 -Name {StreamBlockUpdateCommand 1} -StreamBlock streamblock1 -State COMPLETED -Status {} -StartTime 1596717033.83825 -EndTime 1596717033.86948 -ElapsedTime 31 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Updating generator load information for 10.91.113.124-7-8 //7/8} -ProgressMaxValue 1 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: update streamblock streamblock1 passed. -parent system1 -Name {StreamBlockUpdateCommand 1} -StreamBlock streamblock1 -State COMPLETED -Status {} -StartTime 1596717033.83825 -EndTime 1596717033.86948 -ElapsedTime 31 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Updating generator load information for 10.91.113.124-7-8 //7/8} -ProgressMaxValue 1 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get streamblock1 -children
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ethernet:ethernetii3 ipv4:ipv43 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: streamblock1 -children ethernet:ethernetii3 ipv4:ipv43 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::delete ethernet:ethernetii3
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: ::stc::delete ethernet:ethernetii3 passed.   
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::delete ipv4:ipv43
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: ::stc::delete ipv4:ipv43 passed.   
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle for port_handle 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for fill_type 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for fill_value 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for length_mode 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for l3_length 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for frame_size 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for tx_port_sending_traffic_to_self_en 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [warn] processGroupProcessingl2: Dependency Error for vlan_tpid. ENTERED: ethernet_ii. EXPECTED: ethernet_ii_vlan ethernet_8022_vlan ethernet_8023_snap_vlan ethernet_8023_raw_vlan ethernet_ii_vlan_mpls 
+Thu Aug 06 12:30:33 UTC 2020 [debug] processGroupProcessingl2 FAILED. can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [error] can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [debug] [Traffic] internal operation failed can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [hltcall] ::sth::traffic_config {-mode create -port_handle port2 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false}
+Thu Aug 06 12:30:33 UTC 2020 [debug] processHLTporthandle: Calling stc::create streamBlock port2 retHandle
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: streamblock2 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: stc::create. Handle is streamblock2
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::perform StreamBlockUpdate -streamblock streamblock2
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: -parent system1 -Name {StreamBlockUpdateCommand 2} -StreamBlock streamblock2 -State COMPLETED -Status {} -StartTime 1596717033.97116 -EndTime 1596717033.98056 -ElapsedTime 9 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Updating generator load information for 10.91.113.124-8-10 //8/10} -ProgressMaxValue 1 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: update streamblock streamblock2 passed. -parent system1 -Name {StreamBlockUpdateCommand 2} -StreamBlock streamblock2 -State COMPLETED -Status {} -StartTime 1596717033.97116 -EndTime 1596717033.98056 -ElapsedTime 9 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {Updating generator load information for 10.91.113.124-8-10 //8/10} -ProgressMaxValue 1 -ProgressCurrentValue 1 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get streamblock2 -children
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: ethernet:ethernetii6 ipv4:ipv46 
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: streamblock2 -children ethernet:ethernetii6 ipv4:ipv46 
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::delete ethernet:ethernetii6
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: ::stc::delete ethernet:ethernetii6 passed.   
+Thu Aug 06 12:30:33 UTC 2020 [stccall] ::stc::delete ipv4:ipv46
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle: ::stc::delete ipv4:ipv46 passed.   
+Thu Aug 06 12:30:33 UTC 2020 [info] processHLTporthandle for port_handle 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for fill_type 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for fill_value 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for length_mode 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for l3_length 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processLengthMode for frame_size 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [info] processCommonSwitches for tx_port_sending_traffic_to_self_en 	 PASSED.
+Thu Aug 06 12:30:33 UTC 2020 [warn] processGroupProcessingl2: Dependency Error for vlan_tpid. ENTERED: ethernet_ii. EXPECTED: ethernet_ii_vlan ethernet_8022_vlan ethernet_8023_snap_vlan ethernet_8023_raw_vlan ethernet_ii_vlan_mpls 
+Thu Aug 06 12:30:33 UTC 2020 [debug] processGroupProcessingl2 FAILED. can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [error] can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [debug] [Traffic] internal operation failed can't read "userArgsArray(vlan_tpid)": no such element in array
+Thu Aug 06 12:30:33 UTC 2020 [hltcall] ::sth::traffic_control {-port_handle {port1 port2} -action run -duration 30}
+Thu Aug 06 12:30:33 UTC 2020 [debug] {Calling sth::traffic_control}
+Thu Aug 06 12:30:33 UTC 2020 [info] {Generating traffic table}
+Thu Aug 06 12:30:33 UTC 2020 [stccall] stc::get project1 -children-port
+Thu Aug 06 12:30:33 UTC 2020 [debug] return value: port1 port2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator1.GeneratorConfig -DurationMode
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: CONTINUOUS 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator2.GeneratorConfig -DurationMode
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: CONTINUOUS 
+Thu Aug 06 12:30:34 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlPort_handle}
+Thu Aug 06 12:30:34 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlDuration}
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator1 -children-generatorconfig
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generatorconfig1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::config generatorconfig1 -DurationMode SECONDS -Duration 30
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:34 UTC 2020 [info] port port1 configured to -DurationMode SECONDS -Duration 30
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator2 -children-generatorconfig
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generatorconfig2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::config generatorconfig2 -DurationMode SECONDS -Duration 30
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:34 UTC 2020 [info] port port2 configured to -DurationMode SECONDS -Duration 30
+Thu Aug 06 12:30:34 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlAction}
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get project1 -children-port
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: port1 port2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator1.GeneratorConfig -DurationMode
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: SECONDS 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get generator2.GeneratorConfig -DurationMode
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: SECONDS 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get project1 -children-trafficoptions
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: trafficoptions1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::config trafficoptions1 -TrafficStartMode asynchronous
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-Analyzer
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: analyzer1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port2 -children-Analyzer
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: analyzer2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: -parent system1 -Name {Start Analyzer 2} -AnalyzerList {analyzer1 analyzer2} -State COMPLETED -Status {Command finished.} -StartTime 1596717034.06215 -EndTime 1596717034.06358 -ElapsedTime 1 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -affiliationport-Sources
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::get port1 -children-streamblock
+Thu Aug 06 12:30:34 UTC 2020 [debug] return value: streamblock1 
+Thu Aug 06 12:30:34 UTC 2020 [stccall] stc::perform ArpNdStart -HandleList streamblock1
+Thu Aug 06 12:30:39 UTC 2020 [debug] return value: -parent system1 -Name {Learning: Start ArpNd 3} -HandleList streamblock1 -ArpNdState FAILURE -WaitForArpToFinish true -ForceArp true -State COMPLETED -Status {} -StartTime 1596717034.08182 -EndTime 1596717039.4042 -ElapsedTime 5322 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:39 UTC 2020 [debug] ::stc::perform ArpNdStart -HandleList port1
+Thu Aug 06 12:30:39 UTC 2020 [stccall] stc::get port2 -affiliationport-Sources
+Thu Aug 06 12:30:39 UTC 2020 [debug] return value:  
+Thu Aug 06 12:30:39 UTC 2020 [stccall] stc::get port2 -children-streamblock
+Thu Aug 06 12:30:39 UTC 2020 [debug] return value: streamblock2 
+Thu Aug 06 12:30:39 UTC 2020 [stccall] stc::perform ArpNdStart -HandleList streamblock2
+Thu Aug 06 12:30:44 UTC 2020 [debug] return value: -parent system1 -Name {Learning: Start ArpNd 4} -HandleList streamblock2 -ArpNdState FAILURE -WaitForArpToFinish true -ForceArp true -State COMPLETED -Status {} -StartTime 1596717039.43417 -EndTime 1596717044.46757 -ElapsedTime 5033 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:44 UTC 2020 [debug] ::stc::perform ArpNdStart -HandleList port2
+Thu Aug 06 12:30:44 UTC 2020 [stccall] stc::perform generatorstart -GeneratorList {generator1 generator2}
+Thu Aug 06 12:30:44 UTC 2020 [debug] return value: -parent system1 -Name {Start Traffic 1} -GeneratorList {generator1 generator2} -LinksDownOnAllPorts false -State COMPLETED -Status {} -StartTime 1596717044.48331 -EndTime 1596717044.95825 -ElapsedTime 475 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:30:44 UTC 2020 [info] {SUCCESS: Connect: {status 1}}
+Thu Aug 06 12:31:44 UTC 2020 [hltcall] ::sth::traffic_control {-port_handle {port1 port2} -action clear_stats}
+Thu Aug 06 12:31:44 UTC 2020 [debug] {Calling sth::traffic_control}
+Thu Aug 06 12:31:44 UTC 2020 [info] {Generating traffic table}
+Thu Aug 06 12:31:44 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlPort_handle}
+Thu Aug 06 12:31:44 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlAction}
+Thu Aug 06 12:31:44 UTC 2020 [stccall] stc::perform ResultsClearAll -PortList {port1 port2}
+Thu Aug 06 12:31:45 UTC 2020 [debug] return value: -parent system1 -Name {Clear All Results 1} -PortList {port1 port2} -State COMPLETED -Status {} -StartTime 1596717104.98947 -EndTime 1596717105.14188 -ElapsedTime 152 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:31:45 UTC 2020 [info] {SUCCESS: Connect: {status 1}}
+Thu Aug 06 12:32:45 UTC 2020 [hltcall] ::sth::traffic_control {-port_handle {port1 port2} -action run -duration 10}
+Thu Aug 06 12:32:45 UTC 2020 [debug] {Calling sth::traffic_control}
+Thu Aug 06 12:32:45 UTC 2020 [info] {Generating traffic table}
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get project1 -children-port
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: port1 port2 
+Thu Aug 06 12:32:45 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlPort_handle}
+Thu Aug 06 12:32:45 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlDuration}
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get generator1 -children-generatorconfig
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generatorconfig1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::config generatorconfig1 -DurationMode SECONDS -Duration 10
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value:  
+Thu Aug 06 12:32:45 UTC 2020 [info] port port1 configured to -DurationMode SECONDS -Duration 10
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get generator2 -children-generatorconfig
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generatorconfig2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::config generatorconfig2 -DurationMode SECONDS -Duration 10
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value:  
+Thu Aug 06 12:32:45 UTC 2020 [info] port port2 configured to -DurationMode SECONDS -Duration 10
+Thu Aug 06 12:32:45 UTC 2020 [info] {Calling: ::sth::Traffic::processTraffic_controlAction}
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get project1 -children-port
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: port1 port2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get generator1.GeneratorConfig -DurationMode
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: SECONDS 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get generator2.GeneratorConfig -DurationMode
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: SECONDS 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get project1 -children-trafficoptions
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: trafficoptions1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::config trafficoptions1 -TrafficStartMode asynchronous
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value:  
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port1 -children-Analyzer
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: analyzer1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port2 -children-Analyzer
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: analyzer2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::perform analyzerstart -AnalyzerList {analyzer1 analyzer2}
+Thu Aug 06 12:32:45 UTC 2020 [debug] return value: -parent system1 -Name {Start Analyzer 4} -AnalyzerList {analyzer1 analyzer2} -State COMPLETED -Status {Command finished.} -StartTime 1596717165.28033 -EndTime 1596717165.28179 -ElapsedTime 1 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:32:45 UTC 2020 [stccall] stc::perform generatorstart -GeneratorList {generator1 generator2}
+Thu Aug 06 12:32:46 UTC 2020 [debug] return value: -parent system1 -Name {Start Traffic 2} -GeneratorList {generator1 generator2} -LinksDownOnAllPorts false -State COMPLETED -Status {} -StartTime 1596717165.29243 -EndTime 1596717166.20711 -ElapsedTime 915 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:32:46 UTC 2020 [info] {SUCCESS: Connect: {status 1}}
+Thu Aug 06 12:33:56 UTC 2020 [hltcall] ::sth::traffic_stats {-port_handle {port1 port2} -mode all}
+Thu Aug 06 12:33:56 UTC 2020 [hltcall] ::sth::traffic_stats_imp {-port_handle {port1 port2} -mode all}
+Thu Aug 06 12:33:56 UTC 2020 [debug] {Calling sth::traffic_stats}
+Thu Aug 06 12:33:56 UTC 2020 [info] {Generating traffic table}
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:33:56 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::get generator1 -State
+Thu Aug 06 12:33:56 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:33:56 UTC 2020 [warn] No DB File is saved after traffic stopped, so the real time results return
+Thu Aug 06 12:33:56 UTC 2020 [debug] Subscribe aggregate_rxjoin Results...
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port1}  -ConfigType Analyzer  -resulttype AnalyzerPortResults  -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}
+Thu Aug 06 12:33:56 UTC 2020 [debug] return value: resultdataset1 
+Thu Aug 06 12:33:56 UTC 2020 [debug] Subscribe aggregate_txjoin Results...
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port1}  -ConfigType Generator  -resulttype GeneratorPortResults  -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}
+Thu Aug 06 12:33:56 UTC 2020 [debug] return value: resultdataset2 
+Thu Aug 06 12:33:56 UTC 2020 [debug] Subscribe out_of_filter Results...
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port1}  -ConfigType Analyzer  -resulttype OverflowResults  -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}
+Thu Aug 06 12:33:56 UTC 2020 [debug] return value: resultdataset3 
+Thu Aug 06 12:33:56 UTC 2020 [debug] Subscribe stream_rx Results...
+Thu Aug 06 12:33:56 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port1}  -ConfigType StreamBlock  -resulttype RxStreamBlockResults  -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}
+Thu Aug 06 12:33:57 UTC 2020 [debug] return value: resultdataset4 
+Thu Aug 06 12:33:57 UTC 2020 [stccall] stc::perform RefreshResultView -ResultDataSet resultdataset4
+Thu Aug 06 12:33:57 UTC 2020 [debug] return value: -parent system1 -Name {RefreshResultViewCommand 2} -ResultDataSet resultdataset4 -State COMPLETED -Status {Command Successful} -StartTime 1596717237.31655 -EndTime 1596717237.71213 -ElapsedTime 396 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:33:57 UTC 2020 [debug] Subscribe stream_tx Results...
+Thu Aug 06 12:33:57 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port1}  -ConfigType StreamBlock  -resulttype TxStreamBlockResults  -viewAttributeList {OctetCount FrameCount BitRate FrameRate}
+Thu Aug 06 12:33:58 UTC 2020 [debug] return value: resultdataset5 
+Thu Aug 06 12:33:58 UTC 2020 [stccall] stc::sleep 3
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: 0 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get port1 -children-capture
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: capture1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get capture1 -children-CaptureFilter
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: capturefilter1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get capturefilter1 -children-CaptureAnalyzerFilter
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset1 -TotalPageCount
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset1 -ResultHandleList
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: analyzerportresults1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get analyzerportresults1 
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: -parent analyzer1 -resultchild-Sources {analyzer1 resultdataset1} -Name {} -TotalFrameCount 0 -TotalOctetCount 0 -SigFrameCount 0 -MinFrameLength 0 -MaxFrameLength 0 -PrbsFillOctetCount 0 -JumboFrameCount 0 -PauseFrameCount 0 -Ipv4FrameCount 0 -Ipv6FrameCount 0 -Ipv6OverIpv4FrameCount 0 -TcpFrameCount 0 -UdpFrameCount 0 -IcmpFrameCount 0 -VlanFrameCount 0 -MplsFrameCount 0 -FcsErrorFrameCount 0 -Ipv4ChecksumErrorCount 0 -TcpChecksumErrorCount 0 -UdpChecksumErrorCount 0 -UndersizeFrameCount 0 -OversizeFrameCount 0 -PrbsBitErrorCount 0 -PrbsBitErrorRatio 0 -HwFrameCount 0 -Trigger1Count 0 -Trigger2Count 0 -Trigger3Count 0 -Trigger4Count 0 -Trigger5Count 0 -Trigger6Count 0 -Trigger7Count 0 -Trigger8Count 0 -ComboTriggerCount 0 -Trigger1Name {} -Trigger2Name {} -Trigger3Name {} -Trigger4Name {} -Trigger5Name {} -Trigger6Name {} -Trigger7Name {} -Trigger8Name {} -TotalFrameRate 0 -TotalOctetRate 0 -TotalBitRate 0 -TotalBitCount 0 -L1BitCount 0 -L1BitRate 0 -L1BitRatePercent 0 -SigFrameRate 0 -PrbsFillOctetRate 0 -JumboFrameRate 0 -PauseFrameRate 0 -Ipv4FrameRate 0 -Ipv6FrameRate 0 -Ipv6OverIpv4FrameRate 0 -TcpFrameRate 0 -UdpFrameRate 0 -IcmpFrameRate 0 -VlanFrameRate 0 -MplsFrameRate 0 -FcsErrorFrameRate 0 -Ipv4ChecksumErrorRate 0 -TcpChecksumErrorRate 0 -UdpChecksumErrorRate 0 -UndersizeFrameRate 0 -OversizeFrameRate 0 -PrbsBitErrorRate 0 -Trigger1Rate 0 -Trigger2Rate 0 -Trigger3Rate 0 -Trigger4Rate 0 -Trigger5Rate 0 -Trigger6Rate 0 -Trigger7Rate 0 -Trigger8Rate 0 -ComboTriggerRate 0 -CounterTimestamp 0 -TotalCellCount 0 -TotalCellRate 0 -PfcFrameCount 0 -PfcFrameRate 0 -FcoeFrameCount 0 -FcoeFrameRate 0 -PfcPri0FrameCount null -PfcPri1FrameCount null -PfcPri2FrameCount null -PfcPri3FrameCount null -PfcPri4FrameCount null -PfcPri5FrameCount null -PfcPri6FrameCount null -PfcPri7FrameCount null -PfcPri0FrameRate null -PfcPri1FrameRate null -PfcPri2FrameRate null -PfcPri3FrameRate null -PfcPri4FrameRate null -PfcPri5FrameRate null -PfcPri6FrameRate null -PfcPri7FrameRate null -PfcPri0Quanta null -PfcPri1Quanta null -PfcPri2Quanta null -PfcPri3Quanta null -PfcPri4Quanta null -PfcPri5Quanta null -PfcPri6Quanta null -PfcPri7Quanta null -PrbsErrorFrameCount null -PrbsErrorFrameRate null -UserDefinedFrameCount1 null -UserDefinedFrameRate1 null -UserDefinedFrameCount2 null -UserDefinedFrameRate2 null -UserDefinedFrameCount3 null -UserDefinedFrameRate3 null -UserDefinedFrameCount4 null -UserDefinedFrameRate4 null -UserDefinedFrameCount5 null -UserDefinedFrameRate5 null -UserDefinedFrameCount6 null -UserDefinedFrameRate6 null -OutSeqFrameCount null -PreambleTotalBytes null -PreambleMinLength null -PreambleMaxLength null -DroppedFrameCount null -InOrderFrameCount null -ReorderedFrameCount null -DuplicateFrameCount null -LateFrameCount null -FirstArrivalTime null -LastArrivalTime null -Active true 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get analyzerportresults1 -parent
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: analyzer1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get generator1 -children-generatorportresults
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: generatorportresults1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get generatorportresults1 
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: -parent generator1 -resultchild-Sources {generator1 resultdataset2} -Name {} -TotalFrameCount 8445946 -TotalOctetCount 1081081088 -TotalIpv4FrameCount 0 -TotalIpv6FrameCount 0 -TotalMplsFrameCount 0 -GeneratorFrameCount 8445946 -GeneratorSigFrameCount 8445946 -GeneratorOctetCount 1081081088 -GeneratorIpv4FrameCount 8445946 -GeneratorIpv6FrameCount 0 -GeneratorVlanFrameCount 0 -GeneratorMplsFrameCount 0 -GeneratorCrcErrorFrameCount 0 -GeneratorL3ChecksumErrorCount 0 -GeneratorL4ChecksumErrorCount 0 -GeneratorUndersizeFrameCount 0 -GeneratorOversizeFrameCount 0 -GeneratorJumboFrameCount 0 -GeneratorAbortFrameCount 0 -HwFrameCount 0 -TotalFrameRate 0 -TotalOctetRate 0 -TotalBitRate 0 -TotalBitCount 8648648704 -L1BitCount 10000000064 -L1BitRate 0 -L1BitRatePercent 0 -TotalIpv4FrameRate 0 -TotalIpv6FrameRate 0 -TotalMplsFrameRate 0 -GeneratorFrameRate 0 -GeneratorSigFrameRate 0 -GeneratorOctetRate 0 -GeneratorBitRate 0 -GeneratorIpv4FrameRate 0 -GeneratorIpv6FrameRate 0 -GeneratorVlanFrameRate 0 -GeneratorMplsFrameRate 0 -GeneratorCrcErrorFrameRate 0 -GeneratorL3ChecksumErrorRate 0 -GeneratorL4ChecksumErrorRate 0 -GeneratorUndersizeFrameRate 0 -GeneratorOversizeFrameRate 0 -GeneratorJumboFrameRate 0 -GeneratorAbortFrameRate 0 -CounterTimestamp 0 -TotalCellCount 0 -TotalCellRate 0 -PfcFrameCount 0 -PfcPri0FrameCount null -PfcPri1FrameCount null -PfcPri2FrameCount null -PfcPri3FrameCount null -PfcPri4FrameCount null -PfcPri5FrameCount null -PfcPri6FrameCount null -PfcPri7FrameCount null -TxDuration 10 -Active true 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get port1 -children-generator
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: generator1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get generator1 -state
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get port1 -children-analyzer
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: analyzer1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get analyzer1 -children-overflowresults
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: overflowresults1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get overflowresults1 
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: -parent analyzer1 -resultchild-Sources {analyzer1 resultdataset3} -Name {} -FrameCount 0 -OctetCount 0 -SigFrameCount 0 -MinFrameLength 0 -MaxFrameLength 0 -Ipv4ChecksumErrorCount 0 -TcpUdpChecksumErrorCount 0 -FcsErrorFrameCount 0 -FirstArrivalTime 0 -LastArrivalTime 0 -FrameRate 0 -OctetRate 0 -BitRate 0 -SigFrameRate 0 -Ipv4ChecksumErrorRate 0 -TcpUdpChecksumErrorRate 0 -FcsErrorFrameRate 0 -CounterTimestamp 0 -Active true 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset4 -totalPageCount
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset4 -resultChild-targets
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: rxstreamblockresults1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get rxstreamblockresults1 -parent
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: streamblock1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get streamblock1 -parent
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: port1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get rxstreamblockresults1 
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: -parent streamblock1 -resultchild-Sources {streamblock1 resultdataset4} -Name {} -RxPort 0 -PortStrayFrames NA -StreamIndex 0 -Comp32 0 -Comp16_1 0 -Comp16_2 0 -Comp16_3 0 -Comp16_4 0 -FrameCount 0 -OctetCount 0 -SigFrameCount 0 -FcsErrorFrameCount 0 -InSeqFrameCount 0 -OutSeqFrameCount 0 -AvgLatency 0 -ShortTermAvgLatency 0 -MinLatency 0 -MaxLatency 0 -TotalLatency 0 -SeqRunLength 0 -LastSeqNum 0 -ExpectedSeqNum 0 -DroppedFrameCount 0 -DroppedFramePercent 0 -InOrderFrameCount 0 -ReorderedFrameCount 0 -DuplicateFrameCount 0 -LateFrameCount 0 -MinFrameLength 0 -MaxFrameLength 0 -PrbsFillOctetCount 0 -PrbsBitErrorCount 0 -PrbsBitErrorRatio 0 -Ipv4ChecksumErrorCount 0 -TcpUdpChecksumErrorCount 0 -TotalJitter 0 -MinJitter 0 -MaxJitter 0 -AvgJitter 0 -ShortTermAvgJitter 0 -TotalInterarrivalTime 0 -AvgInterarrivalTime 0 -ShortTermAvgInterarrivalTime 0 -MinInterarrivalTime 0 -MaxInterarrivalTime 0 -FirstArrivalTime 0 -LastArrivalTime 0 -HistBin1Count 0 -HistBin2Count 0 -HistBin3Count 0 -HistBin4Count 0 -HistBin5Count 0 -HistBin6Count 0 -HistBin7Count 0 -HistBin8Count 0 -HistBin9Count 0 -HistBin10Count 0 -HistBin11Count 0 -HistBin12Count 0 -HistBin13Count 0 -HistBin14Count 0 -HistBin15Count 0 -HistBin16Count 0 -HistBin1Name {x < 20 (ns)} -HistBin2Name {20 <= x < 60 (ns)} -HistBin3Name {60 <= x < 140 (ns)} -HistBin4Name {140 <= x < 300 (ns)} -HistBin5Name {300 <= x < 620 (ns)} -HistBin6Name {620 <= x < 1260 (ns)} -HistBin7Name {1260 <= x < 2540 (ns)} -HistBin8Name {2540 <= x < 5100 (ns)} -HistBin9Name {5100 <= x < 10220 (ns)} -HistBin10Name {10220 <= x < 20460 (ns)} -HistBin11Name {20460 <= x < 40940 (ns)} -HistBin12Name {40940 <= x < 81900 (ns)} -HistBin13Name {81900 <= x < 163820 (ns)} -HistBin14Name {163820 <= x < 327660 (ns)} -HistBin15Name {327660 <= x < 655340 (ns)} -HistBin16Name {x >= 655340 (ns)} -FrameRate 0 -OctetRate 0 -BitRate 0 -SigFrameRate 0 -InSeqFrameRate 0 -OutSeqFrameRate 0 -FcsErrorFrameRate 0 -DroppedFrameRate 0 -DroppedFramePercentRate 0 -InOrderFrameRate 0 -ReorderedFrameRate 0 -DuplicateFrameRate 0 -LateFrameRate 0 -TotalJitterRate 0 -PrbsFillOctetRate 0 -PrbsBitErrorRate 0 -Ipv4ChecksumErrorRate 0 -TcpUdpChecksumErrorRate 0 -HistBin1Rate 0 -HistBin2Rate 0 -HistBin3Rate 0 -HistBin4Rate 0 -HistBin5Rate 0 -HistBin6Rate 0 -HistBin7Rate 0 -HistBin8Rate 0 -HistBin9Rate 0 -HistBin10Rate 0 -HistBin11Rate 0 -HistBin12Rate 0 -HistBin13Rate 0 -HistBin14Rate 0 -HistBin15Rate 0 -HistBin16Rate 0 -CounterTimestamp 0 -BitCount 0 -L1BitCount 0 -L1BitRate 0 -CellCount 0 -CellRate 0 -Rfc4689AbsoluteAvgJitter 0 -PrbsErrorFrameCount 0 -PrbsErrorFrameRate 0 -Active true 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset5 -totalPageCount
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get resultdataset5 -resultChild-targets
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: txstreamblockresults1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get txstreamblockresults1 -parent
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: streamblock1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get streamblock1 -parent
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: port1 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get txstreamblockresults1 
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: -parent streamblock1 -resultchild-Sources {streamblock1 resultdataset5} -Name {} -BlockId 0 -FrameCount 8445946 -OctetCount 1081081088 -FrameRate 0 -OctetRate 0 -BitRate 0 -BitCount 8648648704 -L1BitCount 0 -L1BitRate 0 -CounterTimestamp 0 -CellCount 0 -CellRate 0 -Active true 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get streamblock1 -RunningState
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::unsubscribe resultdataset2
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::delete resultdataset2
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::unsubscribe resultdataset1
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::delete resultdataset1
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::unsubscribe resultdataset3
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::delete resultdataset3
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::unsubscribe resultdataset5
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::delete resultdataset5
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::unsubscribe resultdataset4
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::delete resultdataset4
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::get generator2 -State
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:34:01 UTC 2020 [warn] No DB File is saved after traffic stopped, so the real time results return
+Thu Aug 06 12:34:01 UTC 2020 [debug] Subscribe aggregate_rxjoin Results...
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port2}  -ConfigType Analyzer  -resulttype AnalyzerPortResults  -viewAttributeList {TotalOctetCount PauseFrameCount Trigger2Rate VlanFrameCount TotalFrameCount PfcFrameRate UdpChecksumErrorRate VlanFrameRate Trigger3Count TotalFrameCount TotalBitRate TcpFrameCount PfcFrameCount SigFrameRate PrbsFillOctetRate Trigger7Count Trigger7Rate UdpChecksumErrorCount FcoeFrameCount MinFrameLength FcoeFrameRate Ipv4ChecksumErrorRate Trigger4Rate Ipv4FrameCount IcmpFrameCount IcmpFrameRate Trigger2Count TotalFrameCount PrbsBitErrorCount Trigger1Rate PrbsBitErrorRate MplsFrameRate TotalOctetCount JumboFrameRate Trigger6Count PfcFrameCount PauseFrameRate TotalFrameRate PfcFrameRate SigFrameCount UndersizeFrameCount MaxFrameLength TcpChecksumErrorCount SigFrameCount Trigger6Rate Trigger1Count Ipv6FrameCount FcoeFrameCount SigFrameRate FcsErrorFrameRate Trigger5Count OversizeFrameCount Trigger3Rate Ipv6FrameRate FcsErrorFrameCount UdpFrameRate TotalFrameRate MplsFrameCount Ipv6OverIpv4FrameRate TotalOctetRate PrbsFillOctetCount UdpFrameCount FcoeFrameRate TcpChecksumErrorCount Ipv6OverIpv4FrameCount Ipv4ChecksumErrorCount Trigger8Rate TotalOctetCount JumboFrameCount Ipv4FrameRate Trigger4Count PfcFrameCount ComboTriggerCount Trigger5Rate OversizeFrameRate Trigger8Count ComboTriggerRate UndersizeFrameRate}
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: resultdataset6 
+Thu Aug 06 12:34:01 UTC 2020 [debug] Subscribe aggregate_txjoin Results...
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port2}  -ConfigType Generator  -resulttype GeneratorPortResults  -viewAttributeList {TotalOctetCount TotalFrameRate GeneratorVlanFrameCount TotalFrameCount GeneratorIPv4FrameCount GeneratorL3ChecksumErrorRate GeneratorVlanFrameRate TotalFrameCount GeneratorBitRate GeneratorIPv6FrameCount GeneratorSigFrameRate GeneratorOctetRate GeneratorAbortFrameCount HwFrameCount GeneratorIpv4FrameCount GeneratorAbortFrameRate TotalFrameCount GeneratorMplsFrameRate GeneratorOctetCount GeneratorJumboFrameRate TotalFrameRate GeneratorSigFrameCount TotalOctetRate GeneratorSigFrameRate GeneratorCrcErrorFrameCount GeneratorL4ChecksumErrorCount GeneratorIpv6FrameCount GeneratorL4ChecksumErrorRate GeneratorCrcErrorFrameRate GeneratorOctetCount GeneratorOversizeFrameCount TotalOctetCount GeneratorIpv6FrameRate TotalFrameRate GeneratorFrameCount PfcFrameCount GeneratorSigFrameCount GeneratorFrameRate GeneratorMplsFrameCount TotalMplsFrameCount TotalMplsFrameRate GeneratorJumboFrameCount GeneratorIpv4FrameRate PfcFrameCount GeneratorL3ChecksumErrorCount GeneratorUndersizeFrameCount GeneratorOversizeFrameRate GeneratorUndersizeFrameRate}
+Thu Aug 06 12:34:01 UTC 2020 [debug] return value: resultdataset7 
+Thu Aug 06 12:34:01 UTC 2020 [debug] Subscribe out_of_filter Results...
+Thu Aug 06 12:34:01 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port2}  -ConfigType Analyzer  -resulttype OverflowResults  -viewAttributeList {OctetCount FrameCount BitRate MinFrameLength MaxFrameLength FrameRate}
+Thu Aug 06 12:34:02 UTC 2020 [debug] return value: resultdataset8 
+Thu Aug 06 12:34:02 UTC 2020 [debug] Subscribe stream_rx Results...
+Thu Aug 06 12:34:02 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port2}  -ConfigType StreamBlock  -resulttype RxStreamBlockResults  -viewAttributeList {HistBin13Rate HistBin12Count OctetCount HistBin14Rate HistBin13Count HistBin15Rate HistBin14Count HistBin15Count MaxLatency FrameCount DroppedFrameCount MinFrameLength RxPort PrbsBitErrorCount DuplicateFrameCount FirstArrivalTime FrameRate HistBin1Count HistBin2Count HistBin3Count HistBin4Count HistBin5Count MinLatency HistBin6Count SigFrameCount HistBin7Count AvgLatency HistBin1Rate HistBin8Count OutSeqFrameCount HistBin2Rate HistBin9Count SigFrameRate HistBin3Rate HistBin4Rate ReorderedFrameRate HistBin5Rate PrbsBitErrorRate HistBin6Rate HistBin7Rate HistBin8Rate HistBin9Rate OctetRate OutSeqFrameRate ReorderedFrameCount BitRate LastArrivalTime MinFrameLength HistBin10Rate MaxFrameLength HistBin11Rate HistBin10Count MaxFrameLength HistBin12Rate HistBin11Count}
+Thu Aug 06 12:34:02 UTC 2020 [debug] return value: resultdataset9 
+Thu Aug 06 12:34:02 UTC 2020 [stccall] stc::perform RefreshResultView -ResultDataSet resultdataset9
+Thu Aug 06 12:34:02 UTC 2020 [debug] return value: -parent system1 -Name {RefreshResultViewCommand 5} -ResultDataSet resultdataset9 -State COMPLETED -Status {Command Successful} -StartTime 1596717242.49517 -EndTime 1596717242.89023 -ElapsedTime 395 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName {} -ProgressMaxValue 0 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:34:02 UTC 2020 [debug] Subscribe stream_tx Results...
+Thu Aug 06 12:34:02 UTC 2020 [stccall] stc::subscribe -Parent project1  -ResultParent {port2}  -ConfigType StreamBlock  -resulttype TxStreamBlockResults  -viewAttributeList {OctetCount FrameCount BitRate FrameRate}
+Thu Aug 06 12:34:03 UTC 2020 [debug] return value: resultdataset10 
+Thu Aug 06 12:34:03 UTC 2020 [stccall] stc::sleep 3
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: 0 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get port2 -children-capture
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: capture2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get capture2 -children-CaptureFilter
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: capturefilter2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get capturefilter2 -children-CaptureAnalyzerFilter
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset6 -TotalPageCount
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset6 -ResultHandleList
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: analyzerportresults2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get analyzerportresults2 
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: -parent analyzer2 -resultchild-Sources {analyzer2 resultdataset6} -Name {} -TotalFrameCount 4 -TotalOctetCount 512 -SigFrameCount 0 -MinFrameLength 128 -MaxFrameLength 128 -PrbsFillOctetCount 0 -JumboFrameCount 0 -PauseFrameCount 0 -Ipv4FrameCount 0 -Ipv6FrameCount 0 -Ipv6OverIpv4FrameCount 0 -TcpFrameCount 0 -UdpFrameCount 0 -IcmpFrameCount 0 -VlanFrameCount 0 -MplsFrameCount 0 -FcsErrorFrameCount 0 -Ipv4ChecksumErrorCount 0 -TcpChecksumErrorCount 0 -UdpChecksumErrorCount 0 -UndersizeFrameCount 0 -OversizeFrameCount 0 -PrbsBitErrorCount 0 -PrbsBitErrorRatio 0 -HwFrameCount 0 -Trigger1Count 0 -Trigger2Count 0 -Trigger3Count 0 -Trigger4Count 0 -Trigger5Count 0 -Trigger6Count 0 -Trigger7Count 0 -Trigger8Count 0 -ComboTriggerCount 0 -Trigger1Name {} -Trigger2Name {} -Trigger3Name {} -Trigger4Name {} -Trigger5Name {} -Trigger6Name {} -Trigger7Name {} -Trigger8Name {} -TotalFrameRate 0 -TotalOctetRate 0 -TotalBitRate 0 -TotalBitCount 4096 -L1BitCount 4736 -L1BitRate 0 -L1BitRatePercent 0 -SigFrameRate 0 -PrbsFillOctetRate 0 -JumboFrameRate 0 -PauseFrameRate 0 -Ipv4FrameRate 0 -Ipv6FrameRate 0 -Ipv6OverIpv4FrameRate 0 -TcpFrameRate 0 -UdpFrameRate 0 -IcmpFrameRate 0 -VlanFrameRate 0 -MplsFrameRate 0 -FcsErrorFrameRate 0 -Ipv4ChecksumErrorRate 0 -TcpChecksumErrorRate 0 -UdpChecksumErrorRate 0 -UndersizeFrameRate 0 -OversizeFrameRate 0 -PrbsBitErrorRate 0 -Trigger1Rate 0 -Trigger2Rate 0 -Trigger3Rate 0 -Trigger4Rate 0 -Trigger5Rate 0 -Trigger6Rate 0 -Trigger7Rate 0 -Trigger8Rate 0 -ComboTriggerRate 0 -CounterTimestamp 0 -TotalCellCount 0 -TotalCellRate 0 -PfcFrameCount 0 -PfcFrameRate 0 -FcoeFrameCount 0 -FcoeFrameRate 0 -PfcPri0FrameCount null -PfcPri1FrameCount null -PfcPri2FrameCount null -PfcPri3FrameCount null -PfcPri4FrameCount null -PfcPri5FrameCount null -PfcPri6FrameCount null -PfcPri7FrameCount null -PfcPri0FrameRate null -PfcPri1FrameRate null -PfcPri2FrameRate null -PfcPri3FrameRate null -PfcPri4FrameRate null -PfcPri5FrameRate null -PfcPri6FrameRate null -PfcPri7FrameRate null -PfcPri0Quanta null -PfcPri1Quanta null -PfcPri2Quanta null -PfcPri3Quanta null -PfcPri4Quanta null -PfcPri5Quanta null -PfcPri6Quanta null -PfcPri7Quanta null -PrbsErrorFrameCount null -PrbsErrorFrameRate null -UserDefinedFrameCount1 null -UserDefinedFrameRate1 null -UserDefinedFrameCount2 null -UserDefinedFrameRate2 null -UserDefinedFrameCount3 null -UserDefinedFrameRate3 null -UserDefinedFrameCount4 null -UserDefinedFrameRate4 null -UserDefinedFrameCount5 null -UserDefinedFrameRate5 null -UserDefinedFrameCount6 null -UserDefinedFrameRate6 null -OutSeqFrameCount null -PreambleTotalBytes null -PreambleMinLength null -PreambleMaxLength null -DroppedFrameCount null -InOrderFrameCount null -ReorderedFrameCount null -DuplicateFrameCount null -LateFrameCount null -FirstArrivalTime null -LastArrivalTime null -Active true 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get analyzerportresults2 -parent
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: analyzer2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get generator2 -children-generatorportresults
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: generatorportresults2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get generatorportresults2 
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: -parent generator2 -resultchild-Sources {generator2 resultdataset7} -Name {} -TotalFrameCount 844595 -TotalOctetCount 108108160 -TotalIpv4FrameCount 0 -TotalIpv6FrameCount 0 -TotalMplsFrameCount 0 -GeneratorFrameCount 844595 -GeneratorSigFrameCount 844595 -GeneratorOctetCount 108108160 -GeneratorIpv4FrameCount 844595 -GeneratorIpv6FrameCount 0 -GeneratorVlanFrameCount 0 -GeneratorMplsFrameCount 0 -GeneratorCrcErrorFrameCount 0 -GeneratorL3ChecksumErrorCount 0 -GeneratorL4ChecksumErrorCount 0 -GeneratorUndersizeFrameCount 0 -GeneratorOversizeFrameCount 0 -GeneratorJumboFrameCount 0 -GeneratorAbortFrameCount 0 -HwFrameCount 0 -TotalFrameRate 0 -TotalOctetRate 0 -TotalBitRate 0 -TotalBitCount 864865280 -L1BitCount 1000000480 -L1BitRate 0 -L1BitRatePercent 0 -TotalIpv4FrameRate 0 -TotalIpv6FrameRate 0 -TotalMplsFrameRate 0 -GeneratorFrameRate 0 -GeneratorSigFrameRate 0 -GeneratorOctetRate 0 -GeneratorBitRate 0 -GeneratorIpv4FrameRate 0 -GeneratorIpv6FrameRate 0 -GeneratorVlanFrameRate 0 -GeneratorMplsFrameRate 0 -GeneratorCrcErrorFrameRate 0 -GeneratorL3ChecksumErrorRate 0 -GeneratorL4ChecksumErrorRate 0 -GeneratorUndersizeFrameRate 0 -GeneratorOversizeFrameRate 0 -GeneratorJumboFrameRate 0 -GeneratorAbortFrameRate 0 -CounterTimestamp 0 -TotalCellCount 0 -TotalCellRate 0 -PfcFrameCount null -PfcPri0FrameCount null -PfcPri1FrameCount null -PfcPri2FrameCount null -PfcPri3FrameCount null -PfcPri4FrameCount null -PfcPri5FrameCount null -PfcPri6FrameCount null -PfcPri7FrameCount null -TxDuration 10 -Active true 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get port2 -children-generator
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: generator2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get generator2 -state
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get port2 -children-analyzer
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: analyzer2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get analyzer2 -children-overflowresults
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: overflowresults2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get overflowresults2 
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: -parent analyzer2 -resultchild-Sources {analyzer2 resultdataset8} -Name {} -FrameCount 4 -OctetCount 512 -SigFrameCount 0 -MinFrameLength 128 -MaxFrameLength 128 -Ipv4ChecksumErrorCount 0 -TcpUdpChecksumErrorCount 0 -FcsErrorFrameCount 0 -FirstArrivalTime 0 -LastArrivalTime 0 -FrameRate 0 -OctetRate 0 -BitRate 0 -SigFrameRate 0 -Ipv4ChecksumErrorRate 0 -TcpUdpChecksumErrorRate 0 -FcsErrorFrameRate 0 -CounterTimestamp 0 -Active true 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset9 -totalPageCount
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset9 -resultChild-targets
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: rxstreamblockresults2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get rxstreamblockresults2 -parent
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: streamblock2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get streamblock2 -parent
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: port2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get rxstreamblockresults2 
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: -parent streamblock2 -resultchild-Sources {streamblock2 resultdataset9} -Name {} -RxPort 0 -PortStrayFrames NA -StreamIndex 0 -Comp32 0 -Comp16_1 0 -Comp16_2 0 -Comp16_3 0 -Comp16_4 0 -FrameCount 0 -OctetCount 0 -SigFrameCount 0 -FcsErrorFrameCount 0 -InSeqFrameCount 0 -OutSeqFrameCount 0 -AvgLatency 0 -ShortTermAvgLatency 0 -MinLatency 0 -MaxLatency 0 -TotalLatency 0 -SeqRunLength 0 -LastSeqNum 0 -ExpectedSeqNum 0 -DroppedFrameCount 0 -DroppedFramePercent 0 -InOrderFrameCount 0 -ReorderedFrameCount 0 -DuplicateFrameCount 0 -LateFrameCount 0 -MinFrameLength 0 -MaxFrameLength 0 -PrbsFillOctetCount 0 -PrbsBitErrorCount 0 -PrbsBitErrorRatio 0 -Ipv4ChecksumErrorCount 0 -TcpUdpChecksumErrorCount 0 -TotalJitter 0 -MinJitter 0 -MaxJitter 0 -AvgJitter 0 -ShortTermAvgJitter 0 -TotalInterarrivalTime 0 -AvgInterarrivalTime 0 -ShortTermAvgInterarrivalTime 0 -MinInterarrivalTime 0 -MaxInterarrivalTime 0 -FirstArrivalTime 0 -LastArrivalTime 0 -HistBin1Count 0 -HistBin2Count 0 -HistBin3Count 0 -HistBin4Count 0 -HistBin5Count 0 -HistBin6Count 0 -HistBin7Count 0 -HistBin8Count 0 -HistBin9Count 0 -HistBin10Count 0 -HistBin11Count 0 -HistBin12Count 0 -HistBin13Count 0 -HistBin14Count 0 -HistBin15Count 0 -HistBin16Count 0 -HistBin1Name {x < 20 (ns)} -HistBin2Name {20 <= x < 60 (ns)} -HistBin3Name {60 <= x < 140 (ns)} -HistBin4Name {140 <= x < 300 (ns)} -HistBin5Name {300 <= x < 620 (ns)} -HistBin6Name {620 <= x < 1260 (ns)} -HistBin7Name {1260 <= x < 2540 (ns)} -HistBin8Name {2540 <= x < 5100 (ns)} -HistBin9Name {5100 <= x < 10220 (ns)} -HistBin10Name {10220 <= x < 20460 (ns)} -HistBin11Name {20460 <= x < 40940 (ns)} -HistBin12Name {40940 <= x < 81900 (ns)} -HistBin13Name {81900 <= x < 163820 (ns)} -HistBin14Name {163820 <= x < 327660 (ns)} -HistBin15Name {327660 <= x < 655340 (ns)} -HistBin16Name {x >= 655340 (ns)} -FrameRate 0 -OctetRate 0 -BitRate 0 -SigFrameRate 0 -InSeqFrameRate 0 -OutSeqFrameRate 0 -FcsErrorFrameRate 0 -DroppedFrameRate 0 -DroppedFramePercentRate 0 -InOrderFrameRate 0 -ReorderedFrameRate 0 -DuplicateFrameRate 0 -LateFrameRate 0 -TotalJitterRate 0 -PrbsFillOctetRate 0 -PrbsBitErrorRate 0 -Ipv4ChecksumErrorRate 0 -TcpUdpChecksumErrorRate 0 -HistBin1Rate 0 -HistBin2Rate 0 -HistBin3Rate 0 -HistBin4Rate 0 -HistBin5Rate 0 -HistBin6Rate 0 -HistBin7Rate 0 -HistBin8Rate 0 -HistBin9Rate 0 -HistBin10Rate 0 -HistBin11Rate 0 -HistBin12Rate 0 -HistBin13Rate 0 -HistBin14Rate 0 -HistBin15Rate 0 -HistBin16Rate 0 -CounterTimestamp 0 -BitCount 0 -L1BitCount 0 -L1BitRate 0 -CellCount 0 -CellRate 0 -Rfc4689AbsoluteAvgJitter 0 -PrbsErrorFrameCount 0 -PrbsErrorFrameRate 0 -Active true 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset10 -totalPageCount
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: 1 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get resultdataset10 -resultChild-targets
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: txstreamblockresults2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get txstreamblockresults2 -parent
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: streamblock2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get streamblock2 -parent
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: port2 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get txstreamblockresults2 
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: -parent streamblock2 -resultchild-Sources {streamblock2 resultdataset10} -Name {} -BlockId 0 -FrameCount 844595 -OctetCount 108108160 -FrameRate 0 -OctetRate 0 -BitRate 0 -BitCount 864865280 -L1BitCount 0 -L1BitRate 0 -CounterTimestamp 0 -CellCount 0 -CellRate 0 -Active true 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::get streamblock2 -RunningState
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value: STOPPED 
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::unsubscribe resultdataset7
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::delete resultdataset7
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::unsubscribe resultdataset6
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::delete resultdataset6
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::unsubscribe resultdataset8
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::delete resultdataset8
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::unsubscribe resultdataset10
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::delete resultdataset10
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::unsubscribe resultdataset9
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:06 UTC 2020 [stccall] stc::delete resultdataset9
+Thu Aug 06 12:34:06 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:07 UTC 2020 [hltcall] ::sth::cleanup_session {-port_handle {port1 port2} -clean_dbfile 1}
+Thu Aug 06 12:34:07 UTC 2020 [debug] {Calling: sth::cleanup_session}
+Thu Aug 06 12:34:07 UTC 2020 [info] {Generating session table}
+Thu Aug 06 12:34:07 UTC 2020 [info] {Calling: ::sth::Session::processCleanup_sessionPort_list port1 port2}
+Thu Aug 06 12:34:07 UTC 2020 [hltcall] ::sth::traffic_config {-mode reset}
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get project1 -children-port
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: port1 port2 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get port1 -children-streamblock
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: streamblock1 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get port2 -children-streamblock
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: streamblock2 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::perform DeleteCommand -ConfigList {streamblock1 streamblock2}
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: -parent system1 -Name {DeleteCommand 95} -ConfigList {streamblock1 streamblock2} -WarnOnAdditionalDelete false -State COMPLETED -Status {} -StartTime 1596717247.19035 -EndTime 1596717247.19232 -ElapsedTime 2 -ProgressDisplayCounter true -ProgressStepsCount 1 -ProgressCurrentStep 1 -ProgressCurrentStepName Deleting... -ProgressMaxValue 2 -ProgressCurrentValue 0 -ProgressCancelled false -Active true 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get port1 -online
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: true 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stclib::bll::release 10.91.113.124/7/8
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::delete port1
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get port2 -online
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: true 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stclib::bll::release 10.91.113.124/8/10
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::delete port2
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value:  
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get system1 -children-physicalchassismanager
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: physicalchassismanager1 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get physicalchassismanager1 -children-physicalchassis
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: physicalchassis1 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::get physicalchassis1 -Hostname
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value: 10.91.113.124 
+Thu Aug 06 12:34:07 UTC 2020 [stccall] stc::disconnect 10.91.113.124
+Thu Aug 06 12:34:07 UTC 2020 [debug] return value:  
