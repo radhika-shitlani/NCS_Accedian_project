@@ -21,7 +21,7 @@ def onnet_CCM_Y1564():
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     my_config = Service(**dict1)
     meg_index = my_config.parse_accedian()
-    #print(json.dumps(dict1,indent=4))
+    print(json.dumps(dict1,indent=4))
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
