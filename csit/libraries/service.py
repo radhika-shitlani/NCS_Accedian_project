@@ -40,6 +40,7 @@ class Service:
 
     def push_config(self):
         for node in self.data["site_list"]:
+            pprint(node['login'])
             net_connect = Netmiko(**node['login'])
             print(net_connect)            
             print("****  Logged in node : {}".format(node['Node_name']))
