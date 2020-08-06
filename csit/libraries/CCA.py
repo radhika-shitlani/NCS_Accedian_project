@@ -12,7 +12,7 @@ import csv
 import textfsm
 from service import Service
 import yaml
-from Class_Based_Spirent_Code_Generation import Spirent_L2_Traffic_Gen,Get_Spirent_Config,Create_Spirent_L2_Gen
+#from Class_Based_Spirent_Code_Generation import Spirent_L2_Traffic_Gen,Get_Spirent_Config,Create_Spirent_L2_Gen
 
 file_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -25,7 +25,7 @@ def onnet_CCM_Y1564():
     my_config.Command_Creation()
     my_config.push_config()
     test_result = {}
-    test_result['ccm_status'] = my_config.Validate_ccm()
+    # test_result['ccm_status'] = my_config.Validate_ccm()
     # test_result['Loop_test'] = my_config.Y1564_test()
   
     # Spirent_InputParam = {
@@ -47,5 +47,5 @@ def onnet_CCM_Y1564():
     # Spirent_L2_Gen.Generate_Traffic()
     # Spirent_L2_Gen.Traffic_Collection()
     # test_result['spirent_test'] = Spirent_L2_Gen.Validate_Traffic_Result()
-    #my_config.delete_config()
+    # my_config.delete_config()
     return test_result

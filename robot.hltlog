@@ -1,17 +1,15 @@
-[2020-08-06 13:18:00]: Started process.  Command line: 
-[2020-08-06 13:18:00]:      port number: 36281
-[2020-08-06 13:18:00]:    timeout value: 120
-[2020-08-06 13:18:00]:       log option: log
-[2020-08-06 13:18:00]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project
-[2020-08-06 13:18:00]:    log file name: robot.hltlog
-[2020-08-06 13:18:00]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project
-[2020-08-06 13:18:00]: Sourcing initialization file "stcinit.srv".
-[2020-08-06 13:18:00]: Connecting to port 36281 on 127.0.0.1.
-[2020-08-06 13:18:00]: Creating server socket.
-[2020-08-06 13:18:00]: Generated port number: 40321
-[2020-08-06 13:18:00]: Setting up timeout check.
-[2020-08-06 13:18:00]: Waiting for client connection.
-[2020-08-06 13:18:00]: Client connection from 127.0.0.1 port 38334.
-[2020-08-06 13:18:00]: Executing: <package require SpirentHltApi>
-[2020-08-06 13:18:20]: Return value: <4.67>
-[2020-08-06 13:18:20]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-06 13:25:31]: Started process.  Command line: 
+[2020-08-06 13:25:31]:      port number: 40249
+[2020-08-06 13:25:31]:    timeout value: 120
+[2020-08-06 13:25:31]:       log option: log
+[2020-08-06 13:25:31]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-06 13:25:31]:    log file name: robot.hltlog
+[2020-08-06 13:25:31]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-06 13:25:31]: Sourcing initialization file "stcinit.srv".
+[2020-08-06 13:25:31]: Connecting to port 40249 on 127.0.0.1.
+[2020-08-06 13:25:31]: Creating server socket.
+[2020-08-06 13:25:31]: Generated port number: 35241
+[2020-08-06 13:25:31]: Setting up timeout check.
+[2020-08-06 13:25:31]: Waiting for client connection.
+[2020-08-06 13:25:31]: Client connection from 127.0.0.1 port 40768.
+[2020-08-06 13:25:31]: Executing: <package require SpirentHltApi>

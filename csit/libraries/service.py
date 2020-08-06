@@ -39,6 +39,7 @@ class Service:
     def push_config(self):
         for node in self.data["site_list"]:
             net_connect = Netmiko(**node['login'])
+            print(net_connect)            
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
@@ -51,6 +52,7 @@ class Service:
                 print(output)
                 print("****  Configration completed on {}".format(node['Node_name']))
                 net_connect.disconnect()
+                print(net_connect)  
             
 
     def delete_config(self):
