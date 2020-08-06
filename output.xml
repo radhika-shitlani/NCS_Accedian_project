@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.6.9 on linux)" generated="20200806 12:19:24.220" rpa="false">
+<robot generator="Robot 3.1.2 (Python 3.6.9 on linux)" generated="20200806 13:17:59.444" rpa="false">
 <suite id="s1" name="Dipankar" source="/home/colt123/Dipankar/NCS_Accedian_project/csit/suites/Dipankar.robot">
 <test id="s1-t1" name="onnet_CCM_Y1564_test">
 <kw name="Onnet CCM Y1564" library="CCA">
 <assign>
 <var>${test_result}</var>
 </assign>
-<status status="FAIL" starttime="20200806 12:19:25.433" endtime="20200806 12:19:30.655"></status>
+<status status="FAIL" starttime="20200806 13:18:20.099" endtime="20200806 13:18:20.485"></status>
 </kw>
-<status status="FAIL" starttime="20200806 12:19:25.432" endtime="20200806 12:19:30.656" critical="yes">Execution terminated by signal</status>
+<status status="FAIL" starttime="20200806 13:18:20.098" endtime="20200806 13:18:20.486" critical="yes">Execution terminated by signal</status>
 </test>
 <doc>A test suite with tests for P2P conenctivity between Cisco-Cisco-Accedian
 Topology:-
@@ -22,7 +22,7 @@ Date 12 Dec 2017
 Executed At HOST
 Test Framework Robot Framework Python</item>
 </metadata>
-<status status="FAIL" starttime="20200806 12:19:24.222" endtime="20200806 12:19:30.658"></status>
+<status status="FAIL" starttime="20200806 13:17:59.445" endtime="20200806 13:18:20.487"></status>
 </suite>
 <statistics>
 <total>
