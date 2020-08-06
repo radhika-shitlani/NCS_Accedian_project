@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import time
 import json
 import os
