@@ -46,17 +46,15 @@ class Service:
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                print(f2)
                 output = net_connect.send_config_set(f2)
                 if node['login']['device_type'] == 'cisco_xr':
                     net_connect.commit()
                     net_connect.exit_config_mode()
+                    net_connect.disconnect()
                 else:
-                    pass
+                    net_connect.disconnect()
                 print(output)
                 print("****  Configration completed on {}".format(node['Node_name']))
-                net_connect.disconnect()
-                print(net_connect)  
             
 
     def delete_config(self):
