@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.6.9 on linux)" generated="20200806 11:36:32.106" rpa="false">
+<suite id="s1" name="Dipankar" source="/home/colt123/Dipankar/IQNet-Automation/csit/suites/Dipankar.robot">
+<test id="s1-t1" name="onnet_CCM_Y1564_test">
+<kw name="Onnet CCM Y1564" library="CCA">
+<assign>
+<var>${test_result}</var>
+</assign>
+<msg timestamp="20200806 11:45:15.457" level="INFO">****  persing completed on Accedian_LTS_87
+****  Configration completed on AR5
+****  Configration completed on AR11
+****  Configration completed on Accedian_LTS_87
+**** AR5 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR5
+*** L2 Loop create commands are templated for AR5
+*** L1 Loop delete commands are templated for AR5
+*** L2 Loop delete commands are templated for AR5
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+config term
+
+Thu Aug  6 11:50:08.581 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#int TenGigE0/0/1/3/2
+
+RP/0/RP0/CPU0:ar5.BLB(config-if)#loopback internal
+
+RP/0/RP0/CPU0:ar5.BLB(config-if)#
+y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 2 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 400 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+config term
+
+Thu Aug  6 11:53:34.987 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#int TenGigE0/0/1/3/2
+
+RP/0/RP0/CPU0:ar5.BLB(config-if)#no loopback internal
+
+RP/0/RP0/CPU0:ar5.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+config term
+
+Thu Aug  6 11:53:50.294 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#int TenGigE0/0/1/3/2.2301 l2transport
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#commit
+
+Thu Aug  6 11:53:51.215 UTC
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar5.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar5.BLB#ethernet loopback start local interface TenGigE0/0/1/3/2.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Thu Aug  6 11:53:53.448 UTC
+Session on interface TenGigE0/0/1/3/2.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar5.BLB#
+Thu Aug  6 11:53:54.431 UTC
+Local: TenGigE0/0/1/3/2.2301, ID 1
+1
+y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 2 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 400 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: PASSED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       PASS      PASS      PASS      PASS      N/A       N/A       PASS        ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+config term
+
+Thu Aug  6 11:57:15.683 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar5.BLB#ethernet loopback stop local interface TenGigE0/0/1/3/2.2301 id 1
+
+Thu Aug  6 11:57:16.531 UTC
+Session with ID 1 on interface TenGigE0/0/1/3/2.2301 successfully stopped.
+RP/0/RP0/CPU0:ar5.BLB#configure terminal
+
+Thu Aug  6 11:57:16.702 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2301 l2transport
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+config term
+
+Thu Aug  6 11:57:31.867 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-0000237d-00000000     netconf    netconfi Thu Aug  6 07:25:09 2020 
+RP/0/RP0/CPU0:ar5.BLB(config)#no interface TenGigE0/0/1/3/2.2301
+
+RP/0/RP0/CPU0:ar5.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn)#
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn)#
+config term
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 10 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 10 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+
+Error: The bandwidth regulator is in use
+
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+
+Error: The bandwidth regulator is in use
+
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+
+Error: VID set in use
+
+C122-0787: vid-set delete U9_ALX/NCS/LE-102301
+
+Error: VID set in use
+
+C122-0787: cfm delete meg 1
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: cfm unassign interface s-vlan-2401
+C122-0787: interface delete s-vlan-2401
+C122-0787: 
+C122-0787:</msg>
+<msg timestamp="20200806 11:45:15.457" level="INFO">${test_result} = {'ccm_status': {'AR5': 'pass', 'Accedian_LTS_87': 'pass', 'L1': 'fail', 'L2': 'pass'}, 'Loop_test': {'AR5': 'pass', 'Accedian_LTS_87': 'pass', 'L1': 'fail', 'L2': 'pass'}}</msg>
+<status status="PASS" starttime="20200806 11:36:33.273" endtime="20200806 11:45:15.457"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${test_result}</arg>
+</arguments>
+<status status="PASS" starttime="20200806 11:45:15.458" endtime="20200806 11:45:15.459"></status>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<arguments>
+<arg>dictionary should not contain value</arg>
+<arg>${test_result['ccm_status']}</arg>
+<arg>fail</arg>
+</arguments>
+<kw name="Dictionary Should Not Contain Value" library="Collections">
+<doc>Fails if ``value`` is found from ``dictionary``.</doc>
+<arguments>
+<arg>${test_result['ccm_status']}</arg>
+<arg>fail</arg>
+</arguments>
+<msg timestamp="20200806 11:45:15.461" level="FAIL">Dictionary contains value 'fail'.</msg>
+<status status="FAIL" starttime="20200806 11:45:15.460" endtime="20200806 11:45:15.461"></status>
+</kw>
+<status status="FAIL" starttime="20200806 11:45:15.459" endtime="20200806 11:45:15.462"></status>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<arguments>
+<arg>dictionary should not contain value</arg>
+<arg>${test_result['Loop_test']}</arg>
+<arg>fail</arg>
+</arguments>
+<kw name="Dictionary Should Not Contain Value" library="Collections">
+<doc>Fails if ``value`` is found from ``dictionary``.</doc>
+<arguments>
+<arg>${test_result['Loop_test']}</arg>
+<arg>fail</arg>
+</arguments>
+<msg timestamp="20200806 11:45:15.463" level="FAIL">Dictionary contains value 'fail'.</msg>
+<status status="FAIL" starttime="20200806 11:45:15.463" endtime="20200806 11:45:15.464"></status>
+</kw>
+<status status="FAIL" starttime="20200806 11:45:15.462" endtime="20200806 11:45:15.464"></status>
+</kw>
+<status status="FAIL" starttime="20200806 11:36:33.272" endtime="20200806 11:45:15.464" critical="yes">Several failures occurred:
+
+1) Dictionary contains value 'fail'.
+
+2) Dictionary contains value 'fail'.</status>
+</test>
+<doc>A test suite with tests for P2P conenctivity between Cisco-Cisco-Accedian
+Topology:-
+Cisco-Cisco_accedian
+</doc>
+<metadata>
+<item name="Version">1.0
+More Info For more information about Robot Framework see http://robotframework.org
+Author Sathishkumar murugesan
+Date 12 Dec 2017
+Executed At HOST
+Test Framework Robot Framework Python</item>
+</metadata>
+<status status="FAIL" starttime="20200806 11:36:32.107" endtime="20200806 11:45:15.466"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Dipankar">Dipankar</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,5 @@
+exit
+ethernet loopback stop local interface {{main_interface}}.{{item}} id {{loop_ID}}
+configure terminal
+interface {{main_interface}}.{{item}} l2transport
+no ethernet loopback

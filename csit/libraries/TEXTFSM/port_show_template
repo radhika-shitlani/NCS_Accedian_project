@@ -1,0 +1,29 @@
+Value STATE (\S+)
+Value STATUS (\S+)
+
+Start
+  ^\s+State     :\s+${STATE}
+  ^\s+Status\s+:\s+${STATUS} -> Record
+
+
+
+
+# changeme: port show status PORT-1
+#
+# Port name : PORT-1
+#    Connector : SFP-1
+#    State     : Enabled         Enabled|Disabled
+#    Status     : Down           Up|Down
+#    Speed      : ---
+#    Duplex     : ---
+#    MDI        : ---
+#    Pauses     : ---
+#    Protection : ---
+#    Auto-nego        : Enabled
+#       Capabilities  : 10M-FD,100M-FD,1G-FD,pause,asym-pause
+#       Advertisements: 10M-FD,100M-FD,1G-FD,pause,asym-pause
+#       Link partner  : 10M-HD
+#       State         : Configuring
+#
+#
+# changeme:

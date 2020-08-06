@@ -1,0 +1,12 @@
+# changeme: vid-set show set name U24_TKY/TKY/LE-502911
+#
+# Name            : U24_TKY/TKY/LE-502911
+# Policy list     : Traffic-5
+# State           : Free
+# Policy          : ---
+# Type            : C-VLAN
+# VID set         : 22
+# Outer VLAN type : None
+# Outer VLAN id   : 0
+#
+# changeme:

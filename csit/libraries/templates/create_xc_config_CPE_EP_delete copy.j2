@@ -1,0 +1,33 @@
+{# NNI policy to send traffic to UNI -#}
+policy edit Traffic-{{ Nni_port }} {{index['meg'] + 9 }} state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0 
+{# UNI policy to send traffic to NNI -#}
+{% if port_type == 'P-type' or port_type == 'F-type' or port_type == 'X-type' -%}
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 9 }} state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0 
+{% elif port_type == 'Y-type'-%}
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 9 }} state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+filter delete l2 U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}
+{% else -%}
+{% endif -%}
+{# UNI Regulator Configuration -#}
+bandwidth-regulator delete regulator U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}
+{# NNI Regulator Configuration -#}
+bandwidth-regulator delete regulator N{{ Nni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}
+{# NNI VID_set Configuration -#}
+vid-set delete N{{ Nni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}
+{# UNI VID_set Configuration -#}
+{% if port_type == 'F-type' or port_type == 'X-type' -%}
+vid-set delete U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}
+{% else -%}
+{% endif -%}
+{# MEG configuration -#}
+{% if port_type == 'P-type' or port_type == 'X-type' -%}
+cfm delete meg {{ index['del_meg'] }}
+sa delete service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}
+{% elif port_type == 'F-type' or port_type == 'Y-type'-%}
+cfm delete meg {{ index['del_meg'] }}
+sa delete service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}
+cfm unassign interface {{colt_vlan_ethType}}-{{item + 100}}
+interface delete {{colt_vlan_ethType}}-{{item+100}}
+{% else -%}
+{% endif -%}
+

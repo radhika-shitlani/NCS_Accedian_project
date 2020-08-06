@@ -1,0 +1,8 @@
+Value DMM_index (\d+)
+Value DMM_name (\S+)
+Value MEP_index (\S+)
+Value Local_MEP_ID (\S+)
+Value Remote_MEP_ID (\S+)
+
+Start
+  ^\s+${DMM_index}\s+${DMM_name}\s+${MEP_index}\s+${Local_MEP_ID}\s+${Remote_MEP_ID} -> Record

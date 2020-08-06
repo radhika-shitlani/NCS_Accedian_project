@@ -1,0 +1,61 @@
+QOS_REQUIRED: "YES"
+Flat_QOS: "YES"
+CCM_REQUIRED: "YES"
+item: 2300
+total_BW: 10000000
+service_BW: 4500000
+CIR_percentage: 25
+MEG_level: 1
+QOS_type: "Business3"
+colt_vlan_ethType: "s-vlan"
+customer_vlan_ethtype: "c-vlan"
+CCM_interval: "1s"
+site_list: 
+ - 
+  main_interface: "TenGigE0/0/0/5"
+  side: "L2PE_IP"
+  port_type: "P-type"
+  Node_name: "AR16"
+  login: 
+   host: "10.91.126.202"
+   username: "dshaw1"
+   password: "N0@ught33b0y"
+   device_type: "cisco_xr"
+ - 
+  main_interface: "Bundle-Ether112"
+  side: "L2PE_IP"
+  port_type: "P-type"
+  Node_name: "AR11"
+  login: 
+   host: "10.91.126.195"
+   username: "dshaw1"
+   password: "N0@ught33b0y"
+   device_type: "cisco_xr"
+ - 
+  side: "CPE_EP"
+  Node_name: "Accedian_LTS_87"
+  port_type: "P-type"
+  Uni_port: 9
+  Protected: "YES"
+  Nni_port: 5
+  Local_MEP: 1
+  Remote_MEP: 2
+  login: 
+   host: "10.91.121.87"
+   username: "admin"
+   password: "admin"
+   device_type: "accedian"
+ - 
+  side: "CPE_EP"
+  Node_name: "Accedian_LX"
+  port_type: "P-type"
+  Protected: "NO"
+  Uni_port: 8
+  Nni_port: 5
+  Local_MEP: 2
+  Remote_MEP: 1
+  login: 
+   host: "10.91.243.141"
+   username: "admin"
+   password: "admin"
+   device_type: "accedian"

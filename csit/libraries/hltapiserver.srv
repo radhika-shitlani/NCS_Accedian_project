@@ -1,0 +1,535 @@
+
+# vim: filetype=tcl
+
+#########################################################################################################
+###
+###
+###  Namespace
+###
+###
+#########################################################################################################
+
+namespace eval stcserver {
+
+	variable PORT
+	variable TIMEOUT
+	variable LOGGING
+	variable PATH
+	variable LOGNAME
+	variable LOGFILE
+	variable HOST
+	variable SOCK
+	variable TIMER
+	variable TIMERID
+
+}
+
+
+#########################################################################################################
+###
+###
+###  Procedures
+###
+###
+#########################################################################################################
+
+
+#########################################################################################################
+### Check to see if the process has been idle for too long
+#########################################################################################################
+proc ::stcserver::timer {} {
+
+	# if timeout is zero then disable check
+	if {$::stcserver::TIMEOUT == 0} { return }
+
+	::stcserver::log "Checking to see if timer has expired.  Timeout  $::stcserver::TIMEOUT seconds."
+
+	# calculate idle time
+	set idletime [expr [clock seconds] - $::stcserver::TIMER]
+	::stcserver::log "Idle time: $idletime"
+
+	if {$idletime >= $::stcserver::TIMEOUT} {
+		::stcserver::log "Process has been idle for too long.  Exiting..."
+		exit
+	}
+
+	after [expr 1000 * ($::stcserver::TIMEOUT - $idletime)] ::stcserver::timer
+}
+
+#########################################################################################################
+
+#########################################################################################################
+### Write to the log file if logging is enabled
+#########################################################################################################
+proc ::stcserver::log { msg } {
+	global ::stcserver::LOGGING
+	global ::stcserver::LOGFILE
+	global ::stcserver::LOGNAME
+
+	if {[string equal [string tolower $::stcserver::LOGGING] none]} {
+		return
+	}
+
+	if {[string equal $::stcserver::LOGFILE ""]} {
+		if {[string equal $::stcserver::LOGNAME ""]} {
+			set ::stcserver::LOGFILE [open "stcserver_log_[clock format [clock scan now] -format {%Y%m%d_%H%M%S}]" w]
+		} else {
+			set ::stcserver::LOGFILE [open $::stcserver::LOGNAME w]
+		}
+	}
+
+    	set timestamp [clock format [clock scan now] -format {%Y-%m-%d %H:%M:%S}]
+
+	# ::stcserver::logflag
+    	if {[regexp "INFO" $::stcserver::LOGLEVEL]} {
+    		puts $::stcserver::LOGFILE "\[$timestamp\]: $msg"
+    	} else {
+		#here the LOGLEVEL should be DEBUG
+		if {[regexp "stc::get" $msg]} {
+			set ::stcserver::logflag 0
+		} else {
+		     if {[regexp "Return value" $msg] } {
+			if {$::stcserver::logflag} {
+				puts $::stcserver::LOGFILE "\[$timestamp\]: $msg"
+			}
+			set ::stcserver::logflag 1
+	                      } else {
+			puts $::stcserver::LOGFILE "\[$timestamp\]: $msg"
+		      }
+	               }
+    	}
+	flush $::stcserver::LOGFILE
+}
+
+#########################################################################################################
+
+
+#########################################################################################################
+### Every client connection will drive this procedure
+#########################################################################################################
+proc ::stcserver::client_comm {sock clientaddr clientport} {
+
+	::stcserver::log "Client connection from $clientaddr port $clientport."
+
+	# cancel the timer event loop
+	after cancel $::stcserver::TIMERID
+
+	# loop forever waiting for input from client
+	while {1} {
+
+		# exit if client breaks the connection
+		if {[gets $sock buff] == -1} {
+			::stcserver::log "Client connection has been broken.  Exiting."
+			exit
+		}
+
+		# check for a command from the client to disconnect from the process
+		if {[regexp "STCSERVER_CMD_DISCONNECT" $buff]} {
+			::stcserver::log "Command sent from the client to disconnect.  Timeout is $::stcserver::TIMEOUT seconds."
+			set ::stcserver::TIMER [clock seconds]
+			set ::stcserver::TIMERID [after [expr 1000 * $::stcserver::TIMEOUT] ::stcserver::timer]
+			update
+			return
+		}
+
+		#set buff [join $buff]
+		# clean up the command string
+		set buff [regsub -all {\s+} $buff { }]
+		::stcserver::log "Executing: <$buff>"
+		# execute the command
+		if {[catch { set ret [uplevel #0 $buff] } errmsg]} {
+			# error... return the error message
+			::stcserver::log "Error... message: <$buff>, <$errmsg>"
+			#puts $sock "STCSERVER_RET_ERROR: $errmsg STCSERVER_RET_ERROR_END"
+			puts $sock "STCSERVER_RET_ERROR:[lindex [split $errmsg "\n"] 0]"
+		} else {
+			if {$ret != "" && [string is integer $ret] && $ret < 0} {
+				# error... return the error message
+				::stcserver::log "Bad return code: $ret ... Message: <$errmsg>"
+			    #puts $sock "STCSERVER_RET_ERROR: $errmsg STCSERVER_RET_ERROR_END"
+			    puts $sock "STCSERVER_RET_ERROR:[lindex [split $errmsg "\n"] 0]"
+			} else {
+				# no error... return the command result back to the client
+				set retr [regsub -all "\n" $ret " "]
+				::stcserver::log "Return value: <$retr>"
+				puts $sock "STCSERVER_RET_SUCCESS:$retr"
+			}
+		}
+
+		flush $sock
+
+		if {[regexp "package require SpirentHltApi" $buff]} {
+			set tmpdir [file normalize "$::stcserver::PATH"]
+			set ::sth::sthCore::custom_path $tmpdir
+
+			::stcserver::log "custom_path--$::sth::sthCore::custom_path"
+		}
+	}
+}
+
+##rename ::IntStcUtils::deleteHandle ""
+
+##################################################################
+#
+# Procedure name: deleteHandle
+# Input arguments: Handle TopLevel
+# Output arguments: none
+# Description: This routine deletes handle and all children from
+#              internal data structures. TopLevel is only used
+#              this procedure is calling itself recursively. It
+#              should never be specified in a call outside of
+#              this procedure.
+#
+##################################################################
+
+proc ::stcserver::deleteHandle {handle {topLevel 1}} {
+   global PHX_CMD_OK PHX_CMD_FAIL HANDLE CHILD_HANDLE
+
+   # Let's first recursively delete child objects from the data structures
+   if {[info exists CHILD_HANDLE($handle)]} {
+
+       # Loop through the children
+       foreach {objType childHandle} $CHILD_HANDLE($handle) {
+           # I know the namespace qualifier is pointless
+           # but the clarity is always worth it when doing recursion
+           stcserver::deleteHandle $childHandle 0
+       }
+
+       # Delete the objects children list
+       unset CHILD_HANDLE($handle)
+   }
+
+   if {[info exists HANDLE($handle)]} {
+        # Now delete the object's handle
+        unset HANDLE($handle)
+   }
+
+   # We check the topLevel flag of the call before we search for
+   # the parent object. We want to modify the parent's child list
+   # and remove this object from it. But if this is a recursive
+   # call, we don't want to waste time searching and modifying
+   # when it will be unset anyways.
+   if {$topLevel} {
+       foreach parentHandle [array names CHILD_HANDLE] {
+           if {[set index [lsearch -exact $CHILD_HANDLE($parentHandle) $handle]] != -1} {
+               if {[llength $CHILD_HANDLE($parentHandle)] == 2} {
+                   # This object was it's only child, so
+                   # just unset the parent's child list
+                   unset CHILD_HANDLE($parentHandle)
+               } else {
+                   # The parent has more than one child,
+                   # so just remove this one from the list
+                   set CHILD_HANDLE($parentHandle) [lreplace $CHILD_HANDLE($parentHandle) [expr $index -1] $index]
+               }
+               # Since we found the parent, we can take an early
+               # exit out of this loop
+               break
+           }
+       }
+   }
+}
+
+#########################################################################################################
+
+
+#########################################################################################################
+###
+###
+###  Main Routine
+###
+###
+#########################################################################################################
+
+# test test test
+#puts "****Spawned process pid: [pid] ****"
+
+#########################################################################################################
+### Set up global variable defaults
+#########################################################################################################
+
+# port number... shouldn't have a default value
+set ::stcserver::PORT    0
+
+# timeout value for this process in seconds... a value of zero means no timeout
+set ::stcserver::TIMEOUT [expr 60 * 60 * 1]
+
+# logging options - values: none, log
+set ::stcserver::LOGGING log
+
+# path for the temporary directory
+set ::stcserver::PATH .
+
+# file name for logging
+set ::stcserver::LOGNAME ""
+
+# file handle for logging
+set ::stcserver::LOGFILE ""
+
+# host that spawned this process... used for temporary socket connection
+set ::stcserver::HOST    127.0.0.1
+
+# handle for our main socket
+set ::stcserver::SOCK ""
+
+# timer to keep track of how long the process has been idle
+set ::stcserver::TIMER [clock seconds]
+set ::stcserver::TIMERID ""
+
+#########################################################################################################
+
+
+#########################################################################################################
+### Parse command line
+### 	1. (Required) port number
+###     2. (Optional) timeout
+###		3. (Optional) logging
+###		4. (Optional) path
+###		5. (Optional) log name
+#########################################################################################################
+
+# must have at least one argument - port number
+if {$argc == 0} {
+	error "There must be at least one command line argument."
+	exit
+}
+
+# 1 - port number for temporary socket
+set ::stcserver::PORT [lindex $argv 0]
+
+# 2 - timeout value
+if {$argc > 1} {
+	set ::stcserver::TIMEOUT [lindex $argv 1]
+}
+
+# 3 - logging option
+if {$argc > 2} {
+	set ::stcserver::LOGGING [lindex $argv 2]
+}
+
+# 4 - results directory path
+if {$argc > 3} {
+	set ::stcserver::PATH [lindex $argv 3]
+}
+
+# 5 - log file name
+if {$argc > 4} {
+	set ::stcserver::LOGNAME [lindex $argv 4]
+}
+
+set ::stcserver::LOGLEVEL "DEBUG"
+# 5 - log level, define whether output "stc::get" "Return vlaue", especially for RFC test.
+if {$argc > 5} {
+	set ::stcserver::LOGLEVEL [lindex $argv 5]
+}
+set ::stcserver::logflag 0
+#########################################################################################################
+
+package require Tclx
+
+proc keys {args} {
+    upvar 1 $args ret
+    return [keylkeys ret];
+}
+
+proc values {args} {
+    upvar 1 $args ret
+    set keys [keylkeys ret]
+    set values ""
+    foreach key $keys {
+        lappend values [keylget ret $key]
+    }
+    return $values;
+}
+
+
+variable hashkey ""
+variable hashvalue ""
+variable nested_hashkey ""
+
+proc ret_hash {args1 hashkey1 hashvalue1 nested_hashkey1} {
+
+    upvar 1 $args1 args
+    upvar 1 $hashkey1 hashkey
+    upvar 1 $hashvalue1 hashvalue
+    upvar 1 $nested_hashkey1 nested_hashkey
+
+    #aim to handle the value is a list, not keyedlist
+    if {[string length $args] > 1} {
+		if {"\{\{" eq [string range $args 0 1]} {
+			set args [string range $args 1 [expr [string length $args] - 2]]
+			ret_hash args hashkey hashvalue nested_hashkey
+			return;
+		}
+	}
+
+    catch {
+        set key [keys args]
+        set value  [values args]
+        #puts "1. Keys: $key"
+        #puts "2. Values: $value"
+        set len [llength $value]
+        for {set i 0} {$i < $len} {incr i } {
+            set args [lindex $value $i]
+			set l [llength $args]
+			if {[catch {keylkeys args} err] && $l>1} {
+				#this is a list
+				set nested_hashkey_orign $nested_hashkey
+				for {set j 0} {$j < $l} {incr j } {
+					set arg [lindex $args $j]
+					if {[regexp "\{+.+\}+" $arg] } {
+						#puts "Nested \n"
+
+						if {$nested_hashkey_orign != ""} {
+							set nested_hashkey [concat $nested_hashkey_orign "." [lindex $key $i] "." $j]
+						} else {
+							set nested_hashkey  [concat [lindex $key $i] "." $j]
+						}
+						#Call recursive function over here
+						#and add catch here
+                        #if met other types can't handle, just back current results, not block hlpyapi/hlpapi
+						catch { set ret [ret_hash arg hashkey hashvalue nested_hashkey] } errmsg
+						if {[regexp {\.} $nested_hashkey]} {
+							regsub {\.[^\.]*$} $nested_hashkey "" nested_hashkey
+						} else {
+							set nested_hashkey ""
+						}
+					} else {
+						#puts "NOT Nested \n"
+						if {$nested_hashkey != ""} {
+							foreach ktmp $key vtmp $value {
+								if {[regexp "\{+.+\}+" $vtmp] } {
+									set nested_hashkey [concat $nested_hashkey "." $ktmp]
+									catch { set ret [ret_hash vtmp hashkey hashvalue nested_hashkey] } errmsg
+								} else {
+									lappend hashkey [concat $nested_hashkey "." $ktmp]
+									lappend hashvalue $vtmp
+								}
+							}
+							if {[regexp {\.} $nested_hashkey]} {
+								regsub {\.[^\.]*$} $nested_hashkey "" nested_hashkey
+							} else {
+								set nested_hashkey ""
+							}
+							return;
+						} else {
+							lappend hashkey [lindex $key $i]
+							lappend hashvalue [lindex $value $i]
+						}
+					}
+				}
+
+			} else {
+				if {[regexp "\{+.+\}+" $args] } {
+				    #puts "Nested \n"
+				    if {$nested_hashkey != ""} {
+				        set nested_hashkey [concat $nested_hashkey "." [lindex $key $i]]
+				    } else {
+				        set nested_hashkey  [lindex $key $i]
+				    }
+				    #Call recursive function over here
+				    #and add catch here
+                    #if met other types can't handle, just back current results, not block hlpyapi/hlpapi
+				    catch { set ret [ret_hash args hashkey hashvalue nested_hashkey] } errmsg
+				} else {
+				    #puts "NOT Nested \n"
+				    if {$nested_hashkey != ""} {
+				        foreach ktmp $key vtmp $value {
+				            if {[regexp "\{+.+\}+" $vtmp] } {
+				                set nested_hashkey [concat $nested_hashkey "." $ktmp]
+				                catch { set ret [ret_hash vtmp hashkey hashvalue nested_hashkey] } errmsg
+				            } else {
+				                lappend hashkey [concat $nested_hashkey "." $ktmp]
+				                lappend hashvalue $vtmp
+				            }
+				        }
+				        if {[regexp {\.} $nested_hashkey]} {
+				            regsub {\.[^\.]*$} $nested_hashkey "" nested_hashkey
+				        } else {
+				            set nested_hashkey ""
+				        }
+				        return;
+				    } else {
+				        lappend hashkey [lindex $key $i]
+				        lappend hashvalue [lindex $value $i]
+				    }
+				}
+			}
+        }
+        if {[regexp {\.} $nested_hashkey]} {
+            regsub {\.[^\.]*$} $nested_hashkey "" nested_hashkey
+        } else {
+            set nested_hashkey ""
+        }
+    }
+    return;
+}
+##################################
+#To close file handle
+##################################
+proc stcserver::close_file {} {
+    set ::stcserver::LOGGING none
+    close $::stcserver::LOGFILE
+}
+
+#########################################################################################################
+### Initialize process based on command line
+#########################################################################################################
+
+# create a temporary directory
+
+set tmpdir [file normalize "$::stcserver::PATH"]
+
+if {[file exists $tmpdir]} {
+	if {![file isdirectory $tmpdir]} {
+		error "ERROR: The specified working directory is a file.\n$errmsg"
+	}
+} else {
+	if { [catch { file mkdir $tmpdir } errmsg] } {
+		error "ERROR: Unable to create a temporary working directory.\n$errmsg"
+	}
+}
+
+# change to the working directory
+cd $tmpdir
+
+::stcserver::log "Started process.  Command line: "
+::stcserver::log "     port number: $::stcserver::PORT"
+::stcserver::log "   timeout value: $::stcserver::TIMEOUT"
+::stcserver::log "      log option: $::stcserver::LOGGING"
+::stcserver::log "results dir path: $::stcserver::PATH"
+::stcserver::log "   log file name: $::stcserver::LOGNAME"
+
+::stcserver::log "Working directory is now: $tmpdir"
+
+# source initialization file
+::stcserver::log "Sourcing initialization file \"stcinit.srv\"."
+catch {source "stcinit.srv"}
+
+# make connection to process that spawned us
+::stcserver::log "Connecting to port $::stcserver::PORT on $::stcserver::HOST."
+set        tmp_sock  [socket $::stcserver::HOST $::stcserver::PORT]
+fconfigure $tmp_sock -buffering line
+
+# create a server socket and let the system give us a port
+::stcserver::log "Creating server socket."
+set ::stcserver::SOCK [socket -server ::stcserver::client_comm 0]
+
+# communicate our port number to the master process
+::stcserver::log "Generated port number: [lindex [fconfigure $::stcserver::SOCK -sockname] 2]"
+puts  $tmp_sock [lindex [fconfigure $::stcserver::SOCK -sockname] 2]
+flush $tmp_sock
+close $tmp_sock
+
+# set up process timer to check for timeout
+if {$::stcserver::TIMEOUT == 0} {
+	::stcserver::log "Timeout value is set to zero.  Timeout check is disabled."
+} else {
+	::stcserver::log "Setting up timeout check."
+	set ::stcserver::TIMER [clock seconds]
+	set ::stcserver::TIMERID [after [expr 1000 * $::stcserver::TIMEOUT] ::stcserver::timer]
+}
+
+# wait for client connection
+::stcserver::log "Waiting for client connection."
+
+vwait forever

@@ -1,0 +1,28 @@
+Value TYPE (\S+ \S+|\S+)
+Value PKTS (\d+/\d+)
+Value RATE (\d+)
+
+Start
+  ^\s+${TYPE}.*?${PKTS}\s+${RATE} -> Record
+
+
+#RP/0/RP0/CPU0:ar1.BLB#sh policy-map interface GigabitEthernet0/0/0/11.111
+#
+#GigabitEthernet0/0/0/11.111 input: BW-500M-Class-test
+#
+#Class class-default
+#  Classification statistics          (packets/bytes)     (rate - kbps)
+#    Matched             :                   0/0                    0
+#    Transmitted         :                   0/0                    0
+#    Total Dropped       :                   0/0                    0
+#  Policing statistics                (packets/bytes)     (rate - kbps)
+#    Policed(conform)    :                   0/0                    0
+#    Policed(exceed)     :                   0/0                    0
+#    Policed(violate)    :                   0/0                    0
+#    Policed and dropped :                   0/0
+#Policy Bag Stats time: 1590234807023  [Local Time: 05/23/20 11:53:27.023]
+#
+#GigabitEthernet0/0/0/11.111 output:
+#
+#Policy Bag Stats time: 1590234827176  [Local Time: 05/23/20 11:53:47.176]
+#RP/0/RP0/CPU0:ar1.BLB#

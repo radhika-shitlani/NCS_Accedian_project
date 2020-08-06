@@ -1,0 +1,75 @@
+{% if  QOS_type == 'Business3' -%}
+{% set green_pcp = 1 -%}
+{% set yellow_pcp = 1 -%}
+{% elif QOS_type == 'Business1' -%}
+{% set green_pcp = 3 -%}
+{% set yellow_pcp = 3 -%}
+{% elif QOS_type == 'Business2' -%}
+{% set green_pcp = 2 -%}
+{% set yellow_pcp = 2 -%}
+{% elif QOS_type == 'Premium' -%}
+{% set green_pcp = 5 -%}
+{% set yellow_pcp = 5 -%}
+{% elif QOS_type == 'Standard' -%}
+{% set green_pcp = 4 -%}
+{% set yellow_pcp = 7 -%}
+{% else -%}
+{% endif -%}
+{# UNI Regulator Configuration -#}
+{% if QOS_type == 'Standard' -%}
+bandwidth-regulator add regulator U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} cir {{ service_BW * CIR_percentage // 100 }} cir-max {{ service_BW * CIR_percentage // 100 }} cbs 100 eir {{ service_BW }} eir-max {{ service_BW }} ebs 10 color-mode blind coupling-flag false
+{% else -%}
+bandwidth-regulator add regulator U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} cir {{ service_BW }} cir-max {{ service_BW }} cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+{% endif -%}
+{# NNI Regulator Configuration -#}
+bandwidth-regulator add regulator N{{ Nni_port }}_ALX/NCS/LE-{{ 100000 + item|int }}  cir {{ service_BW }} cir-max {{ service_BW }} cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+{# NNI VID_set Configuration -#}
+vid-set add N{{ Nni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} policy-list Traffic-{{ Nni_port }} vlan-type {{colt_vlan_ethType}} vid-list {{ item + 100 }}
+{# UNI VID_set Configuration -#}
+{% if port_type == 'F-type' or port_type == 'X-type' -%}
+vid-set add U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} policy-list Traffic-{{ Uni_port }} vlan-type {{customer_vlan_ethtype}} vid-list {{ item }}
+{% else -%}
+{% endif -%}
+{# NNI policy -#}
+{% if port_type == 'P-type' or port_type == 'F-type' -%}
+policy edit Traffic-{{ Nni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan N5_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port PORT-{{ Uni_port }}
+{% elif port_type == 'X-type'-%}
+policy edit Traffic-{{ Nni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan N5_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port PORT-{{ Uni_port }}
+{% else -%}
+{% endif -%}
+{# UNI policy -#}
+{% if port_type == 'P-type'-%}
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} filter l2 *default evc-encapsulation push evc-ethertype {{colt_vlan_ethType}} evc-vlan-id {{ item + 100 }} cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port {{out_port}}
+{% elif port_type == 'F-type'-%}
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation push evc-ethertype {{colt_vlan_ethType}} evc-vlan-id {{ item + 100 }} cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port {{out_port}}
+{% elif port_type == 'X-type'-%}
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation replace evc-ethertype {{colt_vlan_ethType}} evc-vlan-id {{ item + 100 }} cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port {{out_port}}
+{% elif port_type == 'Y-type'-%}
+filter add l2 U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} vlan1-ethertype {{colt_vlan_ethType}} vlan1-id {{item + 100 }} enable vlan2-ethertype {{customer_vlan_ethtype}} vlan2-id {{item }} enable
+policy edit Traffic-{{ Uni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} filter l2 U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation replace evc-ethertype {{colt_vlan_ethType}} evc-vlan-id {{ item + 100 }} cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port {{out_port}}
+{% else -%}
+{% endif -%}
+{# MEG configuration -#}
+{% if port_type == 'P-type' or port_type == 'X-type' -%}
+cfm add meg name LEXXX-{{ 100000 + item|int }} name-format icc-based ccm-interval 1000 index {{index['meg']}} mhf-creation none sndr-id-perm none  level {{MEG_level}} rmep-auto-discovery disable mepid-list {{Local_MEP}},{{Remote_MEP}} vid-list {{ item + 100 }} vlan-type {{colt_vlan_ethType}}
+cfm add mep name LEXXX-{{ 100000 + item|int }}|{{MEG_level}}|{{Remote_MEP}}  active yes index {{index['mep']}} direction down cci-enable yes ccm-seq-number enable meg-idx {{index['meg']}} lowest-alarm-pri macRemErrXconAis mep-id {{Local_MEP}} port {{out_port}} priority 2 pvid {{ item + 100}}
+cfm add dmm name ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} index {{index['dmm']}} enable yes  interval 1000 mep-idx {{index['mep']}} ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id {{Remote_MEP}} tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+cfm add slm name ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} index {{index['slm']}} far-end-threshold 100000  interval 100 mep-idx {{index['mep']}} near-end-threshold 100000 priority 0 reference-period 15  rmep-id {{Remote_MEP}} state enable
+sa add service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+sa add metric ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}F slm-far-end-plr ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} threshold 100000
+sa add metric ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}N slm-near-end-plr ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} threshold 100000
+sa edit service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} state IS
+{% elif port_type == 'F-type' or port_type == 'Y-type' -%}
+interface add {{colt_vlan_ethType}}-{{item + 100 }} type vlan port {{out_port}} vlan1-ethertype {{colt_vlan_ethType}} vlan1-id {{item + 100 }} vlan1-priority {{green_pcp}}
+cfm assign interface {{colt_vlan_ethType}}-{{item + 100 }}
+cfm add meg name LEXXX-{{ 100000 + item|int }} name-format icc-based ccm-interval 1000 index {{index['meg']}} mhf-creation none sndr-id-perm none  level {{MEG_level}} rmep-auto-discovery disable mepid-list {{Local_MEP}},{{Remote_MEP}} vid-list {{ item }} vlan-type {{customer_vlan_ethtype}}
+cfm add mep name LEXXX-{{ 100000 + item|int }}|{{MEG_level}}|{{Remote_MEP}}  active yes index {{index['mep']}} direction down cci-enable yes ccm-seq-number enable meg-idx {{index['meg']}} lowest-alarm-pri macRemErrXconAis mep-id {{Local_MEP}} port {{colt_vlan_ethType}}-{{item+100}} priority {{green_pcp}} pvid {{ item }}
+cfm add dmm name ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} index {{index['dmm']}} enable yes  interval 1000 mep-idx {{index['mep']}} ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id {{Remote_MEP}} tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+cfm add slm name ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} index {{index['slm']}} far-end-threshold 100000  interval 100 mep-idx {{index['mep']}} near-end-threshold 100000 priority 0 reference-period 15  rmep-id {{Remote_MEP}} state enable
+sa add service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+sa add metric ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}F slm-far-end-plr ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} threshold 100000
+sa add metric ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}}N slm-near-end-plr ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} threshold 100000
+sa edit service ALX/NCS/LE-{{ 100000 + item|int }}|{{MEG_level}}|{{Local_MEP}}|{{Remote_MEP}} state IS
+{% else -%}
+{% endif -%}
+

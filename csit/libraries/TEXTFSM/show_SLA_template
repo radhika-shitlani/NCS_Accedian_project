@@ -1,0 +1,5 @@
+Value Stats (.*)
+
+Start
+  ^\s+Pkts sent:\s+\d+;${Stats} -> Record
+

@@ -1,0 +1,24 @@
+Value CCM_RDI_status (\S+)
+Value cross_connect_ccm_status (\S+)
+Value MAC_status (\S+)
+Value Received_AIS (\S+)
+Value Remote_CCM (\S+)
+Value Excessive_packet_loss (\S+)
+Value Errored_CCM (\S+)
+Value Excessive_delay (\S+)
+Value Received_C-LOS (\S+)
+Value Received_C-RDI (\S+)
+Value Received_C-FDI (\S+)
+Value Near_end_loss_N-SLM (\S+)
+Value Far_end_loss_F-SLM (\S+)
+
+
+Start
+  ^\s+CCM RDI\s+:\s+${CCM_RDI_status}\s+Cross-connect CCM\s+:\s+${cross_connect_ccm_status}
+  ^\s+MAC status\s+:\s+${MAC_status}\s+Received AIS\s+:\s+${Received_AIS}
+  ^\s+Remote CCM\s+:\s+${Remote_CCM}\s+Excessive packet loss\s+:\s+${Excessive_packet_loss}
+  ^\s+Errored CCM\s+:\s+${Errored_CCM}\s+Excessive delay\s+:\s+${Excessive_delay}
+  ^\s+Received C-LOS\s+:\s+${Received_C-LOS}\s+Received C-RDI\s+:\s+${Received_C-RDI} -> Record
+
+
+EOF

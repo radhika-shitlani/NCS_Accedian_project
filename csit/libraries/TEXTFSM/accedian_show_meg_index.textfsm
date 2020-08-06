@@ -1,0 +1,7 @@
+Value MEG_index (\d+)
+Value MEG_name (\S+)
+Value MEG_level (\S+)
+
+Start
+  ^\s+${MEG_index}\s+${MEG_name}\s+${MEG_level} -> Record
+

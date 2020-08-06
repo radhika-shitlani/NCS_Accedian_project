@@ -1,0 +1,6 @@
+int {{main_interface}}.{{item}} l2transport
+ethernet loopback permit internal
+commit
+exit
+exit
+ethernet loopback start local interface {{main_interface}}.{{item}} internal destination mac-address 0022.0022.0022 timeout 1800

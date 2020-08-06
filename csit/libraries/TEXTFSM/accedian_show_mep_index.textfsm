@@ -1,0 +1,7 @@
+Value MEP_index (\S+)
+Value MEP_id (\S+)
+Value MEP_name (\S+)
+
+Start
+  ^\s+${MEP_index}\s+${MEP_id}\s+${MEP_name} -> Record
+
