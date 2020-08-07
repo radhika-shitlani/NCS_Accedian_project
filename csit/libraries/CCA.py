@@ -23,13 +23,12 @@ def onnet_CCM_Y1564():
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     my_config = Service(**dict1)
     meg_index = my_config.parse_accedian()
-    pprint(dict1)
     my_config = Service(**dict1)
     my_config.Command_Creation()
-    my_config.push_config()
+    #my_config.push_config()
     test_result = {}
-    # test_result['ccm_status'] = my_config.Validate_ccm()
-    # test_result['Loop_test'] = my_config.Y1564_test()
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
   
     # Spirent_InputParam = {
     #     'Frame_Size':9100, 
@@ -50,5 +49,8 @@ def onnet_CCM_Y1564():
     # Spirent_L2_Gen.Generate_Traffic()
     # Spirent_L2_Gen.Traffic_Collection()
     # test_result['spirent_test'] = Spirent_L2_Gen.Validate_Traffic_Result()
-    # my_config.delete_config()
+    #my_config.delete_config()
     return test_result
+
+result = onnet_CCM_Y1564()
+print(result)

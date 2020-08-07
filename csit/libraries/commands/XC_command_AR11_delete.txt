@@ -1,2 +1,0 @@
-no interface Bundle-Ether112.2301
-no l2vpn xconnect group ALX_NCS_LE-102301

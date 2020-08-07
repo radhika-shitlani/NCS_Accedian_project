@@ -40,20 +40,18 @@ class Service:
 
     def push_config(self):
         for node in self.data["site_list"]:
-            pprint(node['login'])
-            net_connect = Netmiko(**node['login'])
-            print(net_connect)            
+            net_connect = Netmiko(**node['login'])      
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
                 output = net_connect.send_config_set(f2)
+                print(output)
                 if node['login']['device_type'] == 'cisco_xr':
                     net_connect.commit()
                     net_connect.exit_config_mode()
                     net_connect.disconnect()
                 else:
                     net_connect.disconnect()
-                print(output)
                 print("****  Configration completed on {}".format(node['Node_name']))
             
 
@@ -222,6 +220,8 @@ class Service:
                             with open(file_path + '/commands/Cisco_{}_{}_{}_Y1564.txt'.format(node["Node_name"],looptype,create_delete),'r') as f:
                                 f2 = f.readlines()
                                 output = net_connect.send_config_set(f2)
+                                net_connect.commit()
+                                net_connect.exit_config_mode()
                                 print(output)
                                 if looptype == 'L2' and create_delete == 'create':
                                     output = net_connect.send_command("show ethernet loopback active | in ID")
@@ -243,16 +243,26 @@ class Service:
                                 output = net_connect.send_config_set(f2)
                                 print(output)
                                 if create_delete == "create":
-                                    time.sleep(190)
+                                    time.sleep(10)
                                     output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
                                     print(output)
-                                    x = re.findall("PASSED|FAILED", output)
-                                    if x[0] == 'PASSED':
-                                        test_result[looptype] = 'pass'
-                                    elif x[0] == 'FAILED':
+                                    x = re.findall("FAILED|PROGRESS", output)
+                                    if x[0] == 'FAILED':
                                         test_result[looptype] = 'fail'
                                     else:
-                                        test_result[looptype] = 'something Wrong'
+                                        time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 10
+                                        print("***  Hold your breathe for {} seconds".format(time_to_wait))
+                                        time.sleep(time_to_wait)
+                                        output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                                        print(output)                             
+                                        x = re.findall("PASSED|FAILED", output)
+                                        if x[0] == 'PASSED':
+                                            test_result[looptype] = 'pass'
+                                        elif x[0] == 'FAILED':
+                                            test_result[looptype] = 'fail'
+                                        else:
+                                            test_result[looptype] = 'something Wrong'
+                                    
                             net_connect.disconnect()              
         else:
             pass
