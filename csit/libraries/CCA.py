@@ -53,4 +53,4 @@ def onnet_CCM_Y1564():
     return test_result
 
 result = onnet_CCM_Y1564()
-print(result)
+pprint(result)
