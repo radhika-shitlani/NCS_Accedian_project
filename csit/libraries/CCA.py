@@ -17,40 +17,160 @@ import yaml
 #from Class_Based_Spirent_Code_Generation import Spirent_L2_Traffic_Gen,Get_Spirent_Config,Create_Spirent_L2_Gen
 
 file_path = os.path.dirname(os.path.realpath(__file__))
-
-def onnet_CCM_Y1564():
+result = {}
+def onnet_CCM_Y1564_FF():
 
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'F-type'
+    dict1['site_list'][1]['port_type'] = 'F-type'
+    dict1['site_list'][2]['port_type'] = 'F-type'
     my_config = Service(**dict1)
-    meg_index = my_config.parse_accedian()
+    my_config.parse_accedian()
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
-  
-    # Spirent_InputParam = {
-    #     'Frame_Size':9100, 
-    #     'Rate_Mbps': 400,
-    #     'vlan_id' : 2301,
-    #     'vlan_user_priority': 1,
-    #     'VLAN_EtherType': 8100
-    
-    #     }
-    # Spirent_L2_Gen = Create_Spirent_L2_Gen()
-    # Spirent_L2_Gen.Port_Init()
-    # print("Just Before Stream Creation-1")
-    # StreamHandle = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_Mbps(0,1,**Spirent_InputParam)
-    # #Spirent_L2_Gen.Generate_Stream_Traffic(StreamHandle)
-    # print("Just Before Stream Creation-2")
-    # StreamHandle = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_Mbps(1,0,**Spirent_InputParam)
-    # #Spirent_L2_Gen.Generate_Stream_Traffic(StreamHandle)
-    # Spirent_L2_Gen.Generate_Traffic()
-    # Spirent_L2_Gen.Traffic_Collection()
-    # test_result['spirent_test'] = Spirent_L2_Gen.Validate_Traffic_Result()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_XX():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'X-type'
+    dict1['site_list'][1]['port_type'] = 'X-type'
+    dict1['site_list'][2]['port_type'] = 'X-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_PP():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'P-type'
+    dict1['site_list'][1]['port_type'] = 'P-type'
+    dict1['site_list'][2]['port_type'] = 'P-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_XP():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'X-type'
+    dict1['site_list'][1]['port_type'] = 'P-type'
+    dict1['site_list'][2]['port_type'] = 'P-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_PX():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'P-type'
+    dict1['site_list'][1]['port_type'] = 'X-type'
+    dict1['site_list'][2]['port_type'] = 'X-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_FY():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'F-type'
+    dict1['site_list'][1]['port_type'] = 'Y-type'
+    dict1['site_list'][2]['port_type'] = 'Y-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_YF():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'Y-type'
+    dict1['site_list'][1]['port_type'] = 'F-type'
+    dict1['site_list'][2]['port_type'] = 'F-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.delete_config()
+    return test_result
+def onnet_CCM_Y1564_YY():
+
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1['site_list'][0]['port_type'] = 'Y-type'
+    dict1['site_list'][1]['port_type'] = 'Y-type'
+    dict1['site_list'][2]['port_type'] = 'Y-type'
+    my_config = Service(**dict1)
+    my_config.parse_accedian()
+    my_config = Service(**dict1)
+    my_config.Command_Creation()
+    my_config.push_config()
+    my_config.parse_accedian()
+    my_config.Command_Creation()
+    test_result = {}
+    test_result['ccm_status'] = my_config.Validate_ccm()
+    test_result['Loop_test'] = my_config.Y1564_test()
     my_config.delete_config()
     return test_result
 
-result = onnet_CCM_Y1564()
+
+result['FF'] = onnet_CCM_Y1564_FF()
+result['XX'] = onnet_CCM_Y1564_XX()
+result['PP'] = onnet_CCM_Y1564_PP()
+result['XP'] = onnet_CCM_Y1564_XP()
+result['PX'] = onnet_CCM_Y1564_PX()
+result['FY'] = onnet_CCM_Y1564_FY()
+result['YF'] = onnet_CCM_Y1564_YF()
+result['YY'] = onnet_CCM_Y1564_YY()
+
 pprint(result)

@@ -97,6 +97,7 @@ class Service:
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
                     net_connect.disconnect()
                 print("****  persing completed on {}".format(node['Node_name']))
+                print(node['index'])
 
         return node['index']
     def Validate_ccm(self):

@@ -33,7 +33,7 @@ vid-set add U{{ Uni_port }}_ALX/NCS/LE-{{ 100000 + item|int }} policy-list Traff
 {# NNI policy -#}
 {% if port_type == 'P-type' or port_type == 'F-type' -%}
 policy edit Traffic-{{ Nni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan N5_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port PORT-{{ Uni_port }}
-{% elif port_type == 'X-type'-%}
+{% elif port_type == 'X-type' or port_type == 'Y-type'-%}
 policy edit Traffic-{{ Nni_port }} {{index['meg'] + 10 }} state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-{{ 100000 + item|int }} filter vlan N5_ALX/NCS/LE-{{ 100000 + item|int }} evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp {{green_pcp}} yellow-cfi 0 yellow-pcp {{yellow_pcp}} out-port PORT-{{ Uni_port }}
 {% else -%}
 {% endif -%}
