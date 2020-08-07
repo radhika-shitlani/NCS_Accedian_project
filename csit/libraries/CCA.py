@@ -25,7 +25,7 @@ def onnet_CCM_Y1564():
     meg_index = my_config.parse_accedian()
     my_config = Service(**dict1)
     my_config.Command_Creation()
-    #my_config.push_config()
+    my_config.push_config()
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
@@ -49,7 +49,7 @@ def onnet_CCM_Y1564():
     # Spirent_L2_Gen.Generate_Traffic()
     # Spirent_L2_Gen.Traffic_Collection()
     # test_result['spirent_test'] = Spirent_L2_Gen.Validate_Traffic_Result()
-    #my_config.delete_config()
+    my_config.delete_config()
     return test_result
 
 result = onnet_CCM_Y1564()
