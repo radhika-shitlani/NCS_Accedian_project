@@ -1,3 +1,20 @@
+{% if  QOS_type == 'Business3' -%}
+{% set TC = 3 -%}
+{% set EXP = 1 -%}
+{% elif QOS_type == 'Business1' -%}
+{% set TC = 5 -%}
+{% set EXP = 3 -%}
+{% elif QOS_type == 'Business2' -%}
+{% set TC = 4 -%}
+{% set EXP = 2 -%}
+{% elif QOS_type == 'Premium' -%}
+{% set TC = 6 -%}
+{% set EXP = 5 -%}
+{% elif QOS_type == 'Standard' -%}
+{% set TC = 2 -%}
+{% set EXP = 4 -%}
+{% else -%}
+{% endif -%}
 {% if port_type == 'Y-type'-%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation dot1ad {{ item + 100 }} dot1q {{ item }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
@@ -18,11 +35,11 @@ evpn evi {{ 50000 + item|int }}
 {% if CCM_REQUIRED == 'YES'-%}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} continuity-check interval {{ CCM_interval }}
-ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} mep crosscheck mep-id {{ site_list[0].Remote_MEP }}
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} mep crosscheck mep-id {{ Remote_MEP }}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log continuity-check errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log crosscheck errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log continuity-check mep changes
-interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{ site_list[0].Local_MEP}} cos 2
+interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{ Local_MEP}} cos {{ EXP }}
 {% else -%}
 {% endif -%}
 policy-map {{service_BW}}-{{QOS_type}}
@@ -37,23 +54,8 @@ policy-map {{service_BW}}-{{QOS_type}}
   police rate {{ service_BW }} kbps burst 1100 kbytes
   {% endif -%}
   !
-  {% if QOS_type == 'Premium' -%}
-  set traffic-class 6
-  set qos-group 5
-  {% elif QOS_type == 'Business2' -%}
-  set traffic-class 4
-  set qos-group 2
-  {% elif QOS_type == 'Business3' -%}
-  set traffic-class 3
-  set qos-group 1
-  {% elif QOS_type == 'Standard'-%}
-  set traffic-class 2
-  set qos-group 4
-  {% elif QOS_type == 'Business1'-%}
-  set traffic-class 5
-  set qos-group 3
-  {% else -%}
-  {% endif -%}
+  set traffic-class {{TC}}
+  set qos-group {{EXP}}
  !
  end-policy-map
 !

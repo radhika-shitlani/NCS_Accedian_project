@@ -2,8 +2,8 @@ QOS_REQUIRED: "YES"
 Flat_QOS: "YES"
 CCM_REQUIRED: "YES"
 item: 2301
-total_BW: 10000000
-service_BW: 4500000
+total_BW: 1000000
+service_BW: 1000000
 CIR_percentage: 25
 MEG_level: 1
 QOS_type: "Business3"
@@ -15,14 +15,14 @@ performance_test: 1
 
 site_list: 
  - 
-  main_interface: "TenGigE0/0/0/5"
+  main_interface: "Bundle-Ether25"
   side: "L2PE_EP"
-  Node_name: "AR18"
+  Node_name: "AR6"
   port_type: "X-type"
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.126.204"
+   host: "10.91.126.116"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"

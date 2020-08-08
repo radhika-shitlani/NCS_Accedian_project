@@ -1,0 +1,5 @@
+no interface Bundle-Ether25.2301
+no l2vpn xconnect group ALX_NCS_LE-102301
+ethernet cfm domain COLT-1 level 1 id null
+no service ALX_NCS_LE-102301
+no policy-map 1000000-Business3
