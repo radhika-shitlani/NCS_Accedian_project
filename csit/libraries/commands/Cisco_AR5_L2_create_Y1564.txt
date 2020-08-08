@@ -1,6 +1,0 @@
-int TenGigE0/0/1/3/2.2301 l2transport
-ethernet loopback permit internal
-commit
-exit
-exit
-ethernet loopback start local interface TenGigE0/0/1/3/2.2301 internal destination mac-address 0022.0022.0022 timeout 1800
