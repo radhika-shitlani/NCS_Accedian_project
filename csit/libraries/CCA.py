@@ -165,12 +165,12 @@ def onnet_CCM_Y1564_YY():
 
 
 result['FF'] = onnet_CCM_Y1564_FF()
-result['XX'] = onnet_CCM_Y1564_XX()
-result['PP'] = onnet_CCM_Y1564_PP()
-result['XP'] = onnet_CCM_Y1564_XP()
-result['PX'] = onnet_CCM_Y1564_PX()
-result['FY'] = onnet_CCM_Y1564_FY()
-result['YF'] = onnet_CCM_Y1564_YF()
-result['YY'] = onnet_CCM_Y1564_YY()
+# result['XX'] = onnet_CCM_Y1564_XX()
+# result['PP'] = onnet_CCM_Y1564_PP()
+# result['XP'] = onnet_CCM_Y1564_XP()
+# result['PX'] = onnet_CCM_Y1564_PX()
+# result['FY'] = onnet_CCM_Y1564_FY()
+# result['YF'] = onnet_CCM_Y1564_YF()
+# result['YY'] = onnet_CCM_Y1564_YY()
 
 pprint(result)
