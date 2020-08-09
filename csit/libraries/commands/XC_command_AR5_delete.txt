@@ -1,4 +1,4 @@
-no interface TenGigE0/0/0/5.2301
+no interface TenGigE0/0/1/3/2.2301
 no l2vpn xconnect group ALX_NCS_LE-102301
 ethernet cfm domain COLT-1 level 1 id null
 no service ALX_NCS_LE-102301

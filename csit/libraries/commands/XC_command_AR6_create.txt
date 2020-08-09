@@ -1,4 +1,5 @@
-interface Bundle-Ether25.2301 l2transport encapsulation dot1q 2301
+interface Bundle-Ether25.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+interface Bundle-Ether25.2301 l2transport rewrite ingress tag pop 1 symmetric
 interface Bundle-Ether25.2301 l2transport
 interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
 l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301

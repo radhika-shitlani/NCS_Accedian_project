@@ -1,0 +1,2 @@
+int TenGigE0/0/1/3/2
+no loopback internal

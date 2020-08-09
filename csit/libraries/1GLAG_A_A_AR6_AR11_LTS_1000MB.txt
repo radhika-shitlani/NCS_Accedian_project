@@ -1,0 +1,2220 @@
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:29:23.791 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: vid-set add U9_ALX/NCS/LE-102301 policy-list Traffic-9 vlan-type c-vlan vid-list 2301
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: interface add s-vlan-2401 type vlan port LAG-3 vlan1-ethertype s-vlan vlan1-id 2401 vlan1-priority 1
+C122-0787: cfm assign interface s-vlan-2401
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:30:32.205 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:30:58.323 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:31:13.578 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:31:14.492 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:31:16.748 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:31:22.016 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: IN PROGRESS
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       50%       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+***  Hold your breathe for 130 seconds
+Name          : Y1564-LE-102301
+Overall Status: PASSED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       PASS      PASS      PASS      PASS      N/A       N/A       PASS        ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:33:54.362 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:33:55.193 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:33:55.467 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:34:10.930 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete U9_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: cfm unassign interface s-vlan-2401
+C122-0787: interface delete s-vlan-2401
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:34:58.081 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: vid-set add U9_ALX/NCS/LE-102301 policy-list Traffic-9 vlan-type c-vlan vid-list 2301
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation replace evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2401 vlan-type s-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port LAG-3 priority 2 pvid 2401
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:36:04.685 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:36:30.817 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:36:46.162 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:36:47.067 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:36:49.340 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:36:54.597 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:37:15.626 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:37:16.449 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:37:16.720 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:37:32.187 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete U9_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:38:18.662 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation default
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter l2 *default evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2401 vlan-type s-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port LAG-3 priority 2 pvid 2401
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:39:24.576 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:39:50.939 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:40:06.181 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:40:07.102 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:40:09.360 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:40:14.638 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: IN PROGRESS
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       47%       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+***  Hold your breathe for 130 seconds
+Name          : Y1564-LE-102301
+Overall Status: PASSED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       PASS      PASS      PASS      PASS      N/A       N/A       PASS        ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:42:46.932 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:42:47.747 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:42:48.020 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:43:03.092 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:43:49.968 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+Current Configuration Session  Line       User     Date                     Lock
+00001000-00000bcf-00000037     SYSTEM     SYSTEM   Sat Aug  8 11:43:26 2020 
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter l2 *default evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2401 vlan-type s-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port LAG-3 priority 2 pvid 2401
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:45:01.849 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:45:27.970 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:45:43.019 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:45:43.937 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:45:46.184 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:45:51.478 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:46:12.493 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:46:13.315 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:46:13.587 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:46:28.672 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:47:15.114 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-00000ca0-0000000d     SYSTEM     SYSTEM   Sat Aug  8 11:46:41 2020 
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation default
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: vid-set add U9_ALX/NCS/LE-102301 policy-list Traffic-9 vlan-type c-vlan vid-list 2301
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation replace evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2401 vlan-type s-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port LAG-3 priority 2 pvid 2401
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:48:30.032 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:48:56.153 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:49:11.362 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:49:12.272 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:49:14.523 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:49:19.774 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: IN PROGRESS
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       47%       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+***  Hold your breathe for 130 seconds
+Name          : Y1564-LE-102301
+Overall Status: PASSED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       PASS      PASS      PASS      PASS      N/A       N/A       PASS        ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:51:52.524 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:51:53.349 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:51:53.624 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:52:08.688 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete U9_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:52:55.116 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: filter add l2 U9_ALX/NCS/LE-102301 vlan1-ethertype s-vlan vlan1-id 2401 enable vlan2-ethertype c-vlan vlan2-id 2301 enable
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter l2 U9_ALX/NCS/LE-102301 evc-encapsulation replace evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: interface add s-vlan-2401 type vlan port LAG-3 vlan1-ethertype s-vlan vlan1-id 2401 vlan1-priority 1
+C122-0787: cfm assign interface s-vlan-2401
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:54:00.746 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:54:26.867 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:54:42.124 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 11:54:43.041 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 11:54:45.297 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 11:54:50.565 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: IN PROGRESS
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       47%       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+***  Hold your breathe for 130 seconds
+Name          : Y1564-LE-102301
+Overall Status: PASSED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       PASS      PASS      PASS      PASS      N/A       N/A       PASS        ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:57:22.597 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 11:57:23.420 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 11:57:23.693 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 11:57:38.756 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: filter delete l2 U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: cfm unassign interface s-vlan-2401
+C122-0787: interface delete s-vlan-2401
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 11:58:25.509 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: vid-set add U9_ALX/NCS/LE-102301 policy-list Traffic-9 vlan-type c-vlan vid-list 2301
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: interface add s-vlan-2401 type vlan port LAG-3 vlan1-ethertype s-vlan vlan1-id 2401 vlan1-priority 1
+C122-0787: cfm assign interface s-vlan-2401
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 11:59:32.058 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 11:59:58.201 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 12:00:13.257 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 12:00:14.218 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 12:00:16.467 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 12:00:21.746 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 12:00:43.171 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 12:00:44.004 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 12:00:44.277 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 12:00:59.741 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete U9_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: cfm unassign interface s-vlan-2401
+C122-0787: interface delete s-vlan-2401
+C122-0787: 
+C122-0787: 
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+****  Logged in node : AR6
+configure terminal
+
+Sat Aug  8 12:01:46.920 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#interface Bundle-Ether25.2301 l2transport service-policy input 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar6.BLB(config-evpn-instance)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+
+RP/0/RP0/CPU0:ar6.BLB(config)#policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  police rate percent 100 burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c-police)#  set traffic-class 3
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)#  set qos-group 1
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar6.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar6.BLB(config)#!
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+****  Configration completed on AR6
+****  Logged in node : AR11
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport
+
+RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52301
+
+RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
+****  Configration completed on AR11
+****  Logged in node : Accedian_LTS_87
+bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
+C122-0787: vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation replace cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+C122-0787: filter add l2 U9_ALX/NCS/LE-102301 vlan1-ethertype s-vlan vlan1-id 2401 enable vlan2-ethertype c-vlan vlan2-id 2301 enable
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter l2 U9_ALX/NCS/LE-102301 evc-encapsulation replace evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+C122-0787: interface add s-vlan-2401 type vlan port LAG-3 vlan1-ethertype s-vlan vlan1-id 2401 vlan1-priority 1
+C122-0787: cfm assign interface s-vlan-2401
+C122-0787: cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
+C122-0787: cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
+C122-0787: cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102301|1|1|2 state IS
+C122-0787: 
+C122-0787: 
+****  Configration completed on Accedian_LTS_87
+****  Logged in node : Accedian_LTS_87
+****  persing completed on Accedian_LTS_87
+{'del_meg': '4', 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
+**** AR6 : ccm is UP
+Accedian_LTS_87 : ccm is UP
+*** L1 Loop create commands are templated for AR6
+*** L2 Loop create commands are templated for AR6
+*** L1 Loop delete commands are templated for AR6
+*** L2 Loop delete commands are templated for AR6
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop create commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+*** Loop delete commands are templated for Accedian_LTS_87
+configure terminal
+
+Sat Aug  8 12:02:53.453 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#loopback internal
+
+                                   ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:15:AD:1F:8A:36 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 12:03:20.085 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-00000ca0-0000000f     SYSTEM     SYSTEM   Sat Aug  8 12:03:05 2020 
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25
+
+RP/0/RP0/CPU0:ar6.BLB(config-if)#no loopback internal
+
+                                      ^
+% Invalid input detected at '^' marker.
+RP/0/RP0/CPU0:ar6.BLB(config-if)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 12:04:07.390 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#int Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#ethernet loopback permit internal
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#commit
+
+Sat Aug  8 12:04:08.294 UTC
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#exit
+
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback start local interface Bundle-Ether25.2301 internal destination mac-address 0022.0022.0022 timeout 1800
+
+Sat Aug  8 12:04:10.546 UTC
+Session on interface Bundle-Ether25.2301 successfully created with ID 1.
+RP/0/RP0/CPU0:ar6.BLB#
+Sat Aug  8 12:04:15.814 UTC
+Local: Bundle-Ether25.2301, ID 1
+1
+
+C122-0787: y1564 add test Y1564-ALX-NCS-LE-102301 description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration 15 performance enable test-duration 1 parallel enable port PORT-6 delay-type two-way-delay time-sync-mandatory disable packet-type l2-generic dst-mac-addr 00:22:00:22:00:22 y1731-level 1
+C122-0787: y1564 edit service Y1564-ALX-NCS-LE-102301 1 state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level 1 vlan1-header enable vlan1-id 2401 vlan1-priority 1 vlan1-ethertype s-vlan vlan2-header enable vlan2-id 2301 vlan2-priority 1 vlan2-ethertype c-vlan
+C122-0787: Y1564 start activation test Y1564-ALX-NCS-LE-102301 filename Y1564-LE-102301
+C122-0787: 
+Name          : Y1564-LE-102301
+Overall Status: FAILED
+
+Service name                    25% CIR   50% CIR   75% CIR   100% CIR  CIR+EIR   Policing  Performance CBS       State
+------------------------------- --------- --------- --------- --------- --------- --------- ----------- --------- --------
+Service_1                       ---       ---       ---       ---       ---       ---       ---         ---       Enabled 
+Service_2                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_3                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_4                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_5                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_6                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_7                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+Service_8                       ---       ---       ---       ---       ---       ---       ---         ---       Disabled
+
+configure terminal
+
+Sat Aug  8 12:04:37.233 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#exit
+
+RP/0/RP0/CPU0:ar6.BLB#ethernet loopback stop local interface Bundle-Ether25.2301 id 1
+
+Sat Aug  8 12:04:38.050 UTC
+Session with ID 1 on interface Bundle-Ether25.2301 successfully stopped.
+RP/0/RP0/CPU0:ar6.BLB#configure terminal
+
+Sat Aug  8 12:04:38.325 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#interface Bundle-Ether25.2301 l2transport
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#no ethernet loopback
+
+RP/0/RP0/CPU0:ar6.BLB(config-subif)#
+
+C122-0787: 
+C122-0787: Y1564 delete report Y1564-LE-102301
+C122-0787: 
+C122-0787: 
+C122-0787: Y1564 delete test Y1564-ALX-NCS-LE-102301
+C122-0787: 
+configure terminal
+
+Sat Aug  8 12:04:53.805 UTC
+Current Configuration Session  Line       User     Date                     Lock
+00001000-000034ad-0000000a     netconf    netconfi Fri Aug  7 10:59:21 2020 
+RP/0/RP0/CPU0:ar6.BLB(config)#no interface Bundle-Ether25.2301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar6.BLB(config-cfm-dmn)#no policy-map 1000000-Business3
+
+RP/0/RP0/CPU0:ar6.BLB(config)#
+configure terminal
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102301
+
+RP/0/RP0/CPU0:ar11.BLB(config)#
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: filter delete l2 U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102301
+C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102301
+C122-0787: vid-set delete N5_ALX/NCS/LE-102301
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102301|1|1|2
+C122-0787: cfm unassign interface s-vlan-2401
+C122-0787: interface delete s-vlan-2401
+C122-0787: 
+C122-0787: 
+{'FF': {'Loop_test': {'L1': 'fail', 'L2': 'pass'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'FY': {'Loop_test': {'L1': 'fail', 'L2': 'pass'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'PP': {'Loop_test': {'L1': 'fail', 'L2': 'pass'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'PX': {'Loop_test': {'L1': 'fail', 'L2': 'pass'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'XP': {'Loop_test': {'L1': 'fail', 'L2': 'fail'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'XX': {'Loop_test': {'L1': 'fail', 'L2': 'fail'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'YF': {'Loop_test': {'L1': 'fail', 'L2': 'fail'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}},
+ 'YY': {'Loop_test': {'L1': 'fail', 'L2': 'fail'},
+        'ccm_status': {'AR6': 'pass', 'Accedian_LTS_87': 'pass'}}}

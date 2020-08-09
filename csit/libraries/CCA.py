@@ -20,6 +20,10 @@ file_path = os.path.dirname(os.path.realpath(__file__))
 result = {}
 def onnet_CCM_Y1564_FF():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test FF type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'F-type'
     dict1['site_list'][1]['port_type'] = 'F-type'
@@ -29,15 +33,20 @@ def onnet_CCM_Y1564_FF():
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
-    my_config.parse_accedian()
-    my_config.Command_Creation()
+    # my_config.parse_accedian()
+    # my_config.Command_Creation()
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_XX():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test XX type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'X-type'
     dict1['site_list'][1]['port_type'] = 'X-type'
@@ -47,15 +56,20 @@ def onnet_CCM_Y1564_XX():
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
-    my_config.parse_accedian()
-    my_config.Command_Creation()
+    # my_config.parse_accedian()
+    # my_config.Command_Creation()
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_PP():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test PP type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'P-type'
     dict1['site_list'][1]['port_type'] = 'P-type'
@@ -70,10 +84,15 @@ def onnet_CCM_Y1564_PP():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_XP():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test XP type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'X-type'
     dict1['site_list'][1]['port_type'] = 'P-type'
@@ -88,10 +107,15 @@ def onnet_CCM_Y1564_XP():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_PX():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test PX type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'P-type'
     dict1['site_list'][1]['port_type'] = 'X-type'
@@ -106,10 +130,15 @@ def onnet_CCM_Y1564_PX():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_FY():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test FY type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'F-type'
     dict1['site_list'][1]['port_type'] = 'Y-type'
@@ -124,10 +153,15 @@ def onnet_CCM_Y1564_FY():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_YF():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test YF type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'Y-type'
     dict1['site_list'][1]['port_type'] = 'F-type'
@@ -142,10 +176,15 @@ def onnet_CCM_Y1564_YF():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 def onnet_CCM_Y1564_YY():
 
+    print("!"*1)
+    print("!"*2)
+    print("************** Test YY type EP ************* ")
+    print("!!"*3)
     dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'Y-type'
     dict1['site_list'][1]['port_type'] = 'Y-type'
@@ -160,6 +199,7 @@ def onnet_CCM_Y1564_YY():
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     return test_result
 

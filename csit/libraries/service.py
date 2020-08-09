@@ -53,7 +53,23 @@ class Service:
                 else:
                     net_connect.disconnect()
                 print("****  Configration completed on {}".format(node['Node_name']))
-            
+        time.sleep(10)
+        print("*** wait for 10 seconds")
+    
+    def check_QOS_counters_config(self):
+        for node in self.data["site_list"]:
+            if 'EP' in node['side']:
+                if node['login']['device_type'] == 'cisco_xr':
+                    net_connect = Netmiko(**node['login'])
+                    output = net_connect.send_command("show policy-map interface {}.{}".format(node["main_interface"],self.data['item']))
+                    print(output)
+                    output = net_connect.send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
+                    print(output)
+                    net_connect.disconnect()
+                else:
+                    pass
+            else:
+                pass             
 
     def delete_config(self):
         for node in self.data["site_list"]:
@@ -95,7 +111,7 @@ class Service:
                         node['index'][mep_meg_dmm_slm] = 1
                     else:                   
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
-                    net_connect.disconnect()
+                net_connect.disconnect()
                 print("****  persing completed on {}".format(node['Node_name']))
                 print(node['index'])
 
@@ -145,7 +161,7 @@ class Service:
                     node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]
                     if node['Protected'] == 'YES':
                         output = net_connect.send_command("port show status PORT-{}".format(node['Nni_port']))
-                        if re.findall("Down", output)[0] == 'Down':
+                        if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
                     node['packet_type'] = 'l2-accedian'
                     for create_delete in create_delete_list:
@@ -181,7 +197,7 @@ class Service:
                     net_connect = Netmiko(**node['login'])
                     if node['Protected'] == 'YES':
                         output = net_connect.send_command("port show status PORT-{}".format(node['Nni_port']))
-                        if re.findall("Down", output)[0] == 'Down':
+                        if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
                         output = net_connect.send_command("port show configuration PORT-{}".format(node['Nni_port']))
                         node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]                       
@@ -227,8 +243,8 @@ class Service:
                                 if looptype == 'L2' and create_delete == 'create':
                                     output = net_connect.send_command("show ethernet loopback active | in ID")
                                     node['loop_ID'] = re.split("\s", output)[-1]
-                                    print(output)
-                                    print(node['loop_ID'])
+                                    # print(output)
+                                    # print(node['loop_ID'])
                                     with open(file_path + '/templates/Cisco_L2_loop_delete_Y1564.j2','r') as f:
                                         Temp = f.read()
                                         failure_command = Template(Temp).render(**self.data,**node)
@@ -251,7 +267,7 @@ class Service:
                                     if x[0] == 'FAILED':
                                         test_result[looptype] = 'fail'
                                     else:
-                                        time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 10
+                                        time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 20
                                         print("***  Hold your breathe for {} seconds".format(time_to_wait))
                                         time.sleep(time_to_wait)
                                         output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))

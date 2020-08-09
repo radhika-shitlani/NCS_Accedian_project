@@ -15,18 +15,26 @@
 {% set yellow_pcp = 7 -%}
 {% else -%}
 {% endif -%}
-{% set last_service = service_BW//1000000 + 1 -%}
+{% set service_BW = ((service_BW * STP_percentage ) // 100) -%}
+{% set last_service = service_BW//1250000 + 1 -%}
+{% set last_service_BW = (service_BW % 1250000) // 1000 %}
 y1564 add test Y1564-ALX-NCS-LE-{{ 100000 + item|int }} description STANDARD_P2P_ACCEPTANCE_TEST configuration enable step-duration {{config_test}} performance enable test-duration {{performance_test}} parallel enable port PORT-{{ Nni_port }} delay-type two-way-delay time-sync-mandatory disable packet-type {{ packet_type }} dst-mac-addr {{remote_mac}} y1731-level {{MEG_level}}
 {% if port_type == 'P-type' or port_type == 'X-type' -%}
-{% for i in range(1,(service_BW // 1000000)+ 1 ) -%}
-y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ i }} state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}}
+{% for i in range(1,(service_BW // 1250000)+ 1 ) -%}
+y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ i }} state enable policing disable step enable availability enable cir 1250 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.0001 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}}
 {% endfor -%}
-y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ last_service }} state enable policing disable step enable availability enable cir {{ ((service_BW % 1000000) // 1000) - ((service_BW * 2) // 100000) }} cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}}
+{% if last_service_BW > 0 -%}
+y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ last_service }} state enable policing disable step enable availability enable cir {{ last_service_BW }} cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.0001 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}} vlan2-header enable vlan2-id {{ item }} vlan2-priority {{green_pcp}} vlan2-ethertype {{customer_vlan_ethtype}}
+{% else -%}
+{% endif -%}
 {% elif port_type == 'F-type' or port_type == 'Y-type' -%}
-{% for i in range(1,(service_BW // 1000000)+ 1 ) -%}
-y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ i }} state enable policing disable step enable availability enable cir 1000 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}} vlan2-header enable vlan2-id {{ item }} vlan2-priority {{green_pcp}} vlan2-ethertype {{customer_vlan_ethtype}}
+{% for i in range(1,(service_BW // 1250000)+ 1 ) -%}
+y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ i }} state enable policing disable step enable availability enable cir 1250 cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.0001 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}} vlan2-header enable vlan2-id {{ item }} vlan2-priority {{green_pcp}} vlan2-ethertype {{customer_vlan_ethtype}}
 {% endfor -%}
-y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ last_service }} state enable policing disable step enable availability enable cir {{ ((service_BW % 1000000) // 1000) - ((service_BW * 2) // 100000) }} cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.01 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}} vlan2-header enable vlan2-id {{ item }} vlan2-priority {{green_pcp}} vlan2-ethertype {{customer_vlan_ethtype}}
+{% if last_service_BW > 0 -%}
+y1564 edit service Y1564-ALX-NCS-LE-{{ 100000 + item|int }} {{ last_service }} state enable policing disable step enable availability enable cir {{ last_service_BW }} cbs 8 eir 0 ebs 8 size-type emix user-packet-size 9100 sequence-of-sizes abcdefgu ftd 200000 ftd-type avg fdv 1000 fdv-type avg flr 0.0001 m-factor 1 y1731-level {{MEG_level}} vlan1-header enable vlan1-id {{ item + 100 }} vlan1-priority {{green_pcp}} vlan1-ethertype {{colt_vlan_ethType}} vlan2-header enable vlan2-id {{ item }} vlan2-priority {{green_pcp}} vlan2-ethertype {{customer_vlan_ethtype}}
+{% else -%}
+{% endif -%}
 {% else -%}
 {% endif -%}
 Y1564 start activation test Y1564-ALX-NCS-LE-{{ 100000 + item|int }} filename Y1564-LE-{{ 100000 + item|int }}

@@ -12,6 +12,7 @@ customer_vlan_ethtype: "c-vlan"
 CCM_interval: "1s"
 config_test: 15
 performance_test: 1
+STP_percentage: 99
 site_list: 
  - 
   main_interface: "TenGigE0/0/0/5"

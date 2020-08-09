@@ -12,17 +12,17 @@ customer_vlan_ethtype: "c-vlan"
 CCM_interval: "1s"
 config_test: 15
 performance_test: 1
-
+STP_percentage: 100
 site_list: 
  - 
-  main_interface: "Bundle-Ether25"
+  main_interface: "TenGigE0/0/0/5"
   side: "L2PE_EP"
-  Node_name: "AR6"
-  port_type: "X-type"
+  Node_name: "AR18"
+  port_type: "F-type"
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.126.116"
+   host: "10.91.126.204"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
@@ -30,7 +30,7 @@ site_list:
   main_interface: "Bundle-Ether112"
   side: "L2PE_IP"
   Node_name: "AR11"
-  port_type: "X-type"
+  port_type: "F-type"
   login: 
    host: "10.91.126.195"
    username: "dshaw1"
@@ -39,7 +39,7 @@ site_list:
  - 
   side: "CPE_EP"
   Node_name: "Accedian_LTS_87"
-  port_type: "X-type"
+  port_type: "F-type"
   Uni_port: 9
   Protected: "YES"
   Nni_port: 5

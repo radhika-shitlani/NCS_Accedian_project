@@ -2,14 +2,14 @@ bandwidth-regulator add regulator U9_ALX/NCS/LE-102301 cir 1000000 cir-max 10000
 bandwidth-regulator add regulator N5_ALX/NCS/LE-102301  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
 vid-set add N5_ALX/NCS/LE-102301 policy-list Traffic-5 vlan-type s-vlan vid-list 2401
 vid-set add U9_ALX/NCS/LE-102301 policy-list Traffic-9 vlan-type c-vlan vid-list 2301
-policy edit Traffic-5 15 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
-policy edit Traffic-9 15 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
+policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102301 filter vlan N5_ALX/NCS/LE-102301 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port PORT-9
+policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102301 filter vlan U9_ALX/NCS/LE-102301 evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2401 cos-mapping direct green-cfi 0 green-pcp 1 yellow-cfi 0 yellow-pcp 1 out-port LAG-3
 interface add s-vlan-2401 type vlan port LAG-3 vlan1-ethertype s-vlan vlan1-id 2401 vlan1-priority 1
 cfm assign interface s-vlan-2401
-cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 5 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
-cfm add mep name LEXXX-102301|1|2  active yes index 2 direction down cci-enable yes ccm-seq-number enable meg-idx 5 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
-cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 2 enable yes  interval 1000 mep-idx 2 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
-cfm add slm name ALX/NCS/LE-102301|1|1|2 index 2 far-end-threshold 100000  interval 100 mep-idx 2 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
+cfm add meg name LEXXX-102301 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2301 vlan-type c-vlan
+cfm add mep name LEXXX-102301|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port s-vlan-2401 priority 1 pvid 2301
+cfm add dmm name ALX/NCS/LE-102301|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 0 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+cfm add slm name ALX/NCS/LE-102301|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 0 reference-period 15  rmep-id 2 state enable
 sa add service ALX/NCS/LE-102301|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
 sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2F slm-far-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000
 sa add metric ALX/NCS/LE-102301|1|1|2 ALX/NCS/LE-102301|1|1|2N slm-near-end-plr ALX/NCS/LE-102301|1|1|2 threshold 100000

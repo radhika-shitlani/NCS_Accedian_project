@@ -1,8 +1,8 @@
-interface TenGigE0/0/0/5.2301 l2transport encapsulation dot1q 2301
-interface TenGigE0/0/0/5.2301 l2transport
-interface TenGigE0/0/0/5.2301 l2transport service-policy input 1000000-Business3
+interface TenGigE0/0/1/3/2.2301 l2transport encapsulation dot1q 2301
+interface TenGigE0/0/1/3/2.2301 l2transport
+interface TenGigE0/0/1/3/2.2301 l2transport service-policy input 1000000-Business3
 l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
-l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface TenGigE0/0/0/5.2301
+l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface TenGigE0/0/1/3/2.2301
 l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
 evpn evi 52301
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301
@@ -11,7 +11,7 @@ ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect gr
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log crosscheck errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102301 xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 id icc-based LE XXX-102301 log continuity-check mep changes
-interface TenGigE0/0/0/5.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
+interface TenGigE0/0/1/3/2.2301 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102301 mep-id 2 cos 1
 policy-map 1000000-Business3
  class class-default
   police rate 1000000 kbps burst 1100 kbytes
