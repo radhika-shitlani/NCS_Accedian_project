@@ -97,7 +97,7 @@ class Service:
                 else:
                     node['out_port'] = 'PORT-{}'.format(node['Nni_port'])                                
                 for mep_meg_dmm_slm in mep_meg_dmm_slm_list:
-                    net_connect = Netmiko(**node['login'])
+                    net_connect = ConnectHandler(**node['login'])
                     output = net_connect.send_command('cfm show {} configuration'.format(mep_meg_dmm_slm))
                     template = open(file_path + '/TEXTFSM/accedian_show_{}_index.textfsm'.format(mep_meg_dmm_slm))
                     re_table = textfsm.TextFSM(template)

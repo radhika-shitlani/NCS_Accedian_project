@@ -50,3 +50,4 @@ site_list:
    username: "admin"
    password: "admin"
    device_type: "accedian"
+   port: 22
