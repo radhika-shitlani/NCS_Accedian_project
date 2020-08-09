@@ -204,7 +204,7 @@ def onnet_CCM_Y1564_YY():
     return test_result
 
 
-result['FF'] = onnet_CCM_Y1564_FF()
+#result['FF'] = onnet_CCM_Y1564_FF()
 # result['XX'] = onnet_CCM_Y1564_XX()
 # result['PP'] = onnet_CCM_Y1564_PP()
 # result['XP'] = onnet_CCM_Y1564_XP()
@@ -213,4 +213,4 @@ result['FF'] = onnet_CCM_Y1564_FF()
 # result['YF'] = onnet_CCM_Y1564_YF()
 # result['YY'] = onnet_CCM_Y1564_YY()
 
-pprint(result)
+#pprint(result)
