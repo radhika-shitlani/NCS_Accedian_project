@@ -17,7 +17,7 @@ Resource          ../libraries/Resource.robot
 
 *** Test Cases ***
 
-onnet_CCM_Y1564_test
+onnet_CCM_Y1564_FF
     ${test_result}    onnet_CCM_Y1564_FF
     #${CCA_resultnt_traffic_gen}    Create Spirent L2 Gen    Ether_Speed='ether1000'    Stream_Name='Spirent_Class_Test'    Frame_Size=2000    Rate_Mbps=100
     #${spirent_traffic_result}=    Call method    ${spirent_traffic_gen}    Generate_Traffic
