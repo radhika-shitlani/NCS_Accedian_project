@@ -1,9 +1,0 @@
-interface Bundle-Ether112.2301 l2transport encapsulation dot1ad 2401 dot1q 2301
-interface Bundle-Ether112.2301 l2transport rewrite ingress tag pop 1 symmetric
-interface Bundle-Ether112.2301 l2transport
-interface Bundle-Ether112.2301 l2transport service-policy input NNI-QOS-INGRESS
-interface Bundle-Ether112.2301 l2transport service-policy output NNI-QOS-EGRESS
-l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301
-l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 interface Bundle-Ether112.2301
-l2vpn xconnect group ALX_NCS_LE-102301 p2p ALX_NCS_LE-102301 neighbor evpn evi 52301 target 52301 source 52301
-evpn evi 52301

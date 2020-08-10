@@ -165,6 +165,10 @@ class Service:
                         output = node['connect_obj'].send_command("port show status PORT-{}".format(node['Nni_port']))
                         if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
+                        else:
+                            pass
+                    else:
+                        pass
                     node['packet_type'] = 'l2-accedian'
                     for create_delete in create_delete_list:
                         with open(file_path + '/templates/Accedian_{}_{}_Y1564.j2'.format(node["side"],create_delete),'r') as f:
@@ -180,16 +184,27 @@ class Service:
                                 output = node['connect_obj'].send_config_set(f2)
                                 print(output)
                             if create_delete == "create":
-                                time.sleep(190)
-                            output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
-                            print(output)
-                            x = re.findall("PASSED|FAILED", output)
-                            if x[0] == 'PASSED':
-                                test_result[node['Node_name']][looptype] = 'pass'
-                            elif x[0] == 'FAILED':
-                                test_result[node['Node_name']][looptype] = 'fail'
-                            else:
-                                test_result[node['Node_name']][looptype] = 'something wrong'                            
+                                time.sleep(10)
+                                output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                                print(output)
+                                x = re.findall("FAILED|PROGRESS", output)
+                                if x[0] == 'FAILED':
+                                    test_result[node['Node_name']] = 'fail'
+                                else:
+                                    time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 20
+                                    print("***  Hold your breathe for {} seconds".format(time_to_wait))
+                                    time.sleep(time_to_wait)
+                                    output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                                    print(output)                             
+                                    x = re.findall("PASSED|FAILED|PROGRESS", output)
+                                    if x[0] == 'PASSED':
+                                        test_result[node['Node_name']] = 'pass'
+                                    elif x[0] == 'FAILED':
+                                        test_result[node['Node_name']] = 'fail'
+                                    else:
+                                        test_result[node['Node_name']] = 'something Wrong,still in progress'
+                                    
+                                                                
         elif list1 == ['cisco_xr','cisco_xr']:
             print("Loop can not be performed")
         elif list1 == ['cisco_xr','accedian'] or list1 == ['accedian','cisco_xr']:
@@ -199,8 +214,12 @@ class Service:
                         output = node['connect_obj'].send_command("port show status PORT-{}".format(node['Nni_port']))
                         if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
-                        output = node['connect_obj'].send_command("port show configuration PORT-{}".format(node['Nni_port']))
-                        node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]                       
+                        else:
+                            pass
+                    else:
+                        pass
+                    output = node['connect_obj'].send_command("port show configuration PORT-{}".format(node['Nni_port']))
+                    node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]                       
                     node['packet_type'] = 'l2-generic'
                     for create_delete in create_delete_list:
                         for looptype in Loop_list:

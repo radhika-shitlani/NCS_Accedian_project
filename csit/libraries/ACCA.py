@@ -24,7 +24,7 @@ def onnet_CCM_Y1564_FF():
     print("!"*2)
     print("************** Test FF type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'F-type'
     dict1['site_list'][1]['port_type'] = 'F-type'
     dict1['site_list'][2]['port_type'] = 'F-type'
@@ -50,7 +50,7 @@ def onnet_CCM_Y1564_XX():
     print("!"*2)
     print("************** Test XX type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'X-type'
     dict1['site_list'][1]['port_type'] = 'X-type'
     dict1['site_list'][2]['port_type'] = 'X-type'
@@ -75,7 +75,7 @@ def onnet_CCM_Y1564_PP():
     print("!"*2)
     print("************** Test PP type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'P-type'
     dict1['site_list'][1]['port_type'] = 'P-type'
     dict1['site_list'][2]['port_type'] = 'P-type'
@@ -100,7 +100,7 @@ def onnet_CCM_Y1564_XP():
     print("!"*2)
     print("************** Test XP type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'X-type'
     dict1['site_list'][1]['port_type'] = 'P-type'
     dict1['site_list'][2]['port_type'] = 'P-type'
@@ -125,7 +125,7 @@ def onnet_CCM_Y1564_PX():
     print("!"*2)
     print("************** Test PX type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'P-type'
     dict1['site_list'][1]['port_type'] = 'X-type'
     dict1['site_list'][2]['port_type'] = 'X-type'
@@ -150,7 +150,7 @@ def onnet_CCM_Y1564_FY():
     print("!"*2)
     print("************** Test FY type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'F-type'
     dict1['site_list'][1]['port_type'] = 'Y-type'
     dict1['site_list'][2]['port_type'] = 'Y-type'
@@ -175,7 +175,7 @@ def onnet_CCM_Y1564_YF():
     print("!"*2)
     print("************** Test YF type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'Y-type'
     dict1['site_list'][1]['port_type'] = 'F-type'
     dict1['site_list'][2]['port_type'] = 'F-type'
@@ -200,7 +200,7 @@ def onnet_CCM_Y1564_YY():
     print("!"*2)
     print("************** Test YY type EP ************* ")
     print("!!"*3)
-    dict1 = yaml.load(open(file_path + '/../Topology/inputfile.yml'),Loader=yaml.Loader)
+    dict1 = yaml.load(open(file_path + '/../Topology/inputfile_ACCA.yml'),Loader=yaml.Loader)
     dict1['site_list'][0]['port_type'] = 'Y-type'
     dict1['site_list'][1]['port_type'] = 'Y-type'
     dict1['site_list'][2]['port_type'] = 'Y-type'
@@ -222,12 +222,12 @@ def onnet_CCM_Y1564_YY():
 
 
 result['FF'] = onnet_CCM_Y1564_FF()
-# result['XX'] = onnet_CCM_Y1564_XX()
-# result['PP'] = onnet_CCM_Y1564_PP()
-# result['XP'] = onnet_CCM_Y1564_XP()
-# result['PX'] = onnet_CCM_Y1564_PX()
-# result['FY'] = onnet_CCM_Y1564_FY()
-# result['YF'] = onnet_CCM_Y1564_YF()
-# result['YY'] = onnet_CCM_Y1564_YY()
+result['XX'] = onnet_CCM_Y1564_XX()
+result['PP'] = onnet_CCM_Y1564_PP()
+result['XP'] = onnet_CCM_Y1564_XP()
+result['PX'] = onnet_CCM_Y1564_PX()
+result['FY'] = onnet_CCM_Y1564_FY()
+result['YF'] = onnet_CCM_Y1564_YF()
+result['YY'] = onnet_CCM_Y1564_YY()
 
 pprint(result)

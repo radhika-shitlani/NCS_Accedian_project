@@ -1,26 +1,26 @@
 QOS_REQUIRED: "YES"
 Flat_QOS: "YES"
 CCM_REQUIRED: "YES"
-item: 2300
+item: 2305
 total_BW: 10000000
-service_BW: 4500000
+service_BW: 6000000
 CIR_percentage: 25
 MEG_level: 1
 QOS_type: "Business3"
 colt_vlan_ethType: "s-vlan"
 customer_vlan_ethtype: "c-vlan"
 CCM_interval: "1s"
-config_test: 15
+config_test: 5
 performance_test: 1
-STP_percentage: 99
+STP_percentage: 100
 site_list: 
  - 
   main_interface: "TenGigE0/0/0/5"
   side: "L2PE_IP"
   port_type: "P-type"
-  Node_name: "AR16"
+  Node_name: "AR18"
   login: 
-   host: "10.91.126.202"
+   host: "10.91.126.204"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
@@ -48,17 +48,19 @@ site_list:
    username: "admin"
    password: "admin"
    device_type: "accedian"
+   port: 22
  - 
   side: "CPE_EP"
-  Node_name: "Accedian_LX"
-  port_type: "P-type"
-  Protected: "NO"
+  Node_name: "LX_135"
+  port_type: "F-type"
   Uni_port: 8
+  Protected: "NO"
   Nni_port: 5
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.243.141"
+   host: "10.91.243.135"
    username: "admin"
    password: "admin"
    device_type: "accedian"
+   port: 22
