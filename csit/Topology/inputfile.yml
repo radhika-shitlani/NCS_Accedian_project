@@ -17,12 +17,12 @@ site_list:
  - 
   main_interface: "TenGigE0/0/0/5"
   side: "L2PE_EP"
-  Node_name: "AR18"
+  Node_name: "AR15"
   port_type: "F-type"
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.126.204"
+   host: "10.91.126.201"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
