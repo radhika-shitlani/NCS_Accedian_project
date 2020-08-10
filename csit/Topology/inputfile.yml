@@ -10,7 +10,7 @@ QOS_type: "Business3"
 colt_vlan_ethType: "s-vlan"
 customer_vlan_ethtype: "c-vlan"
 CCM_interval: "1s"
-config_test: 15
+config_test: 5
 performance_test: 1
 STP_percentage: 100
 site_list: 

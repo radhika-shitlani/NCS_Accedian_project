@@ -29,6 +29,7 @@ def onnet_CCM_Y1564_FF():
     dict1['site_list'][1]['port_type'] = 'F-type'
     dict1['site_list'][2]['port_type'] = 'F-type'
     my_config = Service(**dict1)
+    my_config.connect_nodes()
     my_config.parse_accedian()
     my_config = Service(**dict1)
     my_config.Command_Creation()
@@ -40,6 +41,7 @@ def onnet_CCM_Y1564_FF():
     test_result['Loop_test'] = my_config.Y1564_test()
     my_config.check_QOS_counters_config()
     my_config.delete_config()
+    my_config.disconnect_nodes()
     return test_result
 def onnet_CCM_Y1564_XX():
 
@@ -204,7 +206,7 @@ def onnet_CCM_Y1564_YY():
     return test_result
 
 
-#result['FF'] = onnet_CCM_Y1564_FF()
+result['FF'] = onnet_CCM_Y1564_FF()
 # result['XX'] = onnet_CCM_Y1564_XX()
 # result['PP'] = onnet_CCM_Y1564_PP()
 # result['XP'] = onnet_CCM_Y1564_XP()
@@ -213,4 +215,4 @@ def onnet_CCM_Y1564_YY():
 # result['YF'] = onnet_CCM_Y1564_YF()
 # result['YY'] = onnet_CCM_Y1564_YY()
 
-#pprint(result)
+pprint(result)

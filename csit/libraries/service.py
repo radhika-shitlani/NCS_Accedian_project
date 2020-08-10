@@ -27,6 +27,15 @@ class Service:
     def __init__(self,**kwargs):
         self.data = kwargs
 
+    def connect_nodes(self):
+        for node in self.data["site_list"]:
+            node['connect_obj'] = Netmiko(**node['login'])
+            print("**** connection established with node {}".format(node['Node_name']))
+    def disconnect_nodes(self):
+        for node in self.data["site_list"]:
+            node['connect_obj'].disconnect()
+            print("**** disconnected successfully from node {}".format(node['Node_name']))
+
     def Command_Creation(self):                        
         for create_delete in create_delete_list:
             for node in self.data["site_list"]:
@@ -38,52 +47,50 @@ class Service:
                     file_open.write('\n')
                     file_open.close()
 
+
     def push_config(self):
-        for node in self.data["site_list"]:
-            net_connect = Netmiko(**node['login'])      
+        for node in self.data["site_list"]:  
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                output = net_connect.send_config_set(f2)
+                output = node['connect_obj'].send_config_set(f2)
                 print(output)
                 if node['login']['device_type'] == 'cisco_xr':
-                    net_connect.commit()
-                    net_connect.exit_config_mode()
-                    net_connect.disconnect()
+                    node['connect_obj'].commit()
+                    node['connect_obj'].exit_config_mode()
                 else:
-                    net_connect.disconnect()
+                    pass
                 print("****  Configration completed on {}".format(node['Node_name']))
         time.sleep(10)
-        print("*** wait for 10 seconds")
-    
+        print("*** wait for 10 seconds")  
+
     def check_QOS_counters_config(self):
         for node in self.data["site_list"]:
             if 'EP' in node['side']:
                 if node['login']['device_type'] == 'cisco_xr':
-                    net_connect = Netmiko(**node['login'])
-                    output = net_connect.send_command("show policy-map interface {}.{}".format(node["main_interface"],self.data['item']))
+                    output = node['connect_obj'].send_command("show policy-map interface {}.{}".format(node["main_interface"],self.data['item']))
                     print(output)
-                    output = net_connect.send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
+                    output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
                     print(output)
-                    net_connect.disconnect()
                 else:
                     pass
             else:
                 pass             
 
+
+
     def delete_config(self):
         for node in self.data["site_list"]:
-            net_connect = Netmiko(**node['login'])
             with open(file_path + '/commands/XC_command_{}_delete.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                output = net_connect.send_config_set(f2)
+                output = node['connect_obj'].send_config_set(f2)
                 print(output)
                 if node['login']['device_type'] == 'cisco_xr':
-                    net_connect.commit()
-                    net_connect.exit_config_mode()
+                    node['connect_obj'].commit()
+                    node['connect_obj'].exit_config_mode()
                 else:
                     pass
-                net_connect.disconnect()
+
     def parse_accedian(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr':
@@ -97,8 +104,7 @@ class Service:
                 else:
                     node['out_port'] = 'PORT-{}'.format(node['Nni_port'])                                
                 for mep_meg_dmm_slm in mep_meg_dmm_slm_list:
-                    net_connect = ConnectHandler(**node['login'])
-                    output = net_connect.send_command('cfm show {} configuration'.format(mep_meg_dmm_slm))
+                    output = node['connect_obj'].send_command('cfm show {} configuration'.format(mep_meg_dmm_slm))
                     template = open(file_path + '/TEXTFSM/accedian_show_{}_index.textfsm'.format(mep_meg_dmm_slm))
                     re_table = textfsm.TextFSM(template)
                     fsm_results = re_table.ParseText(output)
@@ -111,38 +117,35 @@ class Service:
                         node['index'][mep_meg_dmm_slm] = 1
                     else:                   
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
-                net_connect.disconnect()
                 print("****  persing completed on {}".format(node['Node_name']))
                 print(node['index'])
 
         return node['index']
+
+
     def Validate_ccm(self):
         test_result = {}
         for node in self.data["site_list"]:
             mep_name = 100000 + self.data['item']
             if 'EP' in node['side']:
                 if node['login']['device_type'] == 'accedian':
-                    net_connect = Netmiko(**node['login'])
                     print(node['Node_name'],end=' : ')
-                    output = net_connect.send_command("cfm show mep status LEXXX-{}|{}|{}".format(mep_name,self.data['MEG_level'],node['Remote_MEP']))
+                    output = node['connect_obj'].send_command("cfm show mep status LEXXX-{}|{}|{}".format(mep_name,self.data['MEG_level'],node['Remote_MEP']))
                     if len(re.findall("Inactive", output)) == 14:
                         print("ccm is UP")
                         test_result[node['Node_name']] = 'pass'
                     else:
                         print("CCm did not came Up")
-                        test_result[node['Node_name']] = 'fail'
-                    net_connect.disconnect()          
+                        test_result[node['Node_name']] = 'fail'      
                 else:
-                    net_connect = Netmiko(**node['login'])
                     print("**** {}".format(node['Node_name']),end=' : ')
-                    output = net_connect.send_command("show ethernet cfm services domain COLT-{} service ALX_NCS_LE-{}".format(self.data['MEG_level'],mep_name))
+                    output = node['connect_obj'].send_command("show ethernet cfm services domain COLT-{} service ALX_NCS_LE-{}".format(self.data['MEG_level'],mep_name))
                     if len(re.findall("all operational, no errors", output)) == 2:
                         print("ccm is UP")
                         test_result[node['Node_name']] = 'pass'
                     else:
                         print("CCm did not came Up")
                         test_result[node['Node_name']] = 'fail'
-                    net_connect.disconnect()
         return test_result
     def Y1564_test(self):
         list1 = []
@@ -156,11 +159,10 @@ class Service:
         if list1 == ['accedian','accedian']:
             for node in self.data["site_list"]:
                 if node['login']['device_type'] == 'accedian':
-                    net_connect = Netmiko(**node['login'])
-                    output = net_connect.send_command("cfm show mep database LEXXX-{}|{}|{}".format(mep_name,self.data['MEG_level'],node['Remote_MEP']))
+                    output = node['connect_obj'].send_command("cfm show mep database LEXXX-{}|{}|{}".format(mep_name,self.data['MEG_level'],node['Remote_MEP']))
                     node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]
                     if node['Protected'] == 'YES':
-                        output = net_connect.send_command("port show status PORT-{}".format(node['Nni_port']))
+                        output = node['connect_obj'].send_command("port show status PORT-{}".format(node['Nni_port']))
                         if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
                     node['packet_type'] = 'l2-accedian'
@@ -175,11 +177,11 @@ class Service:
                             print("**** {} templating done on node {} ".format(create_delete,node['Node_name']))
                             with open(file_path + '/commands/Accedian_{}_{}_Y1564.txt'.format(node["Node_name"],create_delete),'r') as f:
                                 f2 = f.readlines()
-                                output = net_connect.send_config_set(f2)
+                                output = node['connect_obj'].send_config_set(f2)
                                 print(output)
                             if create_delete == "create":
                                 time.sleep(190)
-                            output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                            output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
                             print(output)
                             x = re.findall("PASSED|FAILED", output)
                             if x[0] == 'PASSED':
@@ -188,21 +190,18 @@ class Service:
                                 test_result[node['Node_name']][looptype] = 'fail'
                             else:
                                 test_result[node['Node_name']][looptype] = 'something wrong'                            
-                    net_connect.disconnect()
         elif list1 == ['cisco_xr','cisco_xr']:
             print("Loop can not be performed")
         elif list1 == ['cisco_xr','accedian'] or list1 == ['accedian','cisco_xr']:
             for node in self.data["site_list"]:
                 if node['login']['device_type'] == 'accedian' and 'EP' in node['side']:
-                    net_connect = Netmiko(**node['login'])
                     if node['Protected'] == 'YES':
-                        output = net_connect.send_command("port show status PORT-{}".format(node['Nni_port']))
+                        output = node['connect_obj'].send_command("port show status PORT-{}".format(node['Nni_port']))
                         if re.findall("Down|Up", output)[0] == 'Down':
                             node['Nni_port'] = node['Nni_port'] + 1
-                        output = net_connect.send_command("port show configuration PORT-{}".format(node['Nni_port']))
+                        output = node['connect_obj'].send_command("port show configuration PORT-{}".format(node['Nni_port']))
                         node['remote_mac'] = re.findall("\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w[:]\w\w", output)[0]                       
                     node['packet_type'] = 'l2-generic'
-                    net_connect.disconnect()
                     for create_delete in create_delete_list:
                         for looptype in Loop_list:
                             if looptype == 'L2':
@@ -233,18 +232,15 @@ class Service:
                 for create_delete in create_delete_list:
                     for node in self.data["site_list"]:
                         if node['login']['device_type'] == 'cisco_xr' and 'EP' in node['side']:
-                            net_connect = Netmiko(**node['login'])
                             with open(file_path + '/commands/Cisco_{}_{}_{}_Y1564.txt'.format(node["Node_name"],looptype,create_delete),'r') as f:
                                 f2 = f.readlines()
-                                output = net_connect.send_config_set(f2)
-                                net_connect.commit()
-                                net_connect.exit_config_mode()
+                                output = node['connect_obj'].send_config_set(f2)
+                                node['connect_obj'].commit()
+                                node['connect_obj'].exit_config_mode()
                                 print(output)
                                 if looptype == 'L2' and create_delete == 'create':
-                                    output = net_connect.send_command("show ethernet loopback active | in ID")
+                                    output = node['connect_obj'].send_command("show ethernet loopback active | in ID")
                                     node['loop_ID'] = re.split("\s", output)[-1]
-                                    # print(output)
-                                    # print(node['loop_ID'])
                                     with open(file_path + '/templates/Cisco_L2_loop_delete_Y1564.j2','r') as f:
                                         Temp = f.read()
                                         failure_command = Template(Temp).render(**self.data,**node)
@@ -252,16 +248,14 @@ class Service:
                                         file_open.write(failure_command)
                                         file_open.write('\n')
                                         file_open.close()
-                            net_connect.disconnect()
                         elif node['login']['device_type'] == 'accedian' and 'EP' in node['side']:
-                            net_connect = Netmiko(**node['login'])
                             with open(file_path + '/commands/Accedian_{}_{}_{}_Y1564.txt'.format(node["Node_name"],looptype,create_delete),'r') as f:
                                 f2 = f.readlines()
-                                output = net_connect.send_config_set(f2)
+                                output = node['connect_obj'].send_config_set(f2)
                                 print(output)
                                 if create_delete == "create":
                                     time.sleep(10)
-                                    output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                                    output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
                                     print(output)
                                     x = re.findall("FAILED|PROGRESS", output)
                                     if x[0] == 'FAILED':
@@ -270,17 +264,15 @@ class Service:
                                         time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 20
                                         print("***  Hold your breathe for {} seconds".format(time_to_wait))
                                         time.sleep(time_to_wait)
-                                        output = net_connect.send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
+                                        output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
                                         print(output)                             
-                                        x = re.findall("PASSED|FAILED", output)
+                                        x = re.findall("PASSED|FAILED|PROGRESS", output)
                                         if x[0] == 'PASSED':
                                             test_result[looptype] = 'pass'
                                         elif x[0] == 'FAILED':
                                             test_result[looptype] = 'fail'
                                         else:
-                                            test_result[looptype] = 'something Wrong'
-                                    
-                            net_connect.disconnect()              
+                                            test_result[looptype] = 'something Wrong,still in progress'            
         else:
             pass
         return test_result
