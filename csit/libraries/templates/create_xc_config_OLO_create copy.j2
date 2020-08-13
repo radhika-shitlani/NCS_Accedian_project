@@ -1,0 +1,40 @@
+{% if OLO_type == 'U-OLO' -%}
+{% if olo_eth_type == 's-vlan' -%}
+{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag2 = 'dot1q' -%}
+{% else -%}
+{% set ethtag1 = 'dot1q' -%}
+{% set ethtag2 = 'second-dot1q' -%}
+{% endif -%}
+{% elif OLO_type == 'U-OLO' -%}
+{% if olo_eth_type == 's-vlan' -%}
+{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag2 = 'dot1q' -%}
+{% else -%}
+{% set ethtag1 = 'dot1q' -%}
+{% set ethtag2 = 'second-dot1q' -%}
+{% endif -%}
+{% else -%}
+{% if colt_vlan_ethType == 's-vlan' -%}
+{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag2 = 'dot1q' -%}
+{% else -%}
+{% set ethtag1 = 'dot1q' -%}
+{% set ethtag2 = 'second-dot1q' -%}
+{% endif -%}
+{% endif -%}
+{% if OLO_type == 'U-OLO' -%}
+l2vpn xconnect group ALX_NCS_UOLO_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface_to_L2CPE }}.{{ item }}
+interface {{ main_interface_to_L2CPE }}.{{ item }} l2transport encapsulation default
+l2vpn xconnect group ALX_NCS_UOLO_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface_to_L2PE }}.{{ item }}
+interface {{ main_interface_to_L2PE }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ olo_vlan}}
+interface {{ main_interface_to_L2PE }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+{% elif OLO_type == 'E-OLO' -%}
+l2vpn xconnect group ALX_NCS_EOLO_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface_to_L2CPE }}.{{ item }}
+interface {{ main_interface_to_L2CPE }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ olo_vlan}}
+interface {{ main_interface_to_L2CPE }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+l2vpn xconnect group ALX_NCS_EOLO_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface_to_L2PE }}.{{ item }}
+interface {{ main_interface_to_L2PE }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ olo_vlan}}
+interface {{ main_interface_to_L2PE }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+{% else -%}
+{% endif -%}

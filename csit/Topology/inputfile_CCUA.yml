@@ -12,9 +12,9 @@ customer_vlan_ethtype: "c-vlan"
 olo_eth_type: "s-vlan"
 CCM_interval: "1s"
 config_test: 15
-performance_test: 2
-STP_percentage: 100
-OLO_type: "P-OLO"
+performance_test: 1
+STP_percentage: 95
+OLO_type: "U-OLO"
 olo_vlan: 2501
 site_list: 
  - 
@@ -30,12 +30,14 @@ site_list:
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
  - 
-  main_interface: "TenGigE0/0/0/5"
+  main_interface: "GigabitEthernet0/0/0/15"
   side: "L2PE_IP"
-  Node_name: "AR18"
+  Node_name: "AR17"
   port_type: "F-type"
+  #olo_vlan: 2501
+  #OLO_type: "U-OLO"
   login: 
-   host: "10.91.126.204"
+   host: "10.91.126.203"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
@@ -48,9 +50,23 @@ site_list:
   Nni_port: 5
   Local_MEP: 1
   Remote_MEP: 2
+  #OLO_type: "U-OLO"
   login: 
    host: "10.91.243.135"
    username: "admin"
    password: "admin"
    device_type: "accedian"
    port: 22
+OLO_site_list: 
+ - 
+  main_interface_to_L2CPE: "TenGigE0/0/0/5"
+  main_interface_to_L2PE: "GigabitEthernet0/0/0/15"
+  side: "OLO"
+  #OLO_type: "U-OLO"
+  #olo_vlan: 2501
+  Node_name: "AR18"
+  login: 
+   host: "10.91.126.204"
+   username: "dshaw1"
+   password: "N0@ught33b0y"
+   device_type: "cisco_xr"

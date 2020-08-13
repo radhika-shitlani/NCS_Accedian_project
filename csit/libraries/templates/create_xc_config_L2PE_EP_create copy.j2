@@ -31,7 +31,11 @@ interface {{ main_interface }}.{{ item }} l2transport service-policy input {{ser
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
+{% if OLO_type == 'U-OLO' or OLO_type == 'E-OLO' -%}
+evpn evi {{ 50000 + item|int }} ignore-mtu-mismatch
+{% else -%}
 evpn evi {{ 50000 + item|int }}
+{% endif -%}
 {% if CCM_REQUIRED == 'YES'-%}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} continuity-check interval {{ CCM_interval }}
@@ -40,6 +44,8 @@ ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|i
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log crosscheck errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log continuity-check mep changes
 interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{ Local_MEP}} cos {{ EXP }}
+interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile DMM{{ EXP }} target mep-id {{ Remote_MEP }}
+interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile SLM{{ EXP }} target mep-id {{ Remote_MEP }}
 {% else -%}
 {% endif -%}
 policy-map {{service_BW}}-{{QOS_type}}

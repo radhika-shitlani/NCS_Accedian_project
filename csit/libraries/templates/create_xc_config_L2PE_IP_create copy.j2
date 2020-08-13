@@ -1,16 +1,52 @@
+{% if OLO_type == 'U-OLO' -%}
+{% if olo_eth_type == 's-vlan' -%}
+{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag2 = 'dot1q' -%}
+{% else -%}
+{% set ethtag1 = 'dot1q' -%}
+{% set ethtag2 = 'second-dot1q' -%}
+{% endif -%}
+{% elif OLO_type == 'E-OLO' -%}
+{% if olo_eth_type == 's-vlan' -%}
+{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag2 = 'dot1q' -%}
+{% else -%}
+{% set ethtag1 = 'dot1q' -%}
+{% set ethtag2 = 'second-dot1q' -%}
+{% endif -%}
+{% else -%}
 {% if colt_vlan_ethType == 's-vlan' -%}
 {% set ethtag1 = 'dot1ad' -%}
 {% set ethtag2 = 'dot1q' -%}
 {% else -%}
-{% set ethtag1 = 'dot1ad' -%}
+{% set ethtag1 = 'dot1q' -%}
 {% set ethtag2 = 'second-dot1q' -%}
 {% endif -%}
+{% endif -%}
+{% if OLO_type == 'U-OLO' -%}
+interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan}} {{ethtag2}} {{ item + 100 }}
+interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+{% elif OLO_type == 'E-OLO'-%}
+{% if port_type == 'F-type' or port_type == 'Y-type' -%}
+interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
+interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+{% elif port_type == 'P-type'-%}
+interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item + 100 }}
+interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+{% elif port_type == 'X-type'-%}
+interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
+interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+{% else -%}
+{% endif -%}
+{% else -%}
 {% if port_type == 'F-type' or port_type == 'Y-type'-%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }} {{ethtag2}} {{ item }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
 {% elif port_type == 'P-type' or port_type == 'X-type'-%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+{% else -%}
+{% endif -%}
 {% endif -%}
 interface {{ main_interface }}.{{ item }} l2transport
 interface {{ main_interface }}.{{ item }} l2transport service-policy input NNI-QOS-INGRESS
@@ -18,4 +54,8 @@ interface {{ main_interface }}.{{ item }} l2transport service-policy output NNI-
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
+{% if OLO_type == 'U-OLO' or OLO_type == 'E-OLO' -%}
+evpn evi {{ 50000 + item|int }} ignore-mtu-mismatch
+{% else -%}
 evpn evi {{ 50000 + item|int }}
+{% endif -%}

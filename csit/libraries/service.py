@@ -18,9 +18,10 @@ create_delete_list = ['create','delete']
 Loop_list = ['L1','L2']
 mep_meg_dmm_slm_list = ['meg','mep','dmm','slm']
 maxhosts = 5
-dict2 = {}
+
 file_path = os.path.dirname(os.path.realpath(__file__))
 test_result = {}
+dict3 = {}
 
 class Service:
 
@@ -35,6 +36,94 @@ class Service:
         for node in self.data["site_list"]:
             node['connect_obj'].disconnect()
             print("**** disconnected successfully from node {}".format(node['Node_name']))
+    def connect_OLO_nodes(self):
+        for olo in self.data["OLO_site_list"]:
+            olo['connect_obj'] = Netmiko(**olo['login'])
+            print("**** connection established with node {}".format(olo['Node_name']))
+    def disconnect_OLO_nodes(self):
+        for olo in self.data["OLO_site_list"]:
+            olo['connect_obj'].disconnect()
+            print("**** disconnected successfully from node {}".format(olo['Node_name']))
+    def mep_statistic_accedian(self):
+        mep_name = 100000 + self.data['item']
+        dict3 = {}
+        for node in self.data["site_list"]:          
+            if node['login']['device_type'] == 'accedian':
+                print("**** {} :".format(node['Node_name']))
+                output = node['connect_obj'].send_command("cfm show mep statistics {}".format(node['index']['mep']))
+                print(output)
+                dict3[node['Node_name']] = {}
+                dict3[node['Node_name']]['tx'] = {}
+                dict3[node['Node_name']]['rx'] = {}
+                for dm_sl in ['DM','SL']:
+                    for M in ['M','R']:
+                        for i in range(7):
+                            X = re.findall("{}{} priority {}\s+:\s+\d+".format(dm_sl,M,i), output.replace(",",""))
+                            id = '{}{}_P{}'.format(dm_sl,M,i)
+                            if '{}{}'.format(dm_sl,M) == 'DMM' or '{}{}'.format(dm_sl,M) == 'SLM':
+                                if int(X[0].split()[-1]) > 0:
+                                    dict3[node['Node_name']]['tx'][id] = int(X[0].split()[-1])
+                                if int(X[1].split()[-1]) > 0:
+                                    dict3[node['Node_name']]['rx'][id] = int(X[1].split()[-1])
+                            else:
+                                if int(X[1].split()[-1]) > 0:
+                                    dict3[node['Node_name']]['tx'][id] = int(X[1].split()[-1])
+                                if int(X[0].split()[-1]) > 0:
+                                    dict3[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+            else:
+                pass                
+        return dict3
+    def mep_statistic_cisco(self):
+        mep_name = 100000 + self.data['item']
+        dict4 = {}
+        for node in self.data["site_list"]:  
+            if node['login']['device_type'] == 'cisco_xr' and 'EP' in node['side']:
+                output = node['connect_obj'].send_command("show ethernet cfm local meps domain COLT-{} service ALX_NCS_LE-{} verbose".format(self.data['MEG_level'],mep_name))
+                #print("show ethernet cfm local meps domain COLT-{} service ALX_NCS_LE-{} verbose".format(self.data['MEG_level'],mep_name))
+                #print(node)
+                print(output)
+                dict4[node['Node_name']] = {}
+                dict4[node['Node_name']]['tx'] = {}
+                dict4[node['Node_name']]['rx'] = {}
+                for dm_sl in ['DM','SL']:
+                    for M in ['M','R']:                
+                            X = re.findall("{}{}\s+\w+\s+\w+".format(dm_sl,M), output)
+                            #print(X[0].split())
+                            id = '{}{}'.format(dm_sl,M)
+                            dict4[node['Node_name']]['tx'][id] = int(X[0].split()[1])
+                            dict4[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+        return dict4
+
+    def create_commands_OLO(self):
+        for create_delete in create_delete_list:
+            for olo in self.data["OLO_site_list"]:
+                with open(file_path + '/templates/create_xc_config_{}_{} copy.j2'.format(olo["side"],create_delete),'r') as f:
+                    Temp = f.read()
+                    failure_command = Template(Temp).render(**self.data,**olo)
+                    file_open = open(file_path + '/commands/XC_command_{}_{}_OLO.txt'.format(olo["Node_name"],create_delete), 'w+')
+                    file_open.write(failure_command)
+                    file_open.write('\n')
+                    file_open.close()
+    def push_OLO_config(self):
+        for olo in self.data["OLO_site_list"]:
+            print("****  Logged in node : {}".format(olo['Node_name']))
+            with open(file_path + '/commands/XC_command_{}_create_OLO.txt'.format(olo["Node_name"]),'r') as f:
+                f2 = f.readlines()
+                output = olo['connect_obj'].send_config_set(f2)
+                print(output)
+                olo['connect_obj'].commit()
+                olo['connect_obj'].exit_config_mode()
+
+    def delete_OLO_config(self):
+        for olo in self.data["OLO_site_list"]:
+            print("****  Logged in node : {}".format(olo['Node_name']))
+            with open(file_path + '/commands/XC_command_{}_delete_OLO.txt'.format(olo["Node_name"]),'r') as f:
+                f2 = f.readlines()
+                output = olo['connect_obj'].send_config_set(f2)
+                print(output)
+                olo['connect_obj'].commit()
+                olo['connect_obj'].exit_config_mode()               
+
 
     def Command_Creation(self):                        
         for create_delete in create_delete_list:
@@ -61,8 +150,6 @@ class Service:
                 else:
                     pass
                 print("****  Configration completed on {}".format(node['Node_name']))
-        time.sleep(10)
-        print("*** wait for 10 seconds")  
 
     def check_QOS_counters_config(self):
         for node in self.data["site_list"]:

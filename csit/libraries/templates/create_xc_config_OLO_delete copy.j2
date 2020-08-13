@@ -1,0 +1,10 @@
+{% if OLO_type == 'U-OLO' -%}
+no l2vpn xconnect group ALX_NCS_UOLO_LE-{{ 100000 + item|int }}
+no interface {{ main_interface_to_L2CPE }}.{{ item }} l2transport
+no interface {{ main_interface_to_L2PE }}.{{ item }} l2transport
+{% elif OLO_type == 'E-OLO' -%}
+no l2vpn xconnect group ALX_NCS_EOLO_LE-{{ 100000 + item|int }}
+no interface {{ main_interface_to_L2CPE }}.{{ item }} l2transport
+no interface {{ main_interface_to_L2PE }}.{{ item }} l2transport
+{% else -%}
+{% endif -%}

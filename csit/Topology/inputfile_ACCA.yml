@@ -6,13 +6,15 @@ total_BW: 10000000
 service_BW: 6000000
 CIR_percentage: 25
 MEG_level: 1
-QOS_type: "Business3"
+QOS_type: "Business2"
 colt_vlan_ethType: "s-vlan"
 customer_vlan_ethtype: "c-vlan"
 CCM_interval: "1s"
-config_test: 5
-performance_test: 1
+config_test: 15
+performance_test: 2
 STP_percentage: 100
+OLO_type: "P-OLO"
+olo_vlan: 2501
 site_list: 
  - 
   main_interface: "TenGigE0/0/0/5"
@@ -36,21 +38,6 @@ site_list:
    device_type: "cisco_xr"
  - 
   side: "CPE_EP"
-  Node_name: "Accedian_LTS_87"
-  port_type: "P-type"
-  Uni_port: 9
-  Protected: "YES"
-  Nni_port: 5
-  Local_MEP: 1
-  Remote_MEP: 2
-  login: 
-   host: "10.91.121.87"
-   username: "admin"
-   password: "admin"
-   device_type: "accedian"
-   port: 22
- - 
-  side: "CPE_EP"
   Node_name: "LX_135"
   port_type: "F-type"
   Uni_port: 8
@@ -60,6 +47,21 @@ site_list:
   Remote_MEP: 1
   login: 
    host: "10.91.243.135"
+   username: "admin"
+   password: "admin"
+   device_type: "accedian"
+   port: 22
+ - 
+  side: "CPE_EP"
+  Node_name: "LTS_144"
+  port_type: "P-type"
+  Uni_port: 9
+  Protected: "YES"
+  Nni_port: 5
+  Local_MEP: 1
+  Remote_MEP: 2
+  login: 
+   host: "10.91.243.144"
    username: "admin"
    password: "admin"
    device_type: "accedian"
