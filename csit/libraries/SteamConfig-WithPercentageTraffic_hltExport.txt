@@ -9,9 +9,9 @@ if {$ret ne $logged_ret} {
 }
 puts $ret
 
-puts "\nsth::connect -device 10.91.113.124 -port_list {7/8 8/10} -break_locks 1 -offline 0"
-set ret [sth::connect -device 10.91.113.124 -port_list {7/8 8/10} -break_locks 1 -offline 0]
-set logged_ret "{offline 0} {port_handle {{10 {{91 {{113 {{124 {{7/8 port1} {8/10 port2}}}}}}}}}}} {status 1}"
+puts "\nsth::connect -device 10.91.113.124 -port_list {7/7 8/10} -break_locks 1 -offline 0"
+set ret [sth::connect -device 10.91.113.124 -port_list {7/7 8/10} -break_locks 1 -offline 0]
+set logged_ret "{offline 0} {port_handle {{10 {{91 {{113 {{124 {{7/7 port1} {8/10 port2}}}}}}}}}}} {status 1}"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
 }
@@ -33,40 +33,40 @@ if {$ret ne $logged_ret} {
 }
 puts $ret
 
-puts "\nsth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false"
-set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false]
+puts "\nsth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false"
+set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false]
 set logged_ret "00:10:94:00:00:02"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
 }
 puts $ret
 
-puts "\n::sth::mac_convert 00:10:94:00:00:03"
-set ret [::sth::mac_convert 00:10:94:00:00:03]
-set logged_ret "00:10:94:00:00:03"
+puts "\n::sth::mac_convert 01:00:5E:0B:01:02"
+set ret [::sth::mac_convert 01:00:5E:0B:01:02]
+set logged_ret "01:00:5E:0B:01:02"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
 }
 puts $ret
 
-puts "\nsth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false"
-set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false]
+puts "\nsth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false"
+set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false]
 set logged_ret "00:10:94:00:00:02"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
 }
 puts $ret
 
-puts "\n::sth::mac_convert 00:10:94:00:00:03"
-set ret [::sth::mac_convert 00:10:94:00:00:03]
-set logged_ret "00:10:94:00:00:03"
+puts "\n::sth::mac_convert 01:00:5E:0B:01:02"
+set ret [::sth::mac_convert 01:00:5E:0B:01:02]
+set logged_ret "01:00:5E:0B:01:02"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
 }
 puts $ret
 
-puts "\nsth::traffic_control -port_handle {port1 port2} -action run -duration 30"
-set ret [sth::traffic_control -port_handle {port1 port2} -action run -duration 30]
+puts "\nsth::traffic_control -port_handle {port1 port2} -action run -duration 8"
+set ret [sth::traffic_control -port_handle {port1 port2} -action run -duration 8]
 set logged_ret "{status 1}"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."
@@ -81,8 +81,8 @@ if {$ret ne $logged_ret} {
 }
 puts $ret
 
-puts "\nsth::traffic_control -port_handle {port1 port2} -action run -duration 10"
-set ret [sth::traffic_control -port_handle {port1 port2} -action run -duration 10]
+puts "\nsth::traffic_control -port_handle {port1 port2} -action run -duration 20"
+set ret [sth::traffic_control -port_handle {port1 port2} -action run -duration 20]
 set logged_ret "{status 1}"
 if {$ret ne $logged_ret} {
     puts "<warning>NOT same return value as logged result."

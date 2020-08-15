@@ -1,13 +1,13 @@
 ############# HLT2STC Mapping Log File #############
 
 
-sth::connect -device 10.91.113.124 -port_list {7/8 8/10} -break_locks 1 -offline 0
+sth::connect -device 10.91.113.124 -port_list {7/7 8/10} -break_locks 1 -offline 0
 stc::create project
 ::stc::get project1 -parent
 ::stc::get system1 -children-sequencer
 stc::connect 10.91.113.124
-stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8
-stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true
+stc::create Port -under project1 -location 10.91.113.124/7/7 -name 10.91.113.124-7-7
+stc::perform ReservePort -Location 10.91.113.124/7/7 -RevokeOwner true
 stc::get port1 -children-generator
 stc::get generator1 -children-generatorconfig
 stc::config generatorconfig1 -SchedulingMode RATE_BASED
@@ -63,29 +63,53 @@ stc::perform ArpNdStart -HandleList port2
 stc::get port2 -children-Ethernet10GigCopper
 
 
-sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false
+sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false
 
 
-::sth::mac_convert 00:10:94:00:00:03
+::sth::mac_convert 01:00:5E:0B:01:02
 ::stc::create streamBlock -under port1 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true
 stc::perform StreamBlockUpdate -streamblock streamblock1
 stc::get streamblock1 -children
 ::stc::delete ethernet:ethernetii3
 ::stc::delete ipv4:ipv43
+stc::get port1 -children-generator
+stc::get generator1 -children-generatorconfig
+stc::config generatorconfig1 -DurationMode CONTINUOUS -BurstSize 1
+stc::config streamblock1 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port2 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0
+::stc::create ethernet:EthernetII -under streamblock1 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02
+stc::get ethernet:ethernetii5 -children
+::stc::create vlans -under ethernet:ethernetii5
+::stc::create vlan -under vlans3 -type 88a8 -id 2405 -pri 011
+stc::get ethernet:ethernetii5 -children
+::stc::create vlan -under vlans3 -type 8100 -id 2305 -pri 010
+stc::perform StreamBlockUpdate -streamblock streamblock1
+stc::get streamblock1 -children
 
 
-sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii -vlan_tpid 33024 -vlan_id 100 -vlan_user_priority 2 -l3_protocol ipv4 -ip_id 0 -ip_src_addr 192.85.1.2 -ip_dst_addr 192.0.0.1 -ip_ttl 255 -ip_hdr_length 5 -ip_protocol 253 -ip_fragment_offset 0 -ip_mbz 0 -ip_precedence 0 -ip_tos_field 0 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:03 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 6000 -transmit_mode multi_burst -inter_stream_gap 12 -rate_mbps 400 -mac_discovery_gw 192.85.1.1 -enable_stream false
+sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2405 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2305 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 01:00:5E:0B:01:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 98 -enable_stream false
 
 
-::sth::mac_convert 00:10:94:00:00:03
+::sth::mac_convert 01:00:5E:0B:01:02
 ::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true
 stc::perform StreamBlockUpdate -streamblock streamblock2
 stc::get streamblock2 -children
-::stc::delete ethernet:ethernetii6
-::stc::delete ipv4:ipv46
+::stc::delete ethernet:ethernetii9
+::stc::delete ipv4:ipv47
+stc::get port2 -children-generator
+stc::get generator2 -children-generatorconfig
+stc::config generatorconfig2 -DurationMode CONTINUOUS -BurstSize 1
+stc::config streamblock2 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port1 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0
+::stc::create ethernet:EthernetII -under streamblock2 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02
+stc::get ethernet:ethernetii11 -children
+::stc::create vlans -under ethernet:ethernetii11
+::stc::create vlan -under vlans7 -type 88a8 -id 2405 -pri 011
+stc::get ethernet:ethernetii11 -children
+::stc::create vlan -under vlans7 -type 8100 -id 2305 -pri 010
+stc::perform StreamBlockUpdate -streamblock streamblock2
+stc::get streamblock2 -children
 
 
-sth::traffic_control -port_handle {port1 port2} -action run -duration 30
+sth::traffic_control -port_handle {port1 port2} -action run -duration 8
 stc::get project1 -children-port
 stc::get port1 -children-generator
 stc::get generator1.GeneratorConfig -DurationMode
@@ -93,10 +117,10 @@ stc::get port2 -children-generator
 stc::get generator2.GeneratorConfig -DurationMode
 stc::get port1 -children-generator
 stc::get generator1 -children-generatorconfig
-stc::config generatorconfig1 -DurationMode SECONDS -Duration 30
+stc::config generatorconfig1 -DurationMode SECONDS -Duration 8
 stc::get port2 -children-generator
 stc::get generator2 -children-generatorconfig
-stc::config generatorconfig2 -DurationMode SECONDS -Duration 30
+stc::config generatorconfig2 -DurationMode SECONDS -Duration 8
 stc::get project1 -children-port
 stc::get port1 -children-generator
 stc::get generator1.GeneratorConfig -DurationMode
@@ -122,14 +146,14 @@ sth::traffic_control -port_handle {port1 port2} -action clear_stats
 stc::perform ResultsClearAll -PortList {port1 port2}
 
 
-sth::traffic_control -port_handle {port1 port2} -action run -duration 10
+sth::traffic_control -port_handle {port1 port2} -action run -duration 20
 stc::get project1 -children-port
 stc::get port1 -children-generator
 stc::get generator1 -children-generatorconfig
-stc::config generatorconfig1 -DurationMode SECONDS -Duration 10
+stc::config generatorconfig1 -DurationMode SECONDS -Duration 20
 stc::get port2 -children-generator
 stc::get generator2 -children-generatorconfig
-stc::config generatorconfig2 -DurationMode SECONDS -Duration 10
+stc::config generatorconfig2 -DurationMode SECONDS -Duration 20
 stc::get project1 -children-port
 stc::get port1 -children-generator
 stc::get generator1.GeneratorConfig -DurationMode
@@ -247,7 +271,7 @@ stc::get port1 -children-streamblock
 stc::get port2 -children-streamblock
 stc::perform DeleteCommand -ConfigList {streamblock1 streamblock2}
 stc::get port1 -online
-stc::release 10.91.113.124/7/8
+stc::release 10.91.113.124/7/7
 stc::delete port1
 stc::get port2 -online
 stc::release 10.91.113.124/8/10

@@ -35,18 +35,16 @@ def onnet_CCM_Y1564_ACCA(A,B):
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
-    # my_config.parse_accedian()
-    # my_config.Command_Creation()
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
-    #test_result['DMM_Stats'] = my_config.mep_statistic_accedian()
-    #test_result['Loop_test'] = my_config.Y1564_test()
-    #my_config.check_QOS_counters_config()
+    test_result['Loop_test'] = my_config.Y1564_test()
+    test_result['CFM_Stats_ACC'] = my_config.mep_statistic_accedian()
+    my_config.check_QOS_counters_config()
     my_config.delete_config()
     my_config.disconnect_nodes()
     return test_result
 
-result['FF'] = onnet_CCM_Y1564_ACCA('F','F')
+#result['FF'] = onnet_CCM_Y1564_ACCA('F','F')
 result['XX'] = onnet_CCM_Y1564_ACCA('X','X')
 # result['PP'] = onnet_CCM_Y1564_ACCA('P','P')
 # result['XP'] = onnet_CCM_Y1564_ACCA('X','P')

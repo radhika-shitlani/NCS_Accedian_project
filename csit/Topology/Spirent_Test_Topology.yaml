@@ -2,7 +2,7 @@ Spirent_Test_Topology:
    Spirent_Chassis_ip: '10.91.113.124'
    Number_of_ports: 2
    Port_Values:
-      Port1: 7/8
+      Port1: 7/7
       Port2: 8/10
    Port_Speed:
       Port1_Speed: 'ether10000'

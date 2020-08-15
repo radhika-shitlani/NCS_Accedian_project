@@ -7,13 +7,13 @@ service_BW: 1000000
 CIR_percentage: 25
 MEG_level: 1
 QOS_type: "Business2"
-colt_vlan_ethType: "c-vlan"
+colt_vlan_ethType: "s-vlan"
 customer_vlan_ethtype: "c-vlan"
 olo_eth_type: "s-vlan"
 CCM_interval: "1s"
-config_test: 15
-performance_test: 2
-STP_percentage: 100
+config_test: 5
+performance_test: 1
+STP_percentage: 98
 OLO_type: "P-OLO"
 olo_vlan: 2501
 site_list: 
@@ -30,26 +30,26 @@ site_list:
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
  - 
-  main_interface: "TenGigE0/0/0/5"
+  main_interface: "Bundle-Ether112"
   side: "L2PE_IP"
-  Node_name: "AR18"
-  port_type: "F-type"
+  port_type: "P-type"
+  Node_name: "AR11"
   login: 
-   host: "10.91.126.204"
+   host: "10.91.126.195"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
  - 
   side: "CPE_EP"
-  Node_name: "LX_135"
-  port_type: "F-type"
-  Uni_port: 8
-  Protected: "NO"
+  Node_name: "LTS_144"
+  port_type: "P-type"
+  Uni_port: 9
+  Protected: "YES"
   Nni_port: 5
   Local_MEP: 1
   Remote_MEP: 2
   login: 
-   host: "10.91.243.135"
+   host: "10.91.243.144"
    username: "admin"
    password: "admin"
    device_type: "accedian"

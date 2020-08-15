@@ -24,12 +24,12 @@ puts "stc::connect 10.91.113.124"
 set status [stc::connect 10.91.113.124]
 puts $status
 
-puts "stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8"
-set status [stc::create Port -under project1 -location 10.91.113.124/7/8 -name 10.91.113.124-7-8]
+puts "stc::create Port -under project1 -location 10.91.113.124/7/7 -name 10.91.113.124-7-7"
+set status [stc::create Port -under project1 -location 10.91.113.124/7/7 -name 10.91.113.124-7-7]
 puts $status
 
-puts "stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true"
-set status [stc::perform ReservePort -Location 10.91.113.124/7/8 -RevokeOwner true]
+puts "stc::perform ReservePort -Location 10.91.113.124/7/7 -RevokeOwner true"
+set status [stc::perform ReservePort -Location 10.91.113.124/7/7 -RevokeOwner true]
 puts $status
 
 puts "stc::get port1 -children-generator"
@@ -240,6 +240,54 @@ puts "::stc::delete ipv4:ipv43"
 set status [::stc::delete ipv4:ipv43]
 puts $status
 
+puts "stc::get port1 -children-generator"
+set status [stc::get port1 -children-generator]
+puts $status
+
+puts "stc::get generator1 -children-generatorconfig"
+set status [stc::get generator1 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig1 -DurationMode CONTINUOUS -BurstSize 1"
+set status [stc::config generatorconfig1 -DurationMode CONTINUOUS -BurstSize 1]
+puts $status
+
+puts "stc::config streamblock1 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port2 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0"
+set status [stc::config streamblock1 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port2 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0]
+puts $status
+
+puts "::stc::create ethernet:EthernetII -under streamblock1 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02"
+set status [::stc::create ethernet:EthernetII -under streamblock1 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02]
+puts $status
+
+puts "stc::get ethernet:ethernetii5 -children"
+set status [stc::get ethernet:ethernetii5 -children]
+puts $status
+
+puts "::stc::create vlans -under ethernet:ethernetii5"
+set status [::stc::create vlans -under ethernet:ethernetii5]
+puts $status
+
+puts "::stc::create vlan -under vlans3 -type 88a8 -id 2405 -pri 011"
+set status [::stc::create vlan -under vlans3 -type 88a8 -id 2405 -pri 011]
+puts $status
+
+puts "stc::get ethernet:ethernetii5 -children"
+set status [stc::get ethernet:ethernetii5 -children]
+puts $status
+
+puts "::stc::create vlan -under vlans3 -type 8100 -id 2305 -pri 010"
+set status [::stc::create vlan -under vlans3 -type 8100 -id 2305 -pri 010]
+puts $status
+
+puts "stc::perform StreamBlockUpdate -streamblock streamblock1"
+set status [stc::perform StreamBlockUpdate -streamblock streamblock1]
+puts $status
+
+puts "stc::get streamblock1 -children"
+set status [stc::get streamblock1 -children]
+puts $status
+
 puts "::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true"
 set status [::stc::create streamBlock -under port2 -frameconfig {} -EnableStreamOnlyGeneration true -ShowAllHeaders true]
 puts $status
@@ -252,12 +300,60 @@ puts "stc::get streamblock2 -children"
 set status [stc::get streamblock2 -children]
 puts $status
 
-puts "::stc::delete ethernet:ethernetii6"
-set status [::stc::delete ethernet:ethernetii6]
+puts "::stc::delete ethernet:ethernetii9"
+set status [::stc::delete ethernet:ethernetii9]
 puts $status
 
-puts "::stc::delete ipv4:ipv46"
-set status [::stc::delete ipv4:ipv46]
+puts "::stc::delete ipv4:ipv47"
+set status [::stc::delete ipv4:ipv47]
+puts $status
+
+puts "stc::get port2 -children-generator"
+set status [stc::get port2 -children-generator]
+puts $status
+
+puts "stc::get generator2 -children-generatorconfig"
+set status [stc::get generator2 -children-generatorconfig]
+puts $status
+
+puts "stc::config generatorconfig2 -DurationMode CONTINUOUS -BurstSize 1"
+set status [stc::config generatorconfig2 -DurationMode CONTINUOUS -BurstSize 1]
+puts $status
+
+puts "stc::config streamblock2 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port1 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0"
+set status [stc::config streamblock2 -FrameLengthMode fixed -FixedFrameLength 9100 -FillType CONSTANT -ConstantFillPattern 0 -EnableTxPortSendingTrafficToSelf false -LoadUnit MEGABITS_PER_SECOND -Load 98 -name Test_StreamBlock -EnableFcsErrorInsertion 0 -Active 1 -ExpectedRx-targets port1 -InsertSig true -EnableHighSpeedResultAnalysis 1 -EnableControlPlane 0]
+puts $status
+
+puts "::stc::create ethernet:EthernetII -under streamblock2 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02"
+set status [::stc::create ethernet:EthernetII -under streamblock2 -dstMac 01:00:5E:0B:01:02 -srcMac 00:10:94:00:00:02]
+puts $status
+
+puts "stc::get ethernet:ethernetii11 -children"
+set status [stc::get ethernet:ethernetii11 -children]
+puts $status
+
+puts "::stc::create vlans -under ethernet:ethernetii11"
+set status [::stc::create vlans -under ethernet:ethernetii11]
+puts $status
+
+puts "::stc::create vlan -under vlans7 -type 88a8 -id 2405 -pri 011"
+set status [::stc::create vlan -under vlans7 -type 88a8 -id 2405 -pri 011]
+puts $status
+
+puts "stc::get ethernet:ethernetii11 -children"
+set status [stc::get ethernet:ethernetii11 -children]
+puts $status
+
+puts "::stc::create vlan -under vlans7 -type 8100 -id 2305 -pri 010"
+set status [::stc::create vlan -under vlans7 -type 8100 -id 2305 -pri 010]
+puts $status
+
+puts "stc::perform StreamBlockUpdate -streamblock streamblock2"
+set status [stc::perform StreamBlockUpdate -streamblock streamblock2]
+puts $status
+
+puts "stc::get streamblock2 -children"
+set status [stc::get streamblock2 -children]
 puts $status
 
 puts "stc::get project1 -children-port"
@@ -288,8 +384,8 @@ puts "stc::get generator1 -children-generatorconfig"
 set status [stc::get generator1 -children-generatorconfig]
 puts $status
 
-puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 30"
-set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 30]
+puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 8"
+set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 8]
 puts $status
 
 puts "stc::get port2 -children-generator"
@@ -300,8 +396,8 @@ puts "stc::get generator2 -children-generatorconfig"
 set status [stc::get generator2 -children-generatorconfig]
 puts $status
 
-puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 30"
-set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 30]
+puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 8"
+set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 8]
 puts $status
 
 puts "stc::get project1 -children-port"
@@ -396,8 +492,8 @@ puts "stc::get generator1 -children-generatorconfig"
 set status [stc::get generator1 -children-generatorconfig]
 puts $status
 
-puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 10"
-set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 10]
+puts "stc::config generatorconfig1 -DurationMode SECONDS -Duration 20"
+set status [stc::config generatorconfig1 -DurationMode SECONDS -Duration 20]
 puts $status
 
 puts "stc::get port2 -children-generator"
@@ -408,8 +504,8 @@ puts "stc::get generator2 -children-generatorconfig"
 set status [stc::get generator2 -children-generatorconfig]
 puts $status
 
-puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 10"
-set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 10]
+puts "stc::config generatorconfig2 -DurationMode SECONDS -Duration 20"
+set status [stc::config generatorconfig2 -DurationMode SECONDS -Duration 20]
 puts $status
 
 puts "stc::get project1 -children-port"
@@ -844,8 +940,8 @@ puts "stc::get port1 -online"
 set status [stc::get port1 -online]
 puts $status
 
-puts "stc::release 10.91.113.124/7/8"
-set status [stc::release 10.91.113.124/7/8]
+puts "stc::release 10.91.113.124/7/7"
+set status [stc::release 10.91.113.124/7/7]
 puts $status
 
 puts "stc::delete port1"
