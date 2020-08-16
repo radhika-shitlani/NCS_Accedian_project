@@ -1,0 +1,25 @@
+interface TenGigE0/0/0/5.2305 l2transport encapsulation dot1q 2305
+interface TenGigE0/0/0/5.2305 l2transport
+interface TenGigE0/0/0/5.2305 l2transport service-policy input 1000000-Business2
+l2vpn xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305
+l2vpn xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 interface TenGigE0/0/0/5.2305
+l2vpn xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 neighbor evpn evi 52305 target 52305 source 52305
+evpn evi 52305
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305 continuity-check interval 1s
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305 mep crosscheck mep-id 1
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305 log continuity-check errors
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305 log crosscheck errors
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102305 xconnect group ALX_NCS_LE-102305 p2p ALX_NCS_LE-102305 id icc-based LE XXX-102305 log continuity-check mep changes
+interface TenGigE0/0/0/5.2305 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102305 mep-id 2 cos 2
+interface TenGigE0/0/0/5.2305 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102305 mep-id 2 sla operation profile DMM2 target mep-id 1
+interface TenGigE0/0/0/5.2305 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102305 mep-id 2 sla operation profile SLM2 target mep-id 1
+policy-map 1000000-Business2
+ class class-default
+  police rate 1000000 kbps burst 1100 kbytes
+  !
+  set traffic-class 4
+  set qos-group 2
+ !
+ end-policy-map
+!

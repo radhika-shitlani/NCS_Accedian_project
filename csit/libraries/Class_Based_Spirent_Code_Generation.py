@@ -86,7 +86,8 @@ class Spirent_L2_Traffic_Gen:
 		else:
 			print("\nFailed to retrieve port handle!\n")
 		#		print(self.port_handle)
-		print(self.port_handle)
+		for j in range(len(self.port_list)):
+			print("**** {} is {}".format(self.port_handle[j],self.port_list[j]))
 		##############################################################
 		# Spirent Ports configuration
 		##############################################################
@@ -141,7 +142,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 1500
+			self.Frame_Size = 9100
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -154,21 +155,20 @@ class Spirent_L2_Traffic_Gen:
 			self.Rate_Mbps = kwargs['Rate_Mbps']
 		else:
 			self.Rate_Mbps = 100
-		print("Inside Init, Remove this print after testing")
 		streamblock_ret = sth.traffic_config(
 			mode='create',
 			port_handle=self.port_handle[src_port_handle_index],
-			l3_protocol='ipv4',
-			ip_id='0',
-			ip_src_addr='192.85.1.2',
-			ip_dst_addr='192.0.0.1',
-			ip_ttl='255',
-			ip_hdr_length='5',
-			ip_protocol='253',
-			ip_fragment_offset='0',
-			ip_mbz='0',
-			ip_precedence='0',
-			ip_tos_field='0',
+			# l3_protocol='ipv4',
+			# ip_id='0',
+			# ip_src_addr='192.85.1.2',
+			# ip_dst_addr='192.0.0.1',
+			# ip_ttl='255',
+			# ip_hdr_length='5',
+			# ip_protocol='253',
+			# ip_fragment_offset='0',
+			# ip_mbz='0',
+			# ip_precedence='0',
+			# ip_tos_field='0',
 			mac_src=self.mac_src,
 			mac_dst=self.mac_dst,
 			enable_control_plane='0',
@@ -187,12 +187,13 @@ class Spirent_L2_Traffic_Gen:
 			enable_stream_only_gen='1',
 			pkts_per_burst='1',
 			inter_stream_gap_unit='bytes',
-			burst_loop_count='6000',
-			transmit_mode='multi_burst',
+			burst_loop_count='30',
+			transmit_mode='continuous',
 			inter_stream_gap='12',
 			rate_mbps=self.Rate_Mbps,
-			mac_discovery_gw='192.85.1.1',
+			# mac_discovery_gw='192.85.1.1',
 			enable_stream='false');
+		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
 		return(streamblock_ret)
 	# config part is finished
 
@@ -221,17 +222,17 @@ class Spirent_L2_Traffic_Gen:
 		streamblock_ret = sth.traffic_config(
 			mode='create',
 			port_handle=self.port_handle[src_port_handle_index],
-			l3_protocol='ipv4',
-			ip_id='0',
-			ip_src_addr='192.85.1.2',
-			ip_dst_addr='192.0.0.1',
-			ip_ttl='255',
-			ip_hdr_length='5',
-			ip_protocol='253',
-			ip_fragment_offset='0',
-			ip_mbz='0',
-			ip_precedence='0',
-			ip_tos_field='0',
+			# l3_protocol='ipv4',
+			# ip_id='0',
+			# ip_src_addr='192.85.1.2',
+			# ip_dst_addr='192.0.0.1',
+			# ip_ttl='255',
+			# ip_hdr_length='5',
+			# ip_protocol='253',
+			# ip_fragment_offset='0',
+			# ip_mbz='0',
+			# ip_precedence='0',
+			# ip_tos_field='0',
 			mac_src=self.mac_src,
 			mac_dst=self.mac_dst,
 			enable_control_plane='0',
@@ -250,12 +251,13 @@ class Spirent_L2_Traffic_Gen:
 			enable_stream_only_gen='1',
 			pkts_per_burst='1',
 			inter_stream_gap_unit='bytes',
-			burst_loop_count='6000',
-			transmit_mode='multi_burst',
+			burst_loop_count='30',
+			transmit_mode='continuous',
 			inter_stream_gap='12',
 			rate_pps=self.rate_pps,
-			mac_discovery_gw='192.85.1.1',
+			# mac_discovery_gw='192.85.1.1',
 			enable_stream='false');
+		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
 		return(streamblock_ret)
 	# config part is finished
 	def Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_Mbps(self,src_port_handle_index,dest_port_handle_index,**kwargs):
@@ -409,17 +411,17 @@ class Spirent_L2_Traffic_Gen:
 			vlan_tpid = self.vlan_tpid,
 			vlan_id = self.vlan_id,
 			vlan_user_priority = self.vlan_user_priority,
-			l3_protocol='ipv4',
-			ip_id='0',
-			ip_src_addr='192.85.1.2',
-			ip_dst_addr='192.0.0.1',
-			ip_ttl='255',
-			ip_hdr_length='5',
-			ip_protocol='253',
-			ip_fragment_offset='0',
-			ip_mbz='0',
-			ip_precedence='0',
-			ip_tos_field='0',
+			# l3_protocol='ipv4',
+			# ip_id='0',
+			# ip_src_addr='192.85.1.2',
+			# ip_dst_addr='192.0.0.1',
+			# ip_ttl='255',
+			# ip_hdr_length='5',
+			# ip_protocol='253',
+			# ip_fragment_offset='0',
+			# ip_mbz='0',
+			# ip_precedence='0',
+			# ip_tos_field='0',
 			mac_src=self.mac_src,
 			mac_dst=self.mac_dst,
 			enable_control_plane='0',
@@ -438,12 +440,13 @@ class Spirent_L2_Traffic_Gen:
 			enable_stream_only_gen='1',
 			pkts_per_burst='1',
 			inter_stream_gap_unit='bytes',
-			burst_loop_count='6000',
-			transmit_mode='multi_burst',
+			burst_loop_count='30',
+			transmit_mode='continuous',
 			inter_stream_gap='12',
 			rate_mbps=self.Rate_Mbps,
-			mac_discovery_gw='192.85.1.1',
+			# mac_discovery_gw='192.85.1.1',
 			enable_stream='false');
+		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
 		return(streamblock_ret)
 	# config part is finished
 	def Stream_Config_Creation_Single_Tagged_VLAN_Mbps(self,src_port_handle_index,dest_port_handle_index,**kwargs):
@@ -480,10 +483,6 @@ class Spirent_L2_Traffic_Gen:
 		else:
 			self.vlan_user_priority = '2'
 		self.l2_encap = 'ethernet_ii_vlan'
-		print("Rate mbps is {}".format(self.Rate_Mbps))
-		print("vlan is {}".format(self.vlan_id))
-		print("ether type is {}".format(self.vlan_tpid))
-		print("Inside Init, Remove this print after testing")
 		streamblock_ret = sth.traffic_config(
 			mode='create',
 			port_handle=self.port_handle[src_port_handle_index],
@@ -491,17 +490,17 @@ class Spirent_L2_Traffic_Gen:
 			vlan_tpid = self.vlan_tpid,
 			vlan_id = self.vlan_id,
 			vlan_user_priority = self.vlan_user_priority,
-			l3_protocol='ipv4',
-			ip_id='0',
-			ip_src_addr='192.85.1.2',
-			ip_dst_addr='192.0.0.1',
-			ip_ttl='255',
-			ip_hdr_length='5',
-			ip_protocol='253',
-			ip_fragment_offset='0',
-			ip_mbz='0',
-			ip_precedence='0',
-			ip_tos_field='0',
+			# l3_protocol='ipv4',
+			# ip_id='0',
+			# ip_src_addr='192.85.1.2',
+			# ip_dst_addr='192.0.0.1',
+			# ip_ttl='255',
+			# ip_hdr_length='5',
+			# ip_protocol='253',
+			# ip_fragment_offset='0',
+			# ip_mbz='0',
+			# ip_precedence='0',
+			# ip_tos_field='0',
 			mac_src=self.mac_src,
 			mac_dst=self.mac_dst,
 			enable_control_plane='0',
@@ -520,12 +519,13 @@ class Spirent_L2_Traffic_Gen:
 			enable_stream_only_gen='1',
 			pkts_per_burst='1',
 			inter_stream_gap_unit='bytes',
-			burst_loop_count='6000',
-			transmit_mode='multi_burst',
+			burst_loop_count='30',
+			transmit_mode='continuous',
 			inter_stream_gap='12',
 			rate_mbps=self.Rate_Mbps,
-			mac_discovery_gw='192.85.1.1',
+			# mac_discovery_gw='192.85.1.1',
 			enable_stream='false');
+		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
 		return(streamblock_ret)
 	# config part is finished
 	def Generate_Stream_Traffic(self, StreamBlock):
@@ -584,7 +584,6 @@ class Spirent_L2_Traffic_Gen:
 		if (status == '0'):
 			print("run sth.traffic_control failed")
 		# print(traffic_ctrl_ret)
-		print("**** Traffic stopped")
 		time.sleep(30)
 		print("**** checking traffic statistic")
 
@@ -661,7 +660,7 @@ class Spirent_L2_Traffic_Gen:
 		return OverallStatus
 	
 	def Validate_Traffic_Result2(self):
-		print(self.port_handle)
+		#print(self.port_handle)
 		portA = self.port_handle[0]
 		portB = self.port_handle[1]
 		deviceA_tx = self.traffic_result[portA]['aggregate']['tx']['pkt_count']
