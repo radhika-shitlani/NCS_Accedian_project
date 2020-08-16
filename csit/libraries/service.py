@@ -312,7 +312,7 @@ class Service:
                             print("**** {} templating done on node {} ".format(create_delete,node['Node_name']))
                             with open(file_path + '/commands/Accedian_{}_{}_Y1564.txt'.format(node["Node_name"],create_delete),'r') as f:
                                 f2 = f.readlines()
-                                output = node['connect_obj'].send_config_set(f2)
+                                output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
                                 print(output)
                             if create_delete == "create":
                                 time.sleep(10)
@@ -401,7 +401,7 @@ class Service:
                         elif node['login']['device_type'] == 'accedian' and 'EP' in node['side']:
                             with open(file_path + '/commands/Accedian_{}_{}_{}_Y1564.txt'.format(node["Node_name"],looptype,create_delete),'r') as f:
                                 f2 = f.readlines()
-                                output = node['connect_obj'].send_config_set(f2)
+                                output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
                                 print(output)
                                 if create_delete == "create":
                                     time.sleep(10)

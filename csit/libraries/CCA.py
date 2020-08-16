@@ -37,7 +37,7 @@ def onnet_CCA(A,B):
     my_config.parse_accedian()
     my_config.Command_Creation()
     my_config.push_config()
-    time.sleep(20)
+    time.sleep(10)
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
@@ -94,7 +94,7 @@ def onnet_CCA(A,B):
 
 # result['FF'] = onnet_CCA('F','F')
 # result['XX'] = onnet_CCA('X','X')
-# result['PP'] = onnet_CCA('P','P')
+result['PP'] = onnet_CCA('P','P')
 # result['XP'] = onnet_CCA('X','P')
 # result['PX'] = onnet_CCA('P','X')
 # result['FY'] = onnet_CCA('F','Y')

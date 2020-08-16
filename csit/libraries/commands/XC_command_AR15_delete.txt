@@ -3,3 +3,4 @@ no l2vpn xconnect group ALX_NCS_LE-102305
 ethernet cfm domain COLT-1 level 1 id null
 no service ALX_NCS_LE-102305
 no policy-map 1000000-Business2
+no evpn evi 52305
