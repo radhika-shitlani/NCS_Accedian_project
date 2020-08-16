@@ -133,6 +133,149 @@ class Spirent_L2_Traffic_Gen:
 					print("run sth.interface_config failed")
 				# print(int_ret0)
 
+	def Spirent_VLAN_Transperancy_Traffic_Testing_For_P2P_Service(self,src_port_handle_index,dest_port_handle_index,**kwargs):
+		if 'Stream_Name' in kwargs.keys():
+			self.Stream_Name = kwargs['Stream_Name']
+		else:
+			self.Stream_Name = 'Test_StreamBlock'
+		if 'Frame_Size' in kwargs.keys():
+			self.Frame_Size = kwargs['Frame_Size']
+		else:
+			self.Frame_Size = 9100
+		if 'MAC_Src' in kwargs.keys():
+			self.mac_src = kwargs['MAC_Src']
+		else:
+			self.mac_src = '00:10:94:00:00:02'
+		if 'MAC_Dest' in kwargs.keys():
+			self.mac_dst = kwargs['MAC_Dest']
+		else:
+			self.mac_dst = '00:10:94:00:00:03'
+		if 'Rate_Mbps' in kwargs.keys():
+			self.Rate_Mbps = kwargs['Rate_Mbps']
+		else:
+			self.Rate_Mbps = 100
+		if 'VLAN_EtherType' in kwargs.keys():
+			self.vlan_tpid = str(int(kwargs['VLAN_EtherType'], 10))
+		else:
+			self.vlan_tpid = '33024'
+		if 'VLAN_ID' in kwargs.keys():
+			self.vlan_id = str(int(kwargs['VLAN_ID'], 10))
+		else:
+			self.vlan_id = '100'
+		if 'VLAN_Priority' in kwargs.keys():
+			self.vlan_user_priority = str(int(kwargs['Inner_VLAN_Priority'], 10))
+		else:
+			self.vlan_user_priority = '2'
+		self.l2_encap = 'ethernet_ii_vlan'
+		streamblock_ret = sth.traffic_config(
+			mode='create',
+			port_handle=self.port_handle[src_port_handle_index],
+			l2_encap=self.l2_encap,
+			vlan_tpid = self.vlan_tpid,
+			# vlan_id = self.vlan_id,
+			vlan_id='1',
+			vlan_id_repeat='0',
+			vlan_id_mode='increment',
+			vlan_id_count='4000',
+			vlan_id_step='1',
+			vlan_user_priority = self.vlan_user_priority,
+			mac_src=self.mac_src,
+			mac_dst=self.mac_dst,
+			enable_control_plane='0',
+			l3_length='4978',
+			name=self.Stream_Name,
+			fill_type='constant',
+			fcs_error='0',
+			fill_value='0',
+			frame_size=self.Frame_Size,
+			traffic_state='1',
+			high_speed_result_analysis='1',
+			length_mode='fixed',
+			dest_port_list=self.port_handle[dest_port_handle_index],
+			tx_port_sending_traffic_to_self_en='false',
+			disable_signature='0',
+			enable_stream_only_gen='1',
+			pkts_per_burst='1',
+			inter_stream_gap_unit='bytes',
+			burst_loop_count='30',
+			transmit_mode='continuous',
+			inter_stream_gap='12',
+			rate_mbps=self.Rate_Mbps,
+			# mac_discovery_gw='192.85.1.1',
+			enable_stream='false');
+		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
+		return(streamblock_ret)
+	# config part is finished
+
+	def Spirent_MAC_Transperancy_Traffic_Testing_For_P2P_Service(self,src_port_handle_index,dest_port_handle_index,**kwargs):
+		if 'Stream_Name' in kwargs.keys():
+			self.Stream_Name = kwargs['Stream_Name']
+		else:
+			self.Stream_Name = 'Test_StreamBlock'
+		if 'Frame_Size' in kwargs.keys():
+			self.Frame_Size = kwargs['Frame_Size']
+		else:
+			self.Frame_Size = 9100
+		if 'MAC_Src' in kwargs.keys():
+			self.mac_src = kwargs['MAC_Src']
+		else:
+			self.mac_src = '00:10:94:00:00:02'
+		if 'MAC_Dest' in kwargs.keys():
+			self.mac_dst = kwargs['MAC_Dest']
+		else:
+			self.mac_dst = '00:10:94:00:00:03'
+		if 'Rate_Mbps' in kwargs.keys():
+			self.Rate_Mbps = kwargs['Rate_Mbps']
+		else:
+			self.Rate_Mbps = 100
+		if 'VLAN_EtherType' in kwargs.keys():
+			self.vlan_tpid = str(int(kwargs['VLAN_EtherType'], 10))
+		else:
+			self.vlan_tpid = '33024'
+		if 'VLAN_ID' in kwargs.keys():
+			self.vlan_id = str(int(kwargs['VLAN_ID'], 10))
+		else:
+			self.vlan_id = '100'
+		if 'VLAN_Priority' in kwargs.keys():
+			self.vlan_user_priority = str(int(kwargs['Inner_VLAN_Priority'], 10))
+		else:
+			self.vlan_user_priority = '2'
+		streamblock_ret = sth.traffic_config(
+			mode='create',
+			port_handle=self.port_handle[src_port_handle_index],
+			mac_dst_mode='random',
+			mac_dst_repeat_count='0',
+			mac_dst_count='1',
+			mac_src_count='1',
+			mac_src_mode='random',
+			mac_src_repeat_count='0',
+			mac_src=self.mac_src,
+			mac_dst=self.mac_dst,
+			enable_control_plane='0',
+			l3_length='4978',
+			name=self.Stream_Name,
+			fill_type='constant',
+			fcs_error='0',
+			fill_value='0',
+			frame_size=self.Frame_Size,
+			traffic_state='1',
+			high_speed_result_analysis='1',
+			length_mode='fixed',
+			dest_port_list=self.port_handle[dest_port_handle_index],
+			tx_port_sending_traffic_to_self_en='false',
+			disable_signature='0',
+			enable_stream_only_gen='1',
+			pkts_per_burst='1',
+			inter_stream_gap_unit='bytes',
+			burst_loop_count='30',
+			transmit_mode='continuous',
+			inter_stream_gap='12',
+			rate_mbps=self.Rate_Mbps,
+			# mac_discovery_gw='192.85.1.1',
+			enable_stream='false');
+		#print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
+		return(streamblock_ret)
+	# config part is finished
 
 	def Stream_Config_Creation_Without_VLAN_Mbps(self,src_port_handle_index,dest_port_handle_index,**kwargs):
 		if 'Stream_Name' in kwargs.keys():
