@@ -54,5 +54,4 @@ site_list:
    password: "admin"
    device_type: "accedian"
    port: 22
-   global_cmd_verify: False
-   conn_timeout: 30
+   global_delay_factor: 4
