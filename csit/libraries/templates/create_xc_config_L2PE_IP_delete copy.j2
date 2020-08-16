@@ -1,2 +1,3 @@
 no interface {{ main_interface }}.{{ item }}
 no l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }}
+no evpn evi {{ 50000 + item|int }}

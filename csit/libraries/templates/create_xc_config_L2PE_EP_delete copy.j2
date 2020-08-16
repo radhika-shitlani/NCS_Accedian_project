@@ -3,3 +3,4 @@ no l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }}
 ethernet cfm domain COLT-1 level {{MEG_level}} id null
 no service ALX_NCS_LE-{{ 100000 + item|int }}
 no policy-map {{service_BW}}-{{QOS_type}}
+no evpn evi {{ 50000 + item|int }}
