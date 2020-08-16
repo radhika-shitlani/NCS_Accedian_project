@@ -54,4 +54,3 @@ site_list:
    password: "admin"
    device_type: "accedian"
    port: 22
-   global_delay_factor: 4
