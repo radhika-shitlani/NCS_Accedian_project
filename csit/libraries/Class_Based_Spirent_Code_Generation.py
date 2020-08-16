@@ -176,7 +176,7 @@ class Spirent_L2_Traffic_Gen:
 			vlan_id='1',
 			vlan_id_repeat='0',
 			vlan_id_mode='increment',
-			vlan_id_count='4000',
+			vlan_id_count='4095',
 			vlan_id_step='1',
 			vlan_user_priority = self.vlan_user_priority,
 			mac_src=self.mac_src,

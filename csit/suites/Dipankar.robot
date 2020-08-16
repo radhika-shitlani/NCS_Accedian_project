@@ -21,9 +21,12 @@ onnet_CCA
     ${test_result}    onnet_CCA    P    P
     log to console    ${test_result}
     run keyword and continue on failure    dictionary should not contain value    ${test_result['ccm_status']}    fail
-    #run keyword and continue on failure    dictionary should not contain value    ${test_result['Loop_test']}    fail
-    #run keyword and continue on failure    dictionary should not contain value    ${test_result['PP']['Spirent_MT_traffic']}    fail
-    #run keyword and continue on failure    dictionary should not contain value    ${test_result['PP']['Spirent_VT_traffic']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Loop_test']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Spirent_UC_traffic']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Spirent_BC_traffic']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Spirent_MC_traffic']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Spirent_MT_traffic']}    fail
+    run keyword and continue on failure    dictionary should not contain value    ${test_result['Spirent_VT_traffic']}    fail
     #run keyword and continue on failure    dictionary should not contain value    ${test_result}    fail
 
 
