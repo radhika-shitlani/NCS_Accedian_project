@@ -15,3 +15,4 @@
 [2020-08-16 18:46:58]: Executing: <package require SpirentHltApi>
 [2020-08-16 18:47:17]: Return value: <4.67>
 [2020-08-16 18:47:17]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-08-16 18:52:45]: Client connection has been broken.  Exiting.
