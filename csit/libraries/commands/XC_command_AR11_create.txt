@@ -1,5 +1,3 @@
-interface Bundle-Ether112.2305 l2transport encapsulation dot1ad 2405
-interface Bundle-Ether112.2305 l2transport rewrite ingress tag pop 1 symmetric
 interface Bundle-Ether112.2305 l2transport
 interface Bundle-Ether112.2305 l2transport service-policy input NNI-QOS-INGRESS
 interface Bundle-Ether112.2305 l2transport service-policy output NNI-QOS-EGRESS

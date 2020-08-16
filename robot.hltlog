@@ -1,17 +1,17 @@
-[2020-08-16 14:13:13]: Started process.  Command line: 
-[2020-08-16 14:13:13]:      port number: 60617
-[2020-08-16 14:13:13]:    timeout value: 120
-[2020-08-16 14:13:13]:       log option: log
-[2020-08-16 14:13:13]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project
-[2020-08-16 14:13:13]:    log file name: robot.hltlog
-[2020-08-16 14:13:13]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project
-[2020-08-16 14:13:13]: Sourcing initialization file "stcinit.srv".
-[2020-08-16 14:13:13]: Connecting to port 60617 on 127.0.0.1.
-[2020-08-16 14:13:13]: Creating server socket.
-[2020-08-16 14:13:13]: Generated port number: 37447
-[2020-08-16 14:13:13]: Setting up timeout check.
-[2020-08-16 14:13:13]: Waiting for client connection.
-[2020-08-16 14:13:13]: Client connection from 127.0.0.1 port 47908.
-[2020-08-16 14:13:13]: Executing: <package require SpirentHltApi>
-[2020-08-16 14:13:33]: Return value: <4.67>
-[2020-08-16 14:13:33]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-16 14:21:31]: Started process.  Command line: 
+[2020-08-16 14:21:32]:      port number: 40423
+[2020-08-16 14:21:32]:    timeout value: 120
+[2020-08-16 14:21:32]:       log option: log
+[2020-08-16 14:21:32]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-16 14:21:32]:    log file name: robot.hltlog
+[2020-08-16 14:21:32]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project
+[2020-08-16 14:21:32]: Sourcing initialization file "stcinit.srv".
+[2020-08-16 14:21:32]: Connecting to port 40423 on 127.0.0.1.
+[2020-08-16 14:21:32]: Creating server socket.
+[2020-08-16 14:21:32]: Generated port number: 33999
+[2020-08-16 14:21:32]: Setting up timeout check.
+[2020-08-16 14:21:32]: Waiting for client connection.
+[2020-08-16 14:21:32]: Client connection from 127.0.0.1 port 46318.
+[2020-08-16 14:21:32]: Executing: <package require SpirentHltApi>
+[2020-08-16 14:21:51]: Return value: <4.67>
+[2020-08-16 14:21:51]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project
