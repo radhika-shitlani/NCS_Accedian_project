@@ -180,14 +180,17 @@ class Service:
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
-                print(output)    
+                # output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
+                # print(output)    
                 if node['login']['device_type'] == 'cisco_xr':
+                    output = node['connect_obj'].send_config_set(f2)
+                    print(output)
                     node['connect_obj'].commit()
                     node['connect_obj'].exit_config_mode()
                 else:
-                    pass
-                print("****  Configration completed on {}".format(node['Node_name']))
+                    output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
+                    print(output)
+            print("****  Configration completed on {}".format(node['Node_name']))
 
     def check_QOS_counters_config(self):
         for node in self.data["site_list"]:
@@ -208,13 +211,16 @@ class Service:
         for node in self.data["site_list"]:
             with open(file_path + '/commands/XC_command_{}_delete.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                output = node['connect_obj'].send_config_set(f2)
-                print(output)
+                # output = node['connect_obj'].send_config_set(f2)
+                # print(output)
                 if node['login']['device_type'] == 'cisco_xr':
+                    output = node['connect_obj'].send_config_set(f2)
+                    print(output)
                     node['connect_obj'].commit()
                     node['connect_obj'].exit_config_mode()
                 else:
-                    pass
+                    output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
+                    print(output)
 
     def parse_accedian(self):
         for node in self.data["site_list"]:
