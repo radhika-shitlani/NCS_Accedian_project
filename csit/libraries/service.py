@@ -239,15 +239,17 @@ class Service:
                     template = open(file_path + '/TEXTFSM/accedian_show_{}_index.textfsm'.format(mep_meg_dmm_slm))
                     re_table = textfsm.TextFSM(template)
                     fsm_results = re_table.ParseText(output)
-                    if mep_meg_dmm_slm == 'meg':
-                        node['index']['del_meg'] = 1
-                        for rows in fsm_results:
-                            if rows[1] == 'LEXXX-{}'.format(100000 + self.data['item']):
-                                node['index']['del_meg'] = int(rows[0])
+                    # if mep_meg_dmm_slm == 'meg':
+                    #     node['index']['del_meg'] = 1
+                    #     for rows in fsm_results:
+                    #         if rows[1] == 'LEXXX-{}'.format(100000 + self.data['item']):
+                    #             node['index']['del_meg'] = int(rows[0])
                     if len(fsm_results) == 0:
                         node['index'][mep_meg_dmm_slm] = 1
                     else:                   
                         node['index'][mep_meg_dmm_slm] = int(fsm_results[-1][0]) + 1
+                    if mep_meg_dmm_slm == 'meg':
+                        node['index']['del_meg'] = node['index'][mep_meg_dmm_slm]
                 print("****  persing completed on {}".format(node['Node_name']))
                 print(node['index'])
 
