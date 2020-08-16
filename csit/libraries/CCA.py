@@ -37,7 +37,7 @@ def onnet_CCA(A,B):
     my_config.parse_accedian()
     my_config.Command_Creation()
     my_config.push_config()
-    time.sleep(10)
+    time.sleep(30)
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     # test_result['Loop_test'] = my_config.Y1564_test()
