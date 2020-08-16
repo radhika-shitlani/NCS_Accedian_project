@@ -39,13 +39,13 @@ def onnet_CCM_Y1564_CCA(A,B):
     time.sleep(10)
     test_result = {}
     # test_result['ccm_status'] = my_config.Validate_ccm()
-    # #test_result['Loop_test'] = my_config.Y1564_test()
+    # test_result['Loop_test'] = my_config.Y1564_test()
     # input_dict = {}
     # input_dict = my_config.create_spirent_input_dict()
     # pprint(input_dict)
     # Spirent_L2_Gen = Create_Spirent_L2_Gen()
     # Spirent_L2_Gen.Port_Init()
-    # for tr in ['UC','BC']:
+    # for tr in ['UC','BC','MC']:
     #     if A == 'Y':
     #         StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_Mbps(0,1,**input_dict['Spirent_2TAG_AZ'][tr])
     #     elif A == 'F' or A == 'X':
@@ -66,9 +66,9 @@ def onnet_CCM_Y1564_CCA(A,B):
     #     Spirent_L2_Gen.delete_streams_clear_counters()
 
     # Spirent_L2_Gen.Clean_Up_Spirent()
-    # test_result['CFM_Stats_Acc'] = my_config.mep_statistic_accedian()
-    # test_result['CFM_Stats_cisco'] = my_config.mep_statistic_cisco()
-    # my_config.check_QOS_counters_config()
+    test_result['CFM_Stats_Acc'] = my_config.mep_statistic_accedian()
+    test_result['CFM_Stats_cisco'] = my_config.mep_statistic_cisco()
+    my_config.check_QOS_counters_config()
     my_config.parse_accedian()
     my_config.Command_Creation()
     my_config.delete_config()

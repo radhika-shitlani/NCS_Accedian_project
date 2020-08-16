@@ -83,27 +83,30 @@ class Service:
         dict3 = {}
         for node in self.data["site_list"]:          
             if node['login']['device_type'] == 'accedian':
-                print("**** {} :".format(node['Node_name']))
-                output = node['connect_obj'].send_command("cfm show mep statistics {}".format(node['index']['mep']))
-                print(output)
-                dict3[node['Node_name']] = {}
-                dict3[node['Node_name']]['tx'] = {}
-                dict3[node['Node_name']]['rx'] = {}
-                for dm_sl in ['DM','SL']:
-                    for M in ['M','R']:
-                        for i in range(7):
-                            X = re.findall("{}{} priority {}\s+:\s+\d+".format(dm_sl,M,i), output.replace(",",""))
-                            id = '{}{}_P{}'.format(dm_sl,M,i)
-                            if '{}{}'.format(dm_sl,M) == 'DMM' or '{}{}'.format(dm_sl,M) == 'SLM':
-                                if int(X[0].split()[-1]) > 0:
-                                    dict3[node['Node_name']]['tx'][id] = int(X[0].split()[-1])
-                                if int(X[1].split()[-1]) > 0:
-                                    dict3[node['Node_name']]['rx'][id] = int(X[1].split()[-1])
-                            else:
-                                if int(X[1].split()[-1]) > 0:
-                                    dict3[node['Node_name']]['tx'][id] = int(X[1].split()[-1])
-                                if int(X[0].split()[-1]) > 0:
-                                    dict3[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+                try:
+                    print("**** {} :".format(node['Node_name']))
+                    output = node['connect_obj'].send_command("cfm show mep statistics {}".format(node['index']['mep']))
+                    print(output)
+                    dict3[node['Node_name']] = {}
+                    dict3[node['Node_name']]['tx'] = {}
+                    dict3[node['Node_name']]['rx'] = {}
+                    for dm_sl in ['DM','SL']:
+                        for M in ['M','R']:
+                            for i in range(7):
+                                X = re.findall("{}{} priority {}\s+:\s+\d+".format(dm_sl,M,i), output.replace(",",""))
+                                id = '{}{}_P{}'.format(dm_sl,M,i)
+                                if '{}{}'.format(dm_sl,M) == 'DMM' or '{}{}'.format(dm_sl,M) == 'SLM':
+                                    if int(X[0].split()[-1]) > 0:
+                                        dict3[node['Node_name']]['tx'][id] = int(X[0].split()[-1])
+                                    if int(X[1].split()[-1]) > 0:
+                                        dict3[node['Node_name']]['rx'][id] = int(X[1].split()[-1])
+                                else:
+                                    if int(X[1].split()[-1]) > 0:
+                                        dict3[node['Node_name']]['tx'][id] = int(X[1].split()[-1])
+                                    if int(X[0].split()[-1]) > 0:
+                                        dict3[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+                except:
+                    print("**** something went Wrong Accedian MEP stats could not be checked ")
             else:
                 pass                
         return dict3
@@ -112,20 +115,21 @@ class Service:
         dict4 = {}
         for node in self.data["site_list"]:  
             if node['login']['device_type'] == 'cisco_xr' and 'EP' in node['side']:
-                output = node['connect_obj'].send_command("show ethernet cfm local meps domain COLT-{} service ALX_NCS_LE-{} verbose".format(self.data['MEG_level'],mep_name))
-                #print("show ethernet cfm local meps domain COLT-{} service ALX_NCS_LE-{} verbose".format(self.data['MEG_level'],mep_name))
-                #print(node)
-                print(output)
-                dict4[node['Node_name']] = {}
-                dict4[node['Node_name']]['tx'] = {}
-                dict4[node['Node_name']]['rx'] = {}
-                for dm_sl in ['DM','SL']:
-                    for M in ['M','R']:                
-                            X = re.findall("{}{}\s+\w+\s+\w+".format(dm_sl,M), output)
-                            #print(X[0].split())
-                            id = '{}{}'.format(dm_sl,M)
-                            dict4[node['Node_name']]['tx'][id] = int(X[0].split()[1])
-                            dict4[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+                try:
+                    output = node['connect_obj'].send_command("show ethernet cfm local meps domain COLT-{} service ALX_NCS_LE-{} verbose".format(self.data['MEG_level'],mep_name))
+                    print(output)
+                    dict4[node['Node_name']] = {}
+                    dict4[node['Node_name']]['tx'] = {}
+                    dict4[node['Node_name']]['rx'] = {}
+                    for dm_sl in ['DM','SL']:
+                        for M in ['M','R']:                
+                                X = re.findall("{}{}\s+\w+\s+\w+".format(dm_sl,M), output)
+                                #print(X[0].split())
+                                id = '{}{}'.format(dm_sl,M)
+                                dict4[node['Node_name']]['tx'][id] = int(X[0].split()[1])
+                                dict4[node['Node_name']]['rx'][id] = int(X[0].split()[-1])
+                except:
+                    print("*** something went Wrong, Cisco MEP Stats Could not be checked")
         return dict4
 
     def create_commands_OLO(self):
@@ -176,10 +180,8 @@ class Service:
             print("****  Logged in node : {}".format(node['Node_name']))
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
-                for cmd in f2:
-                    output = node['connect_obj'].send_config_set(cmd)
-                    print(output)
-                    time.sleep(4)       
+                output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
+                print(output)    
                 if node['login']['device_type'] == 'cisco_xr':
                     node['connect_obj'].commit()
                     node['connect_obj'].exit_config_mode()
