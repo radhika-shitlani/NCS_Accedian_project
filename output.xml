@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.1.2 (Python 3.6.9 on linux)" generated="20200816 14:36:38.893" rpa="false">
+<robot generator="Robot 3.1.2 (Python 3.6.9 on linux)" generated="20200816 15:20:15.338" rpa="false">
 <suite id="s1" name="Dipankar" source="/home/colt123/Dipankar/NCS_Accedian_project/csit/suites/Dipankar.robot">
 <test id="s1-t1" name="onnet_CCA">
 <kw name="Onnet CCA" library="CCA">
 <arguments>
-<arg>A ='P'</arg>
-<arg>B ='P'</arg>
+<arg>P</arg>
+<arg>P</arg>
 </arguments>
 <assign>
 <var>${test_result}</var>
 </assign>
-<msg timestamp="20200816 14:39:13.107" level="INFO">!
+<msg timestamp="20200816 15:22:44.218" level="INFO">!
 !!
-************** Test A ='P'B ='P' type EP ************* 
+************** Test PP type EP ************* 
 !!!!!!
 **** connection established with node AR15
 **** connection established with node AR11
@@ -23,7 +23,7 @@
 ****  Logged in node : AR15
 configure terminal
 
-RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2305 l2transport encapsulation dot1q 2305
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2305 l2transport encapsulation default
 
 RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2305 l2transport
 
@@ -78,6 +78,10 @@ RP/0/RP0/CPU0:ar15.BLB(config)#
 ****  Logged in node : AR11
 configure terminal
 
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2305 l2transport encapsulation dot1ad 2405
+
+RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2305 l2transport rewrite ingress tag pop 1 symmetric
+
 RP/0/RP0/CPU0:ar11.BLB(config)#interface Bundle-Ether112.2305 l2transport
 
 RP/0/RP0/CPU0:ar11.BLB(config-subif)#interface Bundle-Ether112.2305 l2transport service-policy input NNI-QOS-INGRESS
@@ -100,14 +104,24 @@ RP/0/RP0/CPU0:ar11.BLB(config-evpn-instance)#
 bandwidth-regulator add regulator U9_ALX/NCS/LE-102305 cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
 C122-0787: bandwidth-regulator add regulator N5_ALX/NCS/LE-102305  cir 1000000 cir-max 1000000 cbs 100 eir 0 eir-max 0 ebs 10 color-mode blind coupling-flag false
 C122-0787: vid-set add N5_ALX/NCS/LE-102305 policy-list Traffic-5 vlan-type s-vlan vid-list 2405
+C122-0787: policy edit Traffic-5 14 state enable action permit pre-marking green regulator enable N5_ALX/NCS/LE-102305 filter vlan N5_ALX/NCS/LE-102305 evc-encapsulation pop cos-mapping direct green-cfi 0 green-pcp 2 yellow-cfi 0 yellow-pcp 2 out-port PORT-9
+C122-0787: policy edit Traffic-9 14 state enable action permit pre-marking green regulator enable U9_ALX/NCS/LE-102305 filter l2 *default evc-encapsulation push evc-ethertype s-vlan evc-vlan-id 2405 cos-mapping direct green-cfi 0 green-pcp 2 yellow-cfi 0 yellow-pcp 2 out-port LAG-3
+C122-0787: cfm add meg name LEXXX-102305 name-format icc-based ccm-interval 1000 index 4 mhf-creation none sndr-id-perm none  level 1 rmep-auto-discovery disable mepid-list 1,2 vid-list 2405 vlan-type s-vlan
+C122-0787: cfm add mep name LEXXX-102305|1|2  active yes index 1 direction down cci-enable yes ccm-seq-number enable meg-idx 4 lowest-alarm-pri macRemErrXconAis mep-id 1 port LAG-3 priority 2 pvid 2405
+C122-0787: cfm add dmm name ALX/NCS/LE-102305|1|1|2 index 1 enable yes  interval 1000 mep-idx 1 ow-ad-threshold 125 ow-adv-threshold 4 ow-delay enable ow-delay-threshold 4 ow-dv enable ow-dv-threshold 10  ow-max-delay 125 ow-max-dv 50  priority 2 reference-period 15  rmep-id 2 tw-ad-threshold 250 tw-adv-threshold 10 tw-delay enable tw-delay-threshold 4 tw-dv enable tw-dv-threshold 4  tw-max-delay 250 tw-max-dv 10
+C122-0787: cfm add slm name ALX/NCS/LE-102305|1|1|2 index 1 far-end-threshold 100000  interval 100 mep-idx 1 near-end-threshold 100000 priority 2 reference-period 15  rmep-id 2 state enable
+C122-0787: sa add service ALX/NCS/LE-102305|1|1|2 window-size 5 hli-window-size 3 time-interval 20 reporting-period 5
+C122-0787: sa add metric ALX/NCS/LE-102305|1|1|2 ALX/NCS/LE-102305|1|1|2F slm-far-end-plr ALX/NCS/LE-102305|1|1|2 threshold 100000
+C122-0787: sa add metric ALX/NCS/LE-102305|1|1|2 ALX/NCS/LE-102305|1|1|2N slm-near-end-plr ALX/NCS/LE-102305|1|1|2 threshold 100000
+C122-0787: sa edit service ALX/NCS/LE-102305|1|1|2 state IS
 C122-0787: 
 C122-0787: 
 ****  Configration completed on LTS_144
-**** AR15 : CCm did not came Up
-LTS_144 : CCm did not came Up
+**** AR15 : ccm is UP
+LTS_144 : ccm is UP
 ****  Logged in node : LTS_144
 ****  persing completed on LTS_144
-{'del_meg': 1, 'meg': 4, 'mep': 1, 'dmm': 1, 'slm': 1}
+{'del_meg': 4, 'meg': 5, 'mep': 2, 'dmm': 2, 'slm': 2}
 configure terminal
 
 RP/0/RP0/CPU0:ar15.BLB(config)#no interface TenGigE0/0/0/5.2305
@@ -128,24 +142,27 @@ RP/0/RP0/CPU0:ar11.BLB(config)#no interface Bundle-Ether112.2305
 RP/0/RP0/CPU0:ar11.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102305
 
 RP/0/RP0/CPU0:ar11.BLB(config)#
-policy edit Traffic-5 11 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
+C122-0787: policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0
 C122-0787: bandwidth-regulator delete regulator U9_ALX/NCS/LE-102305
 C122-0787: bandwidth-regulator delete regulator N5_ALX/NCS/LE-102305
 C122-0787: vid-set delete N5_ALX/NCS/LE-102305
+C122-0787: cfm delete meg 4
+C122-0787: sa delete service ALX/NCS/LE-102305|1|1|2
 C122-0787: 
 C122-0787: 
 **** disconnected successfully from node AR15
 **** disconnected successfully from node AR11
 **** disconnected successfully from node LTS_144</msg>
-<msg timestamp="20200816 14:39:13.108" level="INFO">${test_result} = {'ccm_status': {'AR15': 'fail', 'LTS_144': 'fail'}}</msg>
-<status status="PASS" starttime="20200816 14:37:59.151" endtime="20200816 14:39:13.108"></status>
+<msg timestamp="20200816 15:22:44.219" level="INFO">${test_result} = {'ccm_status': {'AR15': 'pass', 'LTS_144': 'pass'}}</msg>
+<status status="PASS" starttime="20200816 15:21:30.602" endtime="20200816 15:22:44.219"></status>
 </kw>
 <kw name="Log To Console" library="BuiltIn">
 <doc>Logs the given message to the console.</doc>
 <arguments>
 <arg>${test_result}</arg>
 </arguments>
-<status status="PASS" starttime="20200816 14:39:13.109" endtime="20200816 14:39:13.110"></status>
+<status status="PASS" starttime="20200816 15:22:44.220" endtime="20200816 15:22:44.221"></status>
 </kw>
 <kw name="Run Keyword And Continue On Failure" library="BuiltIn">
 <doc>Runs the keyword and continues execution even if a failure occurs.</doc>
@@ -160,12 +177,11 @@ C122-0787:
 <arg>${test_result['ccm_status']}</arg>
 <arg>fail</arg>
 </arguments>
-<msg timestamp="20200816 14:39:13.112" level="FAIL">Dictionary contains value 'fail'.</msg>
-<status status="FAIL" starttime="20200816 14:39:13.111" endtime="20200816 14:39:13.112"></status>
+<status status="PASS" starttime="20200816 15:22:44.222" endtime="20200816 15:22:44.223"></status>
 </kw>
-<status status="FAIL" starttime="20200816 14:39:13.110" endtime="20200816 14:39:13.112"></status>
+<status status="PASS" starttime="20200816 15:22:44.221" endtime="20200816 15:22:44.223"></status>
 </kw>
-<status status="FAIL" starttime="20200816 14:37:59.150" endtime="20200816 14:39:13.113" critical="yes">Dictionary contains value 'fail'.</status>
+<status status="PASS" starttime="20200816 15:21:30.601" endtime="20200816 15:22:44.223" critical="yes"></status>
 </test>
 <doc>A test suite with tests for P2P conenctivity between Cisco-Cisco-Accedian
 Topology:-
@@ -179,17 +195,17 @@ Date 12 Dec 2017
 Executed At HOST
 Test Framework Robot Framework Python</item>
 </metadata>
-<status status="FAIL" starttime="20200816 14:36:38.894" endtime="20200816 14:39:13.115"></status>
+<status status="PASS" starttime="20200816 15:20:15.339" endtime="20200816 15:22:44.225"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1">Critical Tests</stat>
-<stat pass="0" fail="1">All Tests</stat>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" id="s1" name="Dipankar">Dipankar</stat>
+<stat pass="1" fail="0" id="s1" name="Dipankar">Dipankar</stat>
 </suite>
 </statistics>
 <errors>

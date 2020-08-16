@@ -18,16 +18,14 @@ Resource          ../libraries/Resource.robot
 *** Test Cases ***
 
 onnet_CCA
-    ${test_result}    onnet_CCA    A ='P'    B ='P'
-    #${CCA_resultnt_traffic_gen}    Create Spirent L2 Gen    Ether_Speed='ether1000'    Stream_Name='Spirent_Class_Test'    Frame_Size=2000    Rate_Mbps=100
-    #${spirent_traffic_result}=    Call method    ${spirent_traffic_gen}    Generate_Traffic
-    #log to console    ${spirent_traffic}
+    ${test_result}    onnet_CCA    P    P
     log to console    ${test_result}
     run keyword and continue on failure    dictionary should not contain value    ${test_result['ccm_status']}    fail
     #run keyword and continue on failure    dictionary should not contain value    ${test_result['Loop_test']}    fail
     #run keyword and continue on failure    dictionary should not contain value    ${test_result['PP']['Spirent_MT_traffic']}    fail
     #run keyword and continue on failure    dictionary should not contain value    ${test_result['PP']['Spirent_VT_traffic']}    fail
     #run keyword and continue on failure    dictionary should not contain value    ${test_result}    fail
+
 
 
 *** Keywords ***

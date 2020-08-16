@@ -97,7 +97,7 @@ def onnet_CCA(A,B):
 
 # result['FF'] = onnet_CCA('F','F')
 # result['XX'] = onnet_CCA('X','X')
-result['PP'] = onnet_CCA('P','P')
+# result['PP'] = onnet_CCA('P','P')
 # result['XP'] = onnet_CCA('X','P')
 # result['PX'] = onnet_CCA('P','X')
 # result['FY'] = onnet_CCA('F','Y')
