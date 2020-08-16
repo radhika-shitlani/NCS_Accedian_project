@@ -177,7 +177,7 @@ class Service:
             with open(file_path + '/commands/XC_command_{}_create.txt'.format(node["Node_name"]),'r') as f:
                 f2 = f.readlines()
                 for cmd in f2:
-                    output = node['connect_obj'].send_config_set(f2)
+                    output = node['connect_obj'].send_config_set(cmd)
                     print(output)
                     time.sleep(4)       
                 if node['login']['device_type'] == 'cisco_xr':
