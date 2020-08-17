@@ -31,7 +31,7 @@ def spirent_items():
     return (Booked_ports, interface_config, Stream_config, Spirent_Test_Infra)
 
 
-def Spirent_VLAN_Transperancy_Traffic_Testing_For_P2P_Service():
+def Spirent_VLAN_Transperancy_Traffic_Testing_For_P2P_Service1():
     Booked_ports, Interface_config, Stream_config, Spirent_Test_Infra = spirent_items()
     Number_of_ports = Spirent_Test_Infra['Number_of_ports']
 
@@ -311,7 +311,7 @@ def Spirent_VLAN_Transperancy_Traffic_Testing_For_P2P_Service():
     return OverallStatus
 
 
-def Spirent_MAC_Transperancy_Traffic_Testing_For_P2P_Service():
+def Spirent_MAC_Transperancy_Traffic_Testing_For_P2P_Service1():
     Booked_ports, Interface_config, Stream_config, Spirent_Test_Infra = spirent_items()
     Number_of_ports = Spirent_Test_Infra['Number_of_ports']
 
