@@ -35,6 +35,7 @@ def onnet_CCM_Y1564_ACCA(A,B):
     my_config = Service(**dict1)
     my_config.Command_Creation()
     my_config.push_config()
+    time.sleep(10)
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()

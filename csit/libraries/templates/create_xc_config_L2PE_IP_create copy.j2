@@ -39,10 +39,10 @@ interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 
 {% else -%}
 {% endif -%}
 {% else -%}
-{% if port_type == 'F-type' or port_type == 'Y-type'-%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }} {{ethtag2}} {{ item }}
+{% if port_type == 'Y-type'-%}
+interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
-{% elif port_type == 'P-type' or port_type == 'X-type'-%}
+{% elif port_type == 'P-type' or port_type == 'X-type' or port_type == 'F-type' -%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
 {% else -%}
@@ -51,11 +51,21 @@ interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 
 interface {{ main_interface }}.{{ item }} l2transport
 interface {{ main_interface }}.{{ item }} l2transport service-policy input NNI-QOS-INGRESS
 interface {{ main_interface }}.{{ item }} l2transport service-policy output NNI-QOS-EGRESS
+{% if ELAN -%}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit maximum 100
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit action no-flood
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mtu 1500
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} evi {{ 50000 + item|int }}
+evpn evi {{ 50000 + item|int }} advertise-mac
+{% else -%}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
-{% if OLO_type == 'U-OLO' or OLO_type == 'E-OLO' -%}
-evpn evi {{ 50000 + item|int }} ignore-mtu-mismatch
-{% else -%}
 evpn evi {{ 50000 + item|int }}
 {% endif -%}
+evpn evi {{ 50000 + item|int }} bgp rd 8220001:{{ 5000 + UID|int + item|int }}
+evpn evi {{ 50000 + item|int }} bgp route-target import 8220001:{{ 50000 + item|int }}
+evpn evi {{ 50000 + item|int }} bgp route-target export 8220001:{{ 50000 + item|int }}
+

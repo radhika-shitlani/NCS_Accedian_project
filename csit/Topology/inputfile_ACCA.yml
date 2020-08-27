@@ -1,9 +1,9 @@
 QOS_REQUIRED: "YES"
 Flat_QOS: "YES"
-CCM_REQUIRED: "YES"
+CCM_REQUIRED: "NO"
 item: 2305
 total_BW: 10000000
-service_BW: 10000000
+service_BW: 500000
 CIR_percentage: 25
 MEG_level: 1
 QOS_type: "Business2"
@@ -13,6 +13,7 @@ CCM_interval: "1s"
 config_test: 5
 performance_test: 1
 STP_percentage: 100
+ELAN: True
 OLO_type: "P-OLO"
 olo_vlan: 2501
 site_list: 

@@ -28,15 +28,24 @@ interface {{ main_interface }}.{{ item }} l2transport encapsulation dot1q {{ ite
 {% endif -%}
 interface {{ main_interface }}.{{ item }} l2transport
 interface {{ main_interface }}.{{ item }} l2transport service-policy input {{service_BW}}-{{QOS_type}}
+{% if ELAN -%}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit maximum 100
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit action no-flood
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mtu 1500
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} evi {{ 50000 + item|int }}
+evpn evi {{ 50000 + item|int }} advertise-mac
+{% else -%}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
-{% if OLO_type == 'U-OLO' or OLO_type == 'E-OLO' -%}
-evpn evi {{ 50000 + item|int }} ignore-mtu-mismatch
-{% else -%}
 evpn evi {{ 50000 + item|int }}
 {% endif -%}
-{% if CCM_REQUIRED == 'YES'-%}
+evpn evi {{ 50000 + item|int }} bgp rd 8220001:{{ 5000 + UID|int + item|int }}
+evpn evi {{ 50000 + item|int }} bgp route-target import 8220001:{{ 50000 + item|int }}
+evpn evi {{ 50000 + item|int }} bgp route-target export 8220001:{{ 50000 + item|int }}
+{% if CCM_REQUIRED == 'YES' -%}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} continuity-check interval {{ CCM_interval }}
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} mep crosscheck mep-id {{ Remote_MEP }}

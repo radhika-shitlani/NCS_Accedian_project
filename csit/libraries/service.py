@@ -225,7 +225,7 @@ class Service:
     def parse_accedian(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr':
-                pass
+                node['UID'] = int(node['login']['host'].split('.')[-1])
             else:          
                 
                 print("****  Logged in node : {}".format(node['Node_name']))

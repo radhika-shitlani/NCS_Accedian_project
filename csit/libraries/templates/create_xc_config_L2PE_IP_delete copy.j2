@@ -1,3 +1,7 @@
 no interface {{ main_interface }}.{{ item }}
+{% if ELAN -%}
+no l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }}
+{% else -%}
 no l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }}
+{% endif -%}
 no evpn evi {{ 50000 + item|int }}

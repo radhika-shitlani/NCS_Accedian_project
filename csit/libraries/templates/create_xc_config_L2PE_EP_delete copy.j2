@@ -1,6 +1,13 @@
 no interface {{ main_interface }}.{{ item }}
+{% if ELAN -%}
+no l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }}
+{% else -%}
 no l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }}
+{% endif -%}
+{% if CCM_REQUIRED == 'YES'-%}
 ethernet cfm domain COLT-1 level {{MEG_level}} id null
 no service ALX_NCS_LE-{{ 100000 + item|int }}
+{% else -%}
+{% endif -%}
 no policy-map {{service_BW}}-{{QOS_type}}
 no evpn evi {{ 50000 + item|int }}

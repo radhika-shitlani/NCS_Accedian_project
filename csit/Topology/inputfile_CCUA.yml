@@ -1,6 +1,6 @@
 QOS_REQUIRED: "YES"
 Flat_QOS: "YES"
-CCM_REQUIRED: "YES"
+CCM_REQUIRED: "NO"
 item: 2305
 total_BW: 10000000
 service_BW: 1000000
@@ -15,6 +15,7 @@ config_test: 15
 performance_test: 1
 STP_percentage: 95
 OLO_type: "U-OLO"
+ELAN: True
 olo_vlan: 2501
 site_list: 
  - 

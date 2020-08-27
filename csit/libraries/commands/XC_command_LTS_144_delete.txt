@@ -1,8 +1,0 @@
-policy edit Traffic-5 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0 
-policy edit Traffic-9 14 state disable action permit pre-marking green regulator disable monitor disable map1-state disable map2-state disable evc-encapsulation none evc-ethertype c-vlan evc-vlan-id 0 evc-ethertype2 c-vlan evc-vlan-id2 0 cos-mapping preserve map1-type pcp-vlan map2-type pcp-vlan map1-regulator-set disable green-cfi 0 green-pcp 0 yellow-cfi 0 yellow-pcp 0 
-bandwidth-regulator delete regulator U9_ALX/NCS/LE-102305
-bandwidth-regulator delete regulator N5_ALX/NCS/LE-102305
-vid-set delete N5_ALX/NCS/LE-102305
-cfm delete meg 4
-sa delete service ALX/NCS/LE-102305|1|1|2
-
