@@ -1,0 +1,365 @@
+
+OS: Linux, 4.15.0-112-generic, unix; Tcl version: 8.5.19
+
+SpirentTestCenter Automation Version: 4.70.9706.0000
+Hlt Api (Ver. 4.67) was successfully loaded and initialized
+Internal Version: 4.67GA.0116
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 68, Load Size: 100
+
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 68, Load Size: 99
+
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 68, Load Size: 98
+
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 68, Load Size: 97
+
+the exit state is COMPLETED
+Current OS: Linux,4.15.0-112-generic,#113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020; python version: 3.6.9
+Connecting Tcl server via port 38677
+Loading SpirentHltApi...
+Loaded SpirentHltApi: STCSERVER_RET_SUCCESS:4.67
+
+!
+!!
+************** Test YF type EP ************* 
+!!!!!!
+**** connection established with node AR15
+**** connection established with node AR5
+****  Logged in node : AR15
+configure terminal
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport encapsulation dot1ad 2409 dot1q 2309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport
+
+RP/0/RP0/CPU0:ar15.BLB(config-subif)#interface TenGigE0/0/0/5.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar15.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 interface TenGigE0/0/0/5.2309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 neighbor evpn evi 52309 target 52309 source 52309
+
+RP/0/RP0/CPU0:ar15.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52309
+
+RP/0/RP0/CPU0:ar15.BLB(config-evpn-instance)#evpn evi 52309 bgp rd 8220001:7510
+
+RP/0/RP0/CPU0:ar15.BLB(config)#evpn evi 52309 bgp route-target import 8220001:52309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#evpn evi 52309 bgp route-target export 8220001:52309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309
+
+RP/0/RP0/CPU0:ar15.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 mep crosscheck mep-id 1
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check errors
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log crosscheck errors
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 cos 2
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 sla operation profile DMM2 target mep-id 1
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 sla operation profile SLM2 target mep-id 1
+
+RP/0/RP0/CPU0:ar15.BLB(config)#policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)#  police rate 10000000 kbps burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c-police)#  set traffic-class 4
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)#  set qos-group 2
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar15.BLB(config)#!
+
+RP/0/RP0/CPU0:ar15.BLB(config)#
+****  Configration completed on AR15
+****  Logged in node : AR5
+configure terminal
+
+Mon Sep  7 14:16:44.056 UTC
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport encapsulation dot1q 2309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#interface TenGigE0/0/1/3/2.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar5.BLB(config-l2vpn-xc-p2p)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 interface TenGigE0/0/1/3/2.2309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 neighbor evpn evi 52309 target 52309 source 52309
+
+RP/0/RP0/CPU0:ar5.BLB(config-l2vpn-xc-p2p-pw)#evpn evi 52309
+
+RP/0/RP0/CPU0:ar5.BLB(config-evpn-instance)#evpn evi 52309 bgp rd 8220001:7424
+
+RP/0/RP0/CPU0:ar5.BLB(config)#evpn evi 52309 bgp route-target import 8220001:52309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#evpn evi 52309 bgp route-target export 8220001:52309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn-svc)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 continuity-check interval 1s
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 mep crosscheck mep-id 2
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check errors
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log crosscheck errors
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check mep changes
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 1 cos 2
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 1 sla operation profile DMM2 target mep-id 2
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 1 sla operation profile SLM2 target mep-id 2
+
+RP/0/RP0/CPU0:ar5.BLB(config)#policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)#  police rate 10000000 kbps burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c-police)#  set traffic-class 4
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)#  set qos-group 2
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar5.BLB(config)#!
+
+RP/0/RP0/CPU0:ar5.BLB(config)#
+****  Configration completed on AR5
+**** wait for 30 seconds
+**** AR15 : ccm is UP
+**** AR5 : ccm is UP
+**** disconnected successfully from node AR15
+**** disconnected successfully from node AR5
+**** port1 is 7/7
+**** port2 is 7/8
+**** streamblock1:> DMAC:> is 00:10:94:00:00:02 & SMAC:> 00:10:94:00:00:01 , Traffic rate:> 9800
+**** streamblock2:> DMAC:> is 00:10:94:00:00:01 & SMAC:> 00:10:94:00:00:02 , Traffic rate:> 9800
+***** run sth.test_rfc2544_config successfully
+***** run sth.test_rfc2544_control successfully
+***** run sth.test_rfc2544_info successfully, and results is:
+{'rfc2544fl': {'detail': {'iteration': {'1': {'frame_size': {'68': {'load': {'100': {'frame_loss': '2.1624235288213987',
+                                                                                     'frame_lost': '18429746',
+                                                                                     'rx_frames': '833842982',
+                                                                                     'tx_frames': '852272728'},
+                                                                             '97': {'frame_loss': '0.0',
+                                                                                    'frame_lost': '0',
+                                                                                    'rx_frames': '815217392',
+                                                                                    'tx_frames': '815217392'},
+                                                                             '98': {'frame_loss': '0.0',
+                                                                                    'frame_lost': '0',
+                                                                                    'rx_frames': '815217392',
+                                                                                    'tx_frames': '815217392'},
+                                                                             '99': {'frame_loss': '0.22959667360844957',
+                                                                                    'frame_lost': '1880798',
+                                                                                    'rx_frames': '817293962',
+                                                                                    'tx_frames': '819174760'}}},
+                                                             'frame_size_value': '68'}}}},
+               'summary': {'frame_size': {'68': {'load': {'100': {'frame_loss': '2.1624235288213987',
+                                                                  'frame_lost': '18429746',
+                                                                  'rx_frames': '833842982',
+                                                                  'tx_frames': '852272728'},
+                                                          '97': {'frame_loss': '0.0',
+                                                                 'frame_lost': '0',
+                                                                 'rx_frames': '815217392',
+                                                                 'tx_frames': '815217392'},
+                                                          '98': {'frame_loss': '0.0',
+                                                                 'frame_lost': '0',
+                                                                 'rx_frames': '815217392',
+                                                                 'tx_frames': '815217392'},
+                                                          '99': {'frame_loss': '0.22959667360844957',
+                                                                 'frame_lost': '1880798',
+                                                                 'rx_frames': '817293962',
+                                                                 'tx_frames': '819174760'}}},
+                                          'frame_size_value': '68'},
+                           'total_iteration_count': '1'}},
+ 'status': '1'}
+***** frame lost(packets) for Frame size 68 and load 100 is 18429746
+***** frame lost(packets) for Frame size 68 and load 99 is 1880798
+***** frame lost(packets) for Frame size 68 and load 98 is 0
+***** frame lost(packets) for Frame size 68 and load 97 is 0
+**** All streams and Traffic stats are cleared
+**** Clean up the spirent Ports, we are done
+**** connection established with node AR15
+**** connection established with node AR5
+Domain COLT-1 (level 1), Service ALX_NCS_LE-102309
+Up MEP on TenGigE0/0/0/5.2309 MEP-ID 2
+================================================================================
+  Interface state: Down    MAC address: 0032.1705.b414
+  Peer MEPs: 1 up, 0 with errors, 0 timed out (archived)
+  Cross-check errors: 0 missing, 0 unexpected
+
+  CCM generation enabled:  Yes, 1s (Remote Defect detected: No)
+                           CCM processing offloaded to hardware
+  AIS generation enabled:  No
+  Sending AIS:             No
+  Receiving AIS:           No
+
+  Packet        Sent      Received
+  ------  ----------  ---------------------------------------------------------
+  DMM              0            21
+  DMR             21             0
+  SLM              0           206
+  SLR            206             0
+Mon Sep  7 14:20:47.984 UTC
+Domain COLT-1 (level 1), Service ALX_NCS_LE-102309
+Up MEP on TenGigE0/0/1/3/2.2309 MEP-ID 1
+================================================================================
+  Interface state: Down    MAC address: 008a.9620.c0ce
+  Peer MEPs: 1 up, 0 with errors, 0 timed out (archived)
+  Cross-check errors: 0 missing, 0 unexpected
+
+  CCM generation enabled:  Yes, 1s (Remote Defect detected: No)
+                           CCM processing offloaded to hardware
+  AIS generation enabled:  No
+  Sending AIS:             No
+  Receiving AIS:           No
+
+  Packet        Sent      Received
+  ------  ----------  ---------------------------------------------------------
+  DMM             24             0
+  DMR              0            21
+  SLM            233             0
+  SLR              0           206
+
+TenGigE0/0/0/5.2309 input: 10000000-Business2-DIPNKR
+
+Class class-default
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    Matched             :          1650941356/112264021668         3807697
+    Transmitted         :          1650941356/112264021668         3807697
+    Total Dropped       :                   0/0                    0
+  Policing statistics                (packets/bytes)     (rate - kbps) 
+    Policed(conform)    :          1650941356/112264021668         3807697
+    Policed(exceed)     :                   0/0                    0
+    Policed(violate)    :                   0/0                    0
+    Policed and dropped :                   0/0                  
+Policy Bag Stats time: 1599488428356  [Local Time: 09/07/20 14:20:28.356] 
+TenGigE0/0/0/5.2309 direction output: Service Policy not installed
+NOTE:- Configured values are displayed within parentheses
+Interface TenGigE0/0/0/5.2309 ifh 0x4e1a  -- input policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           10000000 kbps
+Policy Name:                   10000000-Business2-DIPNKR
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+New traffic class                        =   4
+New qos group                            =   2
+
+Policer Bucket ID                        =   0xbc8
+Policer Stats Handle                     =   0x0
+Policer committed rate                   =   9900000 kbps (10000000 kbits/sec)
+Policer conform burst                    =   1090432 bytes (1100 kilobytes)
+Mon Sep  7 14:20:51.297 UTC
+
+TenGigE0/0/1/3/2.2309 input: 10000000-Business2-DIPNKR
+
+Class class-default
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    Matched             :          1650941136/112263997248         4394499
+    Transmitted         :          1650941136/112263997248         4394499
+    Total Dropped       :                   0/0                    0
+  Policing statistics                (packets/bytes)     (rate - kbps) 
+    Policed(conform)    :          1650941136/112263997248         4394499
+    Policed(exceed)     :                   0/0                    0
+    Policed(violate)    :                   0/0                    0
+    Policed and dropped :                   0/0                  
+Policy Bag Stats time: 1599488423716  [Local Time: 09/07/20 14:20:23.716] 
+TenGigE0/0/1/3/2.2309 direction output: Service Policy not installed
+Mon Sep  7 14:20:52.403 UTC
+NOTE:- Configured values are displayed within parentheses
+Interface TenGigE0/0/1/3/2.2309 ifh 0x15fa  -- input policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           10000000 kbps
+Policy Name:                   10000000-Business2-DIPNKR
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+New traffic class                        =   4
+New qos group                            =   2
+
+Policer Bucket ID                        =   0x104f8
+Policer Stats Handle                     =   0x0
+Policer committed rate                   =   9990000 kbps (10000000 kbits/sec)
+Policer conform burst                    =   1090432 bytes (1100 kilobytes)
+configure terminal
+
+RP/0/RP0/CPU0:ar15.BLB(config)#no interface TenGigE0/0/0/5.2309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar15.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar15.BLB(config-cfm-dmn)#no policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar15.BLB(config)#no evpn evi 52309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#
+configure terminal
+
+Mon Sep  7 14:20:58.879 UTC
+RP/0/RP0/CPU0:ar5.BLB(config)#no interface TenGigE0/0/1/3/2.2309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#no l2vpn xconnect group ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#ethernet cfm domain COLT-1 level 1 id null
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn)#no service ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar5.BLB(config-cfm-dmn)#no policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar5.BLB(config)#no evpn evi 52309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#
+**** disconnected successfully from node AR15
+**** disconnected successfully from node AR5
+{'YF': {'CFM_Stats_cisco': {'AR15': {'rx': {'DMM': 21,
+                                            'DMR': 0,
+                                            'SLM': 206,
+                                            'SLR': 0},
+                                     'tx': {'DMM': 0,
+                                            'DMR': 21,
+                                            'SLM': 0,
+                                            'SLR': 206}},
+                            'AR5': {'rx': {'DMM': 0,
+                                           'DMR': 21,
+                                           'SLM': 0,
+                                           'SLR': 206},
+                                    'tx': {'DMM': 24,
+                                           'DMR': 0,
+                                           'SLM': 233,
+                                           'SLR': 0}}},
+        'ccm_status': {'AR15': 'pass', 'AR5': 'pass'},
+        'rfc_fl_test': {'68': {'100': 'fail',
+                               '97': 'pass',
+                               '98': 'pass',
+                               '99': 'fail'},
+                        'test_duration': 30}}}

@@ -33,6 +33,7 @@ class Spirent_L2_Traffic_Gen:
 		self.port_handle = []
 		self.port_list = []
 
+
 	def Port_Init(self):
 		Spirent_Test_Infrastructure = Get_Spirent_Config()
 		Number_of_ports = Spirent_Test_Infrastructure['Number_of_ports']
@@ -69,6 +70,11 @@ class Spirent_L2_Traffic_Gen:
 		##############################################################
 		i = 0
 		device = Spirent_Test_Infrastructure['Spirent_Chassis_ip']
+		self.traffic_duration = Spirent_Test_Infrastructure['traffic_duration']
+		self.rfc_frame_size = Spirent_Test_Infrastructure['rfc_frame_size']
+		self.rfc_load_end = Spirent_Test_Infrastructure['rfc_load_end']
+		self.rfc_load_start = Spirent_Test_Infrastructure['rfc_load_start']
+		self.rfc_load_step = Spirent_Test_Infrastructure['rfc_load_step']		
 		port_list = list(Spirent_Test_Infrastructure['Port_Values'].values())
 		self.port_list = port_list
 		port_speed = list(Spirent_Test_Infrastructure['Port_Speed'].values())
@@ -679,31 +685,30 @@ class Spirent_L2_Traffic_Gen:
 		# print("Printed StreamBlock")
 		# time.sleep(60)
 		# stream_handle = StreamBlock['stream_id']
-		self.StreamBlock1 = StreamBlock1
-		self.StreamBlock2 = StreamBlock2
-		print("Traffic Started First Time")
+		self.StreamBlock1 = StreamBlock1['stream_id']
+		self.StreamBlock2 = StreamBlock2['stream_id']
+		print("**** Traffic Started First Time for 10 sec to help mac learning")
 		traffic_ctrl_ret = sth.traffic_control(
 			stream_handle=[self.StreamBlock1,self.StreamBlock2],
 			action='run', duration='8');
 		time.sleep(10)
-		print("After Aging Timer")
+		print("**** Clear stats of 10 seconds traffic")
 		traffic_ctrl_ret = sth.traffic_control(
 			stream_handle=[self.StreamBlock1,self.StreamBlock2],
 			action='clear_stats');
-		print("Delay before Second Traffic Started Second Time")
+		print("**** hold your breathe for 10 seconds, traffic is on its the way")
 		time.sleep(10)
-		print("Traffic Started Second Time")
 		traffic_ctrl_ret = sth.traffic_control(
 			stream_handle=[self.StreamBlock1,self.StreamBlock2],
 			action='run',
-			duration='20');
+			duration= self.traffic_duration);
 		status = traffic_ctrl_ret['status']
 		if (status == '0'):
 			print("run sth.traffic_control failed")
 		# print(traffic_ctrl_ret)
-		print("Test Traffic Stopped now adding delay before collecting stats")
-		time.sleep(30)
-		print("Traffic collection started")
+		print(f"**** Traffic Started Second Time for {self.traffic_duration} seconds")
+		time.sleep(self.traffic_duration + 10)
+		print("**** checking traffic statistic")
 
 	def Generate_Traffic(self):
 		#############################################################
@@ -720,16 +725,16 @@ class Spirent_L2_Traffic_Gen:
 			action='clear_stats');
 		print("**** 10 seconds before Traffic Started Second Time")
 		time.sleep(10)
-		print("**** Traffic Started Second Time for 60 seconds")
+		print(f"**** Traffic Started Second Time for {self.traffic_duration} seconds")
 		traffic_ctrl_ret = sth.traffic_control(
 			port_handle=self.port_handle,
 			action='run',
-			duration='20');
+			duration=self.traffic_duration);
 		status = traffic_ctrl_ret['status']
 		if (status == '0'):
 			print("run sth.traffic_control failed")
 		# print(traffic_ctrl_ret)
-		time.sleep(30)
+		time.sleep(self.traffic_duration + 10)
 		print("**** checking traffic statistic")
 
 	def Traffic_Collection(self):
@@ -739,11 +744,11 @@ class Spirent_L2_Traffic_Gen:
 		traffic_results_ret = sth.traffic_stats(
 			port_handle=self.port_handle,
 			mode='all');
-		print("Traffic collection stopped")
+		print("**** Traffic collection completed")
 		status = traffic_results_ret['status']
 		if (status == '0'):
 			print("run sth.traffic_stats failed")
-		pprint(traffic_results_ret)
+		#pprint(traffic_results_ret)
 		self.traffic_result = traffic_results_ret
 	
 	def delete_streams_clear_counters(self):
@@ -761,7 +766,7 @@ class Spirent_L2_Traffic_Gen:
 		cleanup_sta = sth.cleanup_session(
 			port_handle=self.port_handle,
 			clean_dbfile='1');
-		print("Port Cleanedup")
+		print("**** Clean up the spirent Ports, we are done")
 
 	def Spirent_L2CP_Transperancy_Traffic_Testing_For_P2P_Service(self,src_port_handle_index,dest_port_handle_index,**kwargs):
 		if 'Rate_Mbps' in kwargs.keys():
@@ -1380,8 +1385,318 @@ class Spirent_L2_Traffic_Gen:
 		dict_local['result'] = test_result1
 		return dict_local
 
+	def rfc_2544_throughput_test(self,StreamBlock1,StreamBlock2):
+		self.StreamBlock1 = StreamBlock1['stream_id']
+		self.StreamBlock2 = StreamBlock2['stream_id']
+		streamblock_handle = [self.StreamBlock1,self.StreamBlock2]
+
+		rfc_cfg0 = sth.test_rfc2544_config (
+				mode                                             = 'create',
+				test_type                                        = 'throughput',
+				streamblock_handle                               = streamblock_handle,
+				endpoint_creation                                = '0',
+				frame_size_mode                                  = 'custom',
+				start_traffic_delay                              = '2',
+				resolution                                       = '1',
+				learning_mode                                    = 'l2',
+				rate_upper_limit                                 = self.rfc_load_end,
+				frame_size                                       = self.rfc_frame_size,
+				enable_latency_threshold                         = '0',
+				enable_detailresults                             = '1',
+				rate_step                                        = self.rfc_load_step,
+				stagger_start_delay                              = '0',
+				learning_frequency                               = 'learn_once',
+				enable_jitter_measure                            = '0',
+				delay_after_transmission                         = '15',
+				ignore_limit                                     = '0',
+				enable_cyclic_resolution                         = '1',
+				test_duration_mode                               = 'seconds',
+				back_off                                         = '50',
+				iteration_count                                  = '1',
+				rate_lower_limit                                 = '1',
+				accept_frame_loss                                = '1',
+				test_duration                                    = self.traffic_duration,
+				enable_learning                                  = '0',
+				latency_type                                     = 'LILO',
+				search_mode                                      = 'step',
+				enable_seq_threshold                             = '0',
+				l3_learning_retry_count                          = '5',
+				initial_rate                                     = self.rfc_load_start);
+
+		status = rfc_cfg0['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_config failed")
+			print(rfc_cfg0)
+		else:
+			print("***** run sth.test_rfc2544_config successfully")
+
+		#config part is finished
+
+		##############################################################
+		#start devices
+		##############################################################
+
+		ctrl_ret1 = sth.test_rfc2544_control (
+				action                                           = 'run',
+				wait                                             = '1');
+
+		status = ctrl_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_control failed")
+			print(ctrl_ret1)
+		else:
+			print("***** run sth.test_rfc2544_control successfully")
 
 
+		##############################################################
+		#start to get the device results
+		##############################################################
+
+		results_ret1 = sth.test_rfc2544_info (
+				test_type                                        = 'throughput',
+				clear_result                                     = '0',
+				enable_load_detail                               = '1');
+
+		status = results_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_info failed")
+			print(results_ret1)
+		else:
+			print("***** run sth.test_rfc2544_info successfully, and results is:")
+			pprint(results_ret1)
+
+
+		dict_local = {}
+		dict_local['test_duration'] = self.traffic_duration
+		Short_result = results_ret1['rfc2544throughput']['load_detail']['iteration']['1']['frame_size']
+		Short_result.pop('frame_size_value')
+		for k1,v1 in Short_result.items():
+			v1.pop('load_value')
+			dict_local[k1] = {}
+			for k2,v2 in v1.items():
+				print (f"***** frame loss percentage for Frame size {k1} and load {k2} is {float(v2['frame_loss'])}")
+				if float(v2['frame_loss']) == 0:
+					dict_local[k1][k2] = 'pass'
+				else:
+					dict_local[k1][k2] = 'fail'
+		return dict_local
+	def rfc_2544_frameloss_test(self,StreamBlock1,StreamBlock2):
+		self.StreamBlock1 = StreamBlock1['stream_id']
+		self.StreamBlock2 = StreamBlock2['stream_id']
+		streamblock_handle = [self.StreamBlock1,self.StreamBlock2]
+		rfc_cfg1 = sth.test_rfc2544_config (
+				mode                                             = 'create',
+				# src_port                                         = ['port1','port2'],
+				# dst_port                                         = '',
+				test_type                                        = 'fl',
+				streamblock_handle                               = streamblock_handle,
+				endpoint_creation                                = '0',
+				frame_size_mode                                  = 'custom',
+				start_traffic_delay                              = '2',
+				learning_mode                                    = 'l2',
+				frame_size                                       = self.rfc_frame_size,
+				enable_detailresults                             = '1',
+				load_unit                                        = 'percent_line_rate',
+				stagger_start_delay                              = '0',
+				learning_frequency                               = 'learn_once',
+				enable_jitter_measure                            = '0',
+				delay_after_transmission                         = '5',
+				load_step                                        = self.rfc_load_step,
+				enable_cyclic_resolution                         = '1',
+				load_type                                        = 'step',
+				test_duration_mode                               = 'seconds',
+				iteration_count                                  = '1',
+				test_duration                                    = self.traffic_duration,
+				load_end                                         = self.rfc_load_start,
+				enable_learning                                  = '0',
+				latency_type                                     = 'LILO',
+				l3_learning_retry_count                          = '5',
+				load_start                                       = self.rfc_load_end);
+
+		status = rfc_cfg1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_config failed")
+			print(rfc_cfg1)
+		else:
+			print("***** run sth.test_rfc2544_config successfully")
+		
+		ctrl_ret1 = sth.test_rfc2544_control (
+				action                                           = 'run',
+				wait                                             = '1');
+
+		status = ctrl_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_control failed")
+			print(ctrl_ret1)
+		else:
+			print("***** run sth.test_rfc2544_control successfully")
+
+		results_ret1 = sth.test_rfc2544_info (
+				test_type                                        = 'fl',
+				clear_result                                     = '1');
+
+		status = results_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_info failed")
+			print(results_ret1)
+		else:
+			print("***** run sth.test_rfc2544_info successfully, and results is:")
+			pprint(results_ret1)
+
+		dict_local = {}
+		dict_local['test_duration'] = self.traffic_duration
+		Short_result = results_ret1['rfc2544fl']['detail']['iteration']['1']['frame_size']
+		Short_result.pop('frame_size_value')
+		for k1,v1 in Short_result.items():
+			dict_local[k1] = {}
+			for k2,v2 in v1['load'].items():
+				print (f"***** frame lost(packets) for Frame size {k1} and load {k2} is {int(v2['frame_lost'])}")
+				if int(v2['frame_lost']) == 0:
+					dict_local[k1][k2] = 'pass'
+				else:
+					dict_local[k1][k2] = 'fail'
+		return dict_local			
+	def rfc_2544_backtoback_test(self,StreamBlock1,StreamBlock2):
+		self.StreamBlock1 = StreamBlock1['stream_id']
+		self.StreamBlock2 = StreamBlock2['stream_id']
+		streamblock_handle = [self.StreamBlock1,self.StreamBlock2]
+		rfc_cfg3 = sth.test_rfc2544_config (
+				mode                                             = 'create',
+				# src_port                                         = ['port1','port2'],
+				# dst_port                                         = '',
+				test_type                                        = 'b2b',
+				streamblock_handle                               = streamblock_handle,
+				endpoint_creation                                = '0',
+				frame_size_mode                                  = 'custom',
+				start_traffic_delay                              = '2',
+				learning_mode                                    = 'l2',
+				frame_size                                       = self.rfc_frame_size,
+				enable_detailresults                             = '1',
+				load_unit                                        = 'percent_line_rate',
+				stagger_start_delay                              = '0',
+				learning_frequency                               = 'learn_once',
+				resolution_burst                                 = '100',
+				enable_jitter_measure                            = '0',
+				delay_after_transmission                         = '5',
+				load_step                                        = self.rfc_load_step,
+				enable_cyclic_resolution                         = '1',
+				load_type                                        = 'step',
+				test_duration_mode                               = 'seconds',
+				iteration_count                                  = '1',
+				accept_frame_loss                                = '0',
+				test_duration                                    = self.traffic_duration,
+				load_end                                         = self.rfc_load_end,
+				enable_learning                                  = '0',
+				latency_type                                     = 'LILO',
+				l3_learning_retry_count                          = '5',
+				load_start                                       = self.rfc_load_start);
+
+		status = rfc_cfg3['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_config failed")
+			print(rfc_cfg3)
+		else:
+			print("***** run sth.test_rfc2544_config successfully")
+
+		ctrl_ret1 = sth.test_rfc2544_control (
+				action                                           = 'run',
+				wait                                             = '1');
+
+		status = ctrl_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_control failed")
+			print(ctrl_ret1)
+		else:
+			print("***** run sth.test_rfc2544_control successfully")
+
+		results_ret4 = sth.test_rfc2544_info (
+				test_type                                        = 'b2b',
+				clear_result                                     = '1');
+
+		status = results_ret4['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_info failed")
+			print(results_ret4)
+		else:
+			print("***** run sth.test_rfc2544_info successfully, and results is:")
+			pprint(results_ret4)
+
+	def rfc_2544_latency_test(self,StreamBlock1,StreamBlock2):
+		self.StreamBlock1 = StreamBlock1['stream_id']
+		self.StreamBlock2 = StreamBlock2['stream_id']
+		streamblock_handle = [self.StreamBlock1,self.StreamBlock2]
+		rfc_cfg0 = sth.test_rfc2544_config (
+				mode                                             = 'create',
+				# src_port                                         = ['port1','port2'],
+				# dst_port                                         = '',
+				test_type                                        = 'latency',
+				streamblock_handle                               = streamblock_handle,
+				endpoint_creation                                = '0',
+				frame_size_mode                                  = 'custom',
+				start_traffic_delay                              = '2',
+				learning_mode                                    = 'l2',
+				frame_size                                       = self.rfc_frame_size,
+				enable_detailresults                             = '1',
+				load_unit                                        = 'percent_line_rate',
+				stagger_start_delay                              = '0',
+				learning_frequency                               = 'learn_once',
+				enable_jitter_measure                            = '0',
+				delay_after_transmission                         = '5',
+				load_step                                        = self.rfc_load_step,
+				enable_cyclic_resolution                         = '1',
+				load_type                                        = 'step',
+				test_duration_mode                               = 'seconds',
+				iteration_count                                  = '1',
+				test_duration                                    = self.traffic_duration,
+				load_end                                         = self.rfc_load_end,
+				enable_learning                                  = '0',
+				latency_type                                     = 'LILO',
+				l3_learning_retry_count                          = '5',
+				load_start                                       = self.rfc_load_start);
+
+		status = rfc_cfg0['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_config failed")
+			print(rfc_cfg0)
+		else:
+			print("***** run sth.test_rfc2544_config successfully")
+
+		ctrl_ret1 = sth.test_rfc2544_control (
+				action                                           = 'run',
+				wait                                             = '1');
+
+		status = ctrl_ret1['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_control failed")
+			print(ctrl_ret1)
+		else:
+			print("***** run sth.test_rfc2544_control successfully")
+
+		results_ret5 = sth.test_rfc2544_info (
+				test_type                                        = 'latency',
+				clear_result                                     = '1');
+
+		status = results_ret5['status']
+		if (status == '0') :
+			print("run sth.test_rfc2544_info failed")
+			print(results_ret5)
+		else:
+			print("***** run sth.test_rfc2544_info successfully, and results is:")
+			pprint(results_ret5)
+
+		dict_local = {}
+		dict_local['test_duration'] = self.traffic_duration
+		Short_result = results_ret5['rfc2544latency']['detail']['iteration']['1']['frame_size']
+		Short_result.pop('frame_size_value')
+		for k1,v1 in Short_result.items():
+			dict_local[k1] = {}
+			for k2,v2 in v1['load'].items():
+				print (f"***** frame loss for Frame size {k1} and load {k2} is {float(v2['latency_avg'])}")
+				if float(v2['latency_avg']) < 100:
+					dict_local[k1][k2] = 'pass'
+				else:
+					dict_local[k1][k2] = 'fail'
+		return dict_local
 def Create_Spirent_L2_Gen(**kwargs):
 	Spirent_L2_Gen = Spirent_L2_Traffic_Gen (**kwargs)
 	return (Spirent_L2_Gen)

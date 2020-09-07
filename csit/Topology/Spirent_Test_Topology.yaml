@@ -1,12 +1,17 @@
 Spirent_Test_Topology:
    Spirent_Chassis_ip: '10.91.113.124'
+   traffic_duration: 30
+   rfc_frame_size : ['68']
+   rfc_load_end: 100
+   rfc_load_start: 96
+   rfc_load_step: 1
    Number_of_ports: 2
    Port_Values:
-      Port1: 7/7
-      Port2: 8/10
+      Port1: 7/7 #Port conneted to 'A' side.
+      Port2: 7/8 #Port connected to 'B' side.
    Port_Speed:
       Port1_Speed: 'ether10000'
-      Port2_Speed: 'ether1000'
+      Port2_Speed: 'ether10000'
    Port_Phy_Mode:
       Port1_Phy_mode: 'fiber'
-      Port2_Phy_mode: 'copper'
+      Port2_Phy_mode: 'fiber'

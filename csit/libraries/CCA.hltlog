@@ -1,100 +1,17 @@
-[2020-08-17 09:20:23]: Started process.  Command line: 
-[2020-08-17 09:20:23]:      port number: 46751
-[2020-08-17 09:20:23]:    timeout value: 120
-[2020-08-17 09:20:23]:       log option: log
-[2020-08-17 09:20:23]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-08-17 09:20:23]:    log file name: CCA.hltlog
-[2020-08-17 09:20:23]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-08-17 09:20:23]: Sourcing initialization file "stcinit.srv".
-[2020-08-17 09:20:23]: Connecting to port 46751 on 127.0.0.1.
-[2020-08-17 09:20:23]: Creating server socket.
-[2020-08-17 09:20:23]: Generated port number: 37793
-[2020-08-17 09:20:23]: Setting up timeout check.
-[2020-08-17 09:20:23]: Waiting for client connection.
-[2020-08-17 09:20:23]: Client connection from 127.0.0.1 port 57182.
-[2020-08-17 09:20:23]: Executing: <package require SpirentHltApi>
-[2020-08-17 09:20:42]: Return value: <4.67>
-[2020-08-17 09:20:42]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-08-17 09:20:58]: Executing: <set ret [sth::test_config -log 0 -logfile SteamConfig-WithPercentageTraffic_logfile -vendorlogfile SteamConfig-WithPercentageTraffic_stcExport -vendorlog 0 -hltlog 1 -hltlogfile SteamConfig-WithPercentageTraffic_hltExport -hlt2stcmappingfile SteamConfig-WithPercentageTraffic_hlt2StcMapping -hlt2stcmapping 1 -log_level 0]>
-[2020-08-17 09:20:58]: Return value: <{status 1}>
-[2020-08-17 09:20:58]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:20:58]: Return value: <>
-[2020-08-17 09:20:58]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:20:58]: Return value: <>
-[2020-08-17 09:20:58]: Executing: <set hashkey>
-[2020-08-17 09:20:58]: Return value: <status>
-[2020-08-17 09:20:58]: Executing: <set hashvalue>
-[2020-08-17 09:20:58]: Return value: <1>
-[2020-08-17 09:20:58]: Executing: <set ret [sth::test_control -action enable]>
-[2020-08-17 09:20:58]: Return value: <{status 1}>
-[2020-08-17 09:20:58]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:20:58]: Return value: <>
-[2020-08-17 09:20:58]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:20:58]: Return value: <>
-[2020-08-17 09:20:58]: Executing: <set hashkey>
-[2020-08-17 09:20:58]: Return value: <status>
-[2020-08-17 09:20:58]: Executing: <set hashvalue>
-[2020-08-17 09:20:58]: Return value: <1>
-[2020-08-17 09:20:58]: Executing: <sth::connect -device 10.91.113.124 -port_list "7/7 8/10" -break_locks 1 -offline 0>
-[2020-08-17 09:21:03]: Return value: <{offline 0} {port_handle {{10 {{91 {{113 {{124 {{7/7 port1} {8/10 port2}}}}}}}}}}} {status 1}>
-[2020-08-17 09:21:03]: Executing: <set ret [sth::interface_config -mode config -port_handle port1 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1]>
-[2020-08-17 09:21:21]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <1 none none 1 0>
-[2020-08-17 09:21:21]: Executing: <set ret [sth::interface_config -mode config -port_handle port2 -create_host false -intf_mode ethernet -phy_mode copper -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -speed ether1000 -autonegotiation 1 -duplex full]>
-[2020-08-17 09:21:21]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <1 none none 1 0>
-[2020-08-17 09:21:21]: Executing: <set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii -mac_src 00:10:94:00:00:02 -mac_dst 01:80:C2:00:00:02 -enable_control_plane 0 -l3_length 537 -name LACP_Stream_/Slow_Protocol -fill_type prbs -fcs_error 0 -fill_value 0 -frame_size 555 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_pps 9275]>
-[2020-08-17 09:21:21]: Return value: <{stream_id streamblock1} {status 1}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <stream_id status>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <streamblock1 1>
-[2020-08-17 09:21:21]: Executing: <set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii -mac_src 00:10:94:00:00:02 -ether_type 888E -mac_dst 01:80:C2:00:00:03 -enable_control_plane 0 -l3_length 537 -name Port_Authentication -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 555 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_pps 9164]>
-[2020-08-17 09:21:21]: Return value: <{stream_id streamblock2} {status 1}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <stream_id status>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <streamblock2 1>
-[2020-08-17 09:21:21]: Executing: <set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii -mac_src 00:10:94:00:00:02 -mac_dst 01:80:C2:00:00:02 -enable_control_plane 0 -l3_length 537 -name LACP_Stream_/Slow_Protocol -fill_type prbs -fcs_error 0 -fill_value 0 -frame_size 555 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_pps 9275]>
-[2020-08-17 09:21:21]: Return value: <{stream_id streamblock3} {status 1}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <stream_id status>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <streamblock3 1>
-[2020-08-17 09:21:21]: Executing: <set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii -mac_src 00:10:94:00:00:02 -ether_type 888E -mac_dst 01:80:C2:00:00:03 -enable_control_plane 0 -l3_length 537 -name Port_Authentication -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 555 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_pps 9164]>
-[2020-08-17 09:21:21]: Return value: <{stream_id streamblock4} {status 1}>
-[2020-08-17 09:21:21]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-08-17 09:21:21]: Return value: <>
-[2020-08-17 09:21:21]: Executing: <set hashkey>
-[2020-08-17 09:21:21]: Return value: <stream_id status>
-[2020-08-17 09:21:21]: Executing: <set hashvalue>
-[2020-08-17 09:21:21]: Return value: <streamblock4 1>
-[2020-08-17 09:21:22]: Client connection has been broken.  Exiting.
+[2020-09-04 13:45:26]: Started process.  Command line: 
+[2020-09-04 13:45:26]:      port number: 56757
+[2020-09-04 13:45:26]:    timeout value: 120
+[2020-09-04 13:45:26]:       log option: log
+[2020-09-04 13:45:26]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-09-04 13:45:26]:    log file name: CCA.hltlog
+[2020-09-04 13:45:26]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-09-04 13:45:26]: Sourcing initialization file "stcinit.srv".
+[2020-09-04 13:45:26]: Connecting to port 56757 on 127.0.0.1.
+[2020-09-04 13:45:26]: Creating server socket.
+[2020-09-04 13:45:26]: Generated port number: 44829
+[2020-09-04 13:45:26]: Setting up timeout check.
+[2020-09-04 13:45:26]: Waiting for client connection.
+[2020-09-04 13:45:26]: Client connection from 127.0.0.1 port 38128.
+[2020-09-04 13:45:26]: Executing: <package require SpirentHltApi>
+[2020-09-04 13:45:44]: Return value: <4.67>
+[2020-09-04 13:45:44]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries

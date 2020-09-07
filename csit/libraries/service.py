@@ -163,7 +163,10 @@ class Service:
                 olo['connect_obj'].exit_config_mode()               
 
 
-    def Command_Creation(self):                        
+    def Command_Creation(self):
+        for node in self.data["site_list"]:
+            if node['login']['device_type'] == 'cisco_xr':
+                node['UID'] = int(node['login']['host'].split('.')[-1])                        
         for create_delete in create_delete_list:
             for node in self.data["site_list"]:
                 with open(file_path + '/templates/create_xc_config_{}_{} copy.j2'.format(node["side"],create_delete),'r') as f:
@@ -191,6 +194,7 @@ class Service:
                     output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
                     print(output)
             print("****  Configration completed on {}".format(node['Node_name']))
+        print("**** wait for 30 seconds")
 
     def check_QOS_counters_config(self):
         for node in self.data["site_list"]:
@@ -324,7 +328,7 @@ class Service:
                                 if x[0] == 'FAILED':
                                     test_result[node['Node_name']] = 'fail'
                                 else:
-                                    time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 20
+                                    time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 30
                                     print("***  Hold your breathe for {} seconds".format(time_to_wait))
                                     time.sleep(time_to_wait)
                                     output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
@@ -413,7 +417,7 @@ class Service:
                                     if x[0] == 'FAILED':
                                         test_result[looptype] = 'fail'
                                     else:
-                                        time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 20
+                                        time_to_wait = (self.data["config_test"]*4) + (self.data["performance_test"]*60) + 30
                                         print("***  Hold your breathe for {} seconds".format(time_to_wait))
                                         time.sleep(time_to_wait)
                                         output = node['connect_obj'].send_command("Y1564 show activation Y1564-LE-{}".format(mep_name))
