@@ -38,7 +38,7 @@ def onnet_CC(A,B):
     my_config.push_config()
     time.sleep(10)
     test_result = {}
-    test_result['ccm_status'] = my_config.Validate_ccm()
+    #test_result['ccm_status'] = my_config.Validate_ccm()
     my_config.disconnect_nodes()
     input_dict = {}
     input_dict = my_config.create_spirent_input_dict() # create the required dictionary for spirent Traffic.
@@ -103,9 +103,9 @@ def onnet_CC(A,B):
     #         test_result['Spirent_{}_traffic'.format(mt_vt)] = Spirent_L2_Gen.Validate_Traffic_Result2()
     #         Spirent_L2_Gen.delete_streams_clear_counters()
    
-
-    Spirent_L2_Gen.Clean_Up_Spirent()
     my_config.connect_nodes()
+    my_config.check_Mac_table()
+    Spirent_L2_Gen.Clean_Up_Spirent()
     test_result['CFM_Stats_cisco'] = my_config.mep_statistic_cisco()
     my_config.check_QOS_counters_config()
     my_config.delete_config()
@@ -128,14 +128,14 @@ def onnet_CC_delete(A,B):
     my_config.disconnect_nodes()
     return test_result
 
-# result['FF'] = onnet_CC('F','F')
+result['FF'] = onnet_CC('F','F')
 # result['FF'] = onnet_CC_delete('F','F')
 # result['XX'] = onnet_CC('X','X')
 # result['PP'] = onnet_CC('P','P')
 # result['XP'] = onnet_CC('X','P')
 # result['PX'] = onnet_CC('P','X')
 # result['FY'] = onnet_CC('F','Y')
-result['YF'] = onnet_CC('Y','F')
+# result['YF'] = onnet_CC('Y','F')
 # result['YY'] = onnet_CC('Y','Y')
 
 pprint(result)

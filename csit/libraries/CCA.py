@@ -42,10 +42,32 @@ def onnet_CCA(A,B):
     test_result = {}
     test_result['ccm_status'] = my_config.Validate_ccm()
     test_result['Loop_test'] = my_config.Y1564_test()
+    my_config.disconnect_nodes()
     # input_dict = {}
     # input_dict = my_config.create_spirent_input_dict()
     # Spirent_L2_Gen = Create_Spirent_L2_Gen()
     # Spirent_L2_Gen.Port_Init()
+
+    #### perform rfc Test
+    if A == 'Y':
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_Mbps(0,1,**input_dict['Spirent_2TAG_AZ']['UC'])
+    elif A == 'F' or A == 'X':
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_Mbps(0,1,**input_dict['Spirent_1TAG_AZ']['UC'])
+    else:                 
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Without_VLAN_Mbps(0,1,**input_dict['Spirent_0TAG_AZ']['UC'])
+    if B == 'Y':
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_Mbps(1,0,**input_dict['Spirent_2TAG_ZA']['UC'])
+    elif B == 'F' or B == 'X':
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_Mbps(1,0,**input_dict['Spirent_1TAG_ZA']['UC'])
+    else:
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Without_VLAN_Mbps(1,0,**input_dict['Spirent_0TAG_ZA']['UC'])
+    # test_result['rfc_tput_test'] = Spirent_L2_Gen.rfc_2544_throughput_test(StreamHandle1,StreamHandle2)
+    test_result['rfc_fl_test'] = Spirent_L2_Gen.rfc_2544_frameloss_test(StreamHandle1,StreamHandle2)
+    # test_result['rfc_b2b_test'] = Spirent_L2_Gen.rfc_2544_backtoback_test(StreamHandle1,StreamHandle2)
+    # test_result['rfc_latency_test'] = Spirent_L2_Gen.rfc_2544_latency_test(StreamHandle1,StreamHandle2)
+    Spirent_L2_Gen.delete_streams_clear_counters()
+
+    ### test UC,MC,BC Traffic, with % of total BW( default MTU is 9100)        
     # for tr in ['UC','BC','MC']:
     #     if A == 'Y':
     #         StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_Mbps(0,1,**input_dict['Spirent_2TAG_AZ'][tr])
@@ -85,6 +107,7 @@ def onnet_CCA(A,B):
    
 
     #Spirent_L2_Gen.Clean_Up_Spirent()
+    my_config.connect_nodes()
     test_result['CFM_Stats_Acc'] = my_config.mep_statistic_accedian()
     test_result['CFM_Stats_cisco'] = my_config.mep_statistic_cisco()
     my_config.check_QOS_counters_config()

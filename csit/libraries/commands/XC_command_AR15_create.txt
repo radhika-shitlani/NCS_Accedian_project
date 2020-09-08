@@ -1,0 +1,28 @@
+interface TenGigE0/0/0/5.2309 l2transport encapsulation dot1q 2309
+interface TenGigE0/0/0/5.2309 l2transport
+interface TenGigE0/0/0/5.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309
+l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 interface TenGigE0/0/0/5.2309
+l2vpn xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 neighbor evpn evi 52309 target 52309 source 52309
+evpn evi 52309
+evpn evi 52309 bgp rd 8220001:7510
+evpn evi 52309 bgp route-target import 8220001:52309
+evpn evi 52309 bgp route-target export 8220001:52309
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 continuity-check interval 1s
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 mep crosscheck mep-id 1
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check errors
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log crosscheck errors
+ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-102309 xconnect group ALX_NCS_LE-102309 p2p ALX_NCS_LE-102309 id icc-based LE XXX-102309 log continuity-check mep changes
+interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 cos 2
+interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 sla operation profile DMM2 target mep-id 1
+interface TenGigE0/0/0/5.2309 l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-102309 mep-id 2 sla operation profile SLM2 target mep-id 1
+policy-map 10000000-Business2-DIPNKR
+ class class-default
+  police rate 10000000 kbps burst 1100 kbytes
+  !
+  set traffic-class 4
+  set qos-group 2
+ !
+ end-policy-map
+!

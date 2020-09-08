@@ -1,0 +1,22 @@
+interface TenGigE0/0/0/33.2309 l2transport encapsulation dot1q 2309
+interface TenGigE0/0/0/33.2309 l2transport
+interface TenGigE0/0/0/33.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit maximum 100
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit action no-flood
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mtu 1500
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 interface TenGigE0/0/0/33.2309
+l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 evi 52309
+evpn evi 52309 advertise-mac
+evpn evi 52309 bgp rd 8220001:7513
+evpn evi 52309 bgp route-target import 8220001:52309
+evpn evi 52309 bgp route-target export 8220001:52309
+policy-map 10000000-Business2-DIPNKR
+ class class-default
+  police rate 10000000 kbps burst 1100 kbytes
+  !
+  set traffic-class 4
+  set qos-group 2
+ !
+ end-policy-map
+!

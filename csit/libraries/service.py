@@ -32,6 +32,7 @@ class Service:
         for node in self.data["site_list"]:
             node['connect_obj'] = Netmiko(**node['login'])
             print("**** connection established with node {}".format(node['Node_name']))
+            time.sleep(3)
     def disconnect_nodes(self):
         for node in self.data["site_list"]:
             node['connect_obj'].disconnect()
@@ -209,7 +210,14 @@ class Service:
             else:
                 pass             
 
-
+    def check_Mac_table(self):
+        for node in self.data["site_list"]:
+            if node['login']['device_type'] == 'cisco_xr':
+                print(node['Node_name'])
+                output = node['connect_obj'].send_command("show evpn evi mac | include {}".format(self.data['item'] + 50000))
+                print(output)
+            else:
+                pass    
 
     def delete_config(self):
         for node in self.data["site_list"]:

@@ -1,130 +1,130 @@
-[2020-09-07 14:02:57]: Started process.  Command line: 
-[2020-09-07 14:02:57]:      port number: 57013
-[2020-09-07 14:02:57]:    timeout value: 120
-[2020-09-07 14:02:57]:       log option: log
-[2020-09-07 14:02:57]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-09-07 14:02:57]:    log file name: CC.hltlog
-[2020-09-07 14:02:57]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-09-07 14:02:57]: Sourcing initialization file "stcinit.srv".
-[2020-09-07 14:02:57]: Connecting to port 57013 on 127.0.0.1.
-[2020-09-07 14:02:57]: Creating server socket.
-[2020-09-07 14:02:57]: Generated port number: 38677
-[2020-09-07 14:02:57]: Setting up timeout check.
-[2020-09-07 14:02:57]: Waiting for client connection.
-[2020-09-07 14:02:57]: Client connection from 127.0.0.1 port 33940.
-[2020-09-07 14:02:57]: Executing: <package require SpirentHltApi>
-[2020-09-07 14:03:16]: Return value: <4.67>
-[2020-09-07 14:03:16]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
-[2020-09-07 14:03:55]: Executing: <set ret [sth::test_config -log 0 -logfile SteamConfig-WithPercentageTraffic_logfile -vendorlogfile SteamConfig-WithPercentageTraffic_stcExport -vendorlog 0 -hltlog 1 -hltlogfile SteamConfig-WithPercentageTraffic_hltExport -hlt2stcmappingfile SteamConfig-WithPercentageTraffic_hlt2StcMapping -hlt2stcmapping 1 -log_level 0]>
-[2020-09-07 14:03:55]: Return value: <{status 1}>
-[2020-09-07 14:03:55]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:03:55]: Return value: <>
-[2020-09-07 14:03:55]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:03:55]: Return value: <>
-[2020-09-07 14:03:55]: Executing: <set hashkey>
-[2020-09-07 14:03:55]: Return value: <status>
-[2020-09-07 14:03:55]: Executing: <set hashvalue>
-[2020-09-07 14:03:55]: Return value: <1>
-[2020-09-07 14:03:55]: Executing: <set ret [sth::test_control -action enable]>
-[2020-09-07 14:03:55]: Return value: <{status 1}>
-[2020-09-07 14:03:55]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:03:55]: Return value: <>
-[2020-09-07 14:03:55]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:03:55]: Return value: <>
-[2020-09-07 14:03:55]: Executing: <set hashkey>
-[2020-09-07 14:03:55]: Return value: <status>
-[2020-09-07 14:03:55]: Executing: <set hashvalue>
-[2020-09-07 14:03:55]: Return value: <1>
-[2020-09-07 14:03:55]: Executing: <sth::connect -device 10.91.113.124 -port_list "7/7 7/8" -break_locks 1 -offline 0>
-[2020-09-07 14:03:58]: Return value: <{offline 0} {port_handle {{10 {{91 {{113 {{124 {{7/7 port1} {7/8 port2}}}}}}}}}}} {status 1}>
-[2020-09-07 14:03:58]: Executing: <set ret [sth::interface_config -mode config -port_handle port1 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1]>
-[2020-09-07 14:04:03]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
-[2020-09-07 14:04:03]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <set hashkey>
-[2020-09-07 14:04:03]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
-[2020-09-07 14:04:03]: Executing: <set hashvalue>
-[2020-09-07 14:04:03]: Return value: <1 none none 1 0>
-[2020-09-07 14:04:03]: Executing: <set ret [sth::interface_config -mode config -port_handle port2 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1]>
-[2020-09-07 14:04:03]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
-[2020-09-07 14:04:03]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <set hashkey>
-[2020-09-07 14:04:03]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
-[2020-09-07 14:04:03]: Executing: <set hashvalue>
-[2020-09-07 14:04:03]: Return value: <1 none none 1 0>
-[2020-09-07 14:04:03]: Executing: <set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii_vlan -vlan_outer_tpid 34984 -vlan_id_outer 2409 -vlan_outer_user_priority 3 -vlan_tpid 33024 -vlan_id 2309 -vlan_user_priority 2 -mac_src 00:10:94:00:00:01 -mac_dst 00:10:94:00:00:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 9800 -enable_stream false]>
-[2020-09-07 14:04:03]: Return value: <{stream_id streamblock1} {status 1}>
-[2020-09-07 14:04:03]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <set hashkey>
-[2020-09-07 14:04:03]: Return value: <stream_id status>
-[2020-09-07 14:04:03]: Executing: <set hashvalue>
-[2020-09-07 14:04:03]: Return value: <streamblock1 1>
-[2020-09-07 14:04:03]: Executing: <set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii_vlan -vlan_tpid 33024 -vlan_id 2309 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:01 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 9800 -enable_stream false]>
-[2020-09-07 14:04:03]: Return value: <{stream_id streamblock2} {status 1}>
-[2020-09-07 14:04:03]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:04:03]: Return value: <>
-[2020-09-07 14:04:03]: Executing: <set hashkey>
-[2020-09-07 14:04:03]: Return value: <stream_id status>
-[2020-09-07 14:04:03]: Executing: <set hashvalue>
-[2020-09-07 14:04:03]: Return value: <streamblock2 1>
-[2020-09-07 14:04:04]: Executing: <set ret [sth::test_rfc2544_config -mode create -test_type fl -streamblock_handle "streamblock1 streamblock2" -endpoint_creation 0 -frame_size_mode custom -start_traffic_delay 2 -learning_mode l2 -frame_size "68" -enable_detailresults 1 -load_unit percent_line_rate -stagger_start_delay 0 -learning_frequency learn_once -enable_jitter_measure 0 -delay_after_transmission 5 -load_step 1 -enable_cyclic_resolution 1 -load_type step -test_duration_mode seconds -iteration_count 1 -test_duration 30 -load_end 96 -enable_learning 0 -latency_type LILO -l3_learning_retry_count 5 -load_start 100]>
-[2020-09-07 14:04:04]: Return value: <{status 1} {handle rfc2544framelossconfig2}>
-[2020-09-07 14:04:04]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:04:04]: Return value: <>
-[2020-09-07 14:04:04]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:04:04]: Return value: <>
-[2020-09-07 14:04:04]: Executing: <set hashkey>
-[2020-09-07 14:04:04]: Return value: <status handle>
-[2020-09-07 14:04:04]: Executing: <set hashvalue>
-[2020-09-07 14:04:04]: Return value: <1 rfc2544framelossconfig2>
-[2020-09-07 14:04:04]: Executing: <set ret [sth::test_rfc2544_control -action run -wait 1]>
-[2020-09-07 14:07:15]: Return value: <{status 1}>
-[2020-09-07 14:07:15]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:07:15]: Return value: <>
-[2020-09-07 14:07:15]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:07:15]: Return value: <>
-[2020-09-07 14:07:15]: Executing: <set hashkey>
-[2020-09-07 14:07:15]: Return value: <status>
-[2020-09-07 14:07:15]: Executing: <set hashvalue>
-[2020-09-07 14:07:15]: Return value: <1>
-[2020-09-07 14:07:15]: Executing: <set ret [sth::test_rfc2544_info -test_type fl -clear_result 1]>
-[2020-09-07 14:07:15]: Return value: <{rfc2544fl {{detail {{iteration {{1 {{frame_size {{frame_size_value 68} {68 {{load {{100 {{tx_frames 852272728} {rx_frames 833842982} {frame_lost 18429746} {frame_loss 2.1624235288213987}}} {99 {{tx_frames 819174760} {rx_frames 817293962} {frame_lost 1880798} {frame_loss 0.22959667360844957}}} {98 {{tx_frames 815217392} {rx_frames 815217392} {frame_lost 0} {frame_loss 0.0}}} {97 {{tx_frames 815217392} {rx_frames 815217392} {frame_lost 0} {frame_loss 0.0}}}}}}}}}}}}}}} {summary {{total_iteration_count 1} {frame_size {{frame_size_value 68} {68 {{load {{100 {{tx_frames 852272728} {rx_frames 833842982} {frame_lost 18429746} {frame_loss 2.1624235288213987}}} {99 {{tx_frames 819174760} {rx_frames 817293962} {frame_lost 1880798} {frame_loss 0.22959667360844957}}} {98 {{tx_frames 815217392} {rx_frames 815217392} {frame_lost 0} {frame_loss 0.0}}} {97 {{tx_frames 815217392} {rx_frames 815217392} {frame_lost 0} {frame_loss 0.0}}}}}}}}}}}}} {status 1}>
-[2020-09-07 14:07:15]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:07:15]: Return value: <>
-[2020-09-07 14:07:15]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:07:15]: Return value: <>
-[2020-09-07 14:07:15]: Executing: <set hashkey>
-[2020-09-07 14:07:15]: Return value: <{rfc2544fl . detail . iteration . 1 . frame_size . frame_size_value} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . frame_loss} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 99 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 99 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 99 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 99 . frame_loss} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 98 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 98 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 98 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 98 . frame_loss} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 97 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 97 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 97 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 97 . frame_loss} {rfc2544fl . summary . total_iteration_count} {rfc2544fl . summary . frame_size . frame_size_value} {rfc2544fl . summary . frame_size . 68 . load . 100 . tx_frames} {rfc2544fl . summary . frame_size . 68 . load . 100 . rx_frames} {rfc2544fl . summary . frame_size . 68 . load . 100 . frame_lost} {rfc2544fl . summary . frame_size . 68 . load . 100 . frame_loss} {rfc2544fl . summary . frame_size . 68 . load . 99 . tx_frames} {rfc2544fl . summary . frame_size . 68 . load . 99 . rx_frames} {rfc2544fl . summary . frame_size . 68 . load . 99 . frame_lost} {rfc2544fl . summary . frame_size . 68 . load . 99 . frame_loss} {rfc2544fl . summary . frame_size . 68 . load . 98 . tx_frames} {rfc2544fl . summary . frame_size . 68 . load . 98 . rx_frames} {rfc2544fl . summary . frame_size . 68 . load . 98 . frame_lost} {rfc2544fl . summary . frame_size . 68 . load . 98 . frame_loss} {rfc2544fl . summary . frame_size . 68 . load . 97 . tx_frames} {rfc2544fl . summary . frame_size . 68 . load . 97 . rx_frames} {rfc2544fl . summary . frame_size . 68 . load . 97 . frame_lost} {rfc2544fl . summary . frame_size . 68 . load . 97 . frame_loss} status>
-[2020-09-07 14:07:15]: Executing: <set hashvalue>
-[2020-09-07 14:07:15]: Return value: <68 852272728 833842982 18429746 2.1624235288213987 819174760 817293962 1880798 0.22959667360844957 815217392 815217392 0 0.0 815217392 815217392 0 0.0 1 68 852272728 833842982 18429746 2.1624235288213987 819174760 817293962 1880798 0.22959667360844957 815217392 815217392 0 0.0 815217392 815217392 0 0.0 1>
-[2020-09-07 14:07:15]: Executing: <set ret [sth::traffic_control -port_handle "port1 port2" -action reset]>
-[2020-09-07 14:07:26]: Return value: <{status 1}>
-[2020-09-07 14:07:26]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:07:26]: Return value: <>
-[2020-09-07 14:07:26]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:07:26]: Return value: <>
-[2020-09-07 14:07:26]: Executing: <set hashkey>
-[2020-09-07 14:07:26]: Return value: <status>
-[2020-09-07 14:07:26]: Executing: <set hashvalue>
-[2020-09-07 14:07:26]: Return value: <1>
-[2020-09-07 14:07:26]: Executing: <set ret [sth::cleanup_session -port_handle "port1 port2" -clean_dbfile 1]>
-[2020-09-07 14:07:27]: Return value: <{status 1}>
-[2020-09-07 14:07:27]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
-[2020-09-07 14:07:27]: Return value: <>
-[2020-09-07 14:07:27]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
-[2020-09-07 14:07:27]: Return value: <>
-[2020-09-07 14:07:27]: Executing: <set hashkey>
-[2020-09-07 14:07:27]: Return value: <status>
-[2020-09-07 14:07:27]: Executing: <set hashvalue>
-[2020-09-07 14:07:27]: Return value: <1>
-[2020-09-07 14:07:56]: Client connection has been broken.  Exiting.
+[2020-09-08 09:53:40]: Started process.  Command line: 
+[2020-09-08 09:53:40]:      port number: 55893
+[2020-09-08 09:53:40]:    timeout value: 120
+[2020-09-08 09:53:40]:       log option: log
+[2020-09-08 09:53:40]: results dir path: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-09-08 09:53:40]:    log file name: CC.hltlog
+[2020-09-08 09:53:40]: Working directory is now: /home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-09-08 09:53:40]: Sourcing initialization file "stcinit.srv".
+[2020-09-08 09:53:40]: Connecting to port 55893 on 127.0.0.1.
+[2020-09-08 09:53:40]: Creating server socket.
+[2020-09-08 09:53:40]: Generated port number: 36001
+[2020-09-08 09:53:40]: Setting up timeout check.
+[2020-09-08 09:53:40]: Waiting for client connection.
+[2020-09-08 09:53:40]: Client connection from 127.0.0.1 port 54004.
+[2020-09-08 09:53:40]: Executing: <package require SpirentHltApi>
+[2020-09-08 09:53:59]: Return value: <4.67>
+[2020-09-08 09:53:59]: custom_path--/home/colt123/Dipankar/NCS_Accedian_project/csit/libraries
+[2020-09-08 09:54:41]: Executing: <set ret [sth::test_config -log 0 -logfile SteamConfig-WithPercentageTraffic_logfile -vendorlogfile SteamConfig-WithPercentageTraffic_stcExport -vendorlog 0 -hltlog 1 -hltlogfile SteamConfig-WithPercentageTraffic_hltExport -hlt2stcmappingfile SteamConfig-WithPercentageTraffic_hlt2StcMapping -hlt2stcmapping 1 -log_level 0]>
+[2020-09-08 09:54:41]: Return value: <{status 1}>
+[2020-09-08 09:54:41]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:41]: Return value: <>
+[2020-09-08 09:54:41]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:41]: Return value: <>
+[2020-09-08 09:54:41]: Executing: <set hashkey>
+[2020-09-08 09:54:41]: Return value: <status>
+[2020-09-08 09:54:41]: Executing: <set hashvalue>
+[2020-09-08 09:54:41]: Return value: <1>
+[2020-09-08 09:54:41]: Executing: <set ret [sth::test_control -action enable]>
+[2020-09-08 09:54:41]: Return value: <{status 1}>
+[2020-09-08 09:54:41]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:41]: Return value: <>
+[2020-09-08 09:54:41]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:41]: Return value: <>
+[2020-09-08 09:54:41]: Executing: <set hashkey>
+[2020-09-08 09:54:41]: Return value: <status>
+[2020-09-08 09:54:41]: Executing: <set hashvalue>
+[2020-09-08 09:54:41]: Return value: <1>
+[2020-09-08 09:54:41]: Executing: <sth::connect -device 10.91.113.124 -port_list "7/7 7/8" -break_locks 1 -offline 0>
+[2020-09-08 09:54:44]: Return value: <{offline 0} {port_handle {{10 {{91 {{113 {{124 {{7/7 port1} {7/8 port2}}}}}}}}}}} {status 1}>
+[2020-09-08 09:54:44]: Executing: <set ret [sth::interface_config -mode config -port_handle port1 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1]>
+[2020-09-08 09:54:49]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
+[2020-09-08 09:54:49]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:49]: Return value: <>
+[2020-09-08 09:54:49]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:49]: Return value: <>
+[2020-09-08 09:54:49]: Executing: <set hashkey>
+[2020-09-08 09:54:49]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
+[2020-09-08 09:54:49]: Executing: <set hashvalue>
+[2020-09-08 09:54:49]: Return value: <1 none none 1 0>
+[2020-09-08 09:54:49]: Executing: <set ret [sth::interface_config -mode config -port_handle port2 -create_host false -intf_mode ethernet -phy_mode fiber -scheduling_mode RATE_BASED -port_loadunit PERCENT_LINE_RATE -port_load 50 -enable_ping_response 0 -control_plane_mtu 1500 -flow_control false -speed ether10000 -data_path_mode normal -autonegotiation 1]>
+[2020-09-08 09:54:49]: Return value: <{arpnd_status 1} {arpnd_cache none} {arpnd_report none} {status 1} {handles 0}>
+[2020-09-08 09:54:49]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:49]: Return value: <>
+[2020-09-08 09:54:49]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:49]: Return value: <>
+[2020-09-08 09:54:49]: Executing: <set hashkey>
+[2020-09-08 09:54:49]: Return value: <arpnd_status arpnd_cache arpnd_report status handles>
+[2020-09-08 09:54:49]: Executing: <set hashvalue>
+[2020-09-08 09:54:49]: Return value: <1 none none 1 0>
+[2020-09-08 09:54:49]: Executing: <set ret [sth::traffic_config -mode create -port_handle port1 -l2_encap ethernet_ii_vlan -vlan_tpid 33024 -vlan_id 2309 -vlan_user_priority 2 -mac_src 00:10:94:00:00:01 -mac_dst 00:10:94:00:00:02 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port2 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 9800 -enable_stream false]>
+[2020-09-08 09:54:50]: Return value: <{stream_id streamblock1} {status 1}>
+[2020-09-08 09:54:50]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <set hashkey>
+[2020-09-08 09:54:50]: Return value: <stream_id status>
+[2020-09-08 09:54:50]: Executing: <set hashvalue>
+[2020-09-08 09:54:50]: Return value: <streamblock1 1>
+[2020-09-08 09:54:50]: Executing: <set ret [sth::traffic_config -mode create -port_handle port2 -l2_encap ethernet_ii_vlan -vlan_tpid 33024 -vlan_id 2309 -vlan_user_priority 2 -mac_src 00:10:94:00:00:02 -mac_dst 00:10:94:00:00:01 -enable_control_plane 0 -l3_length 4978 -name Test_StreamBlock -fill_type constant -fcs_error 0 -fill_value 0 -frame_size 9100 -traffic_state 1 -high_speed_result_analysis 1 -length_mode fixed -dest_port_list port1 -tx_port_sending_traffic_to_self_en false -disable_signature 0 -enable_stream_only_gen 1 -pkts_per_burst 1 -inter_stream_gap_unit bytes -burst_loop_count 30 -transmit_mode continuous -inter_stream_gap 12 -rate_mbps 9800 -enable_stream false]>
+[2020-09-08 09:54:50]: Return value: <{stream_id streamblock2} {status 1}>
+[2020-09-08 09:54:50]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <set hashkey>
+[2020-09-08 09:54:50]: Return value: <stream_id status>
+[2020-09-08 09:54:50]: Executing: <set hashvalue>
+[2020-09-08 09:54:50]: Return value: <streamblock2 1>
+[2020-09-08 09:54:50]: Executing: <set ret [sth::test_rfc2544_config -mode create -test_type fl -streamblock_handle "streamblock1 streamblock2" -endpoint_creation 0 -frame_size_mode custom -start_traffic_delay 2 -learning_mode l2 -frame_size "68 9100" -enable_detailresults 1 -load_unit percent_line_rate -stagger_start_delay 0 -learning_frequency learn_once -enable_jitter_measure 0 -delay_after_transmission 5 -load_step 1 -enable_cyclic_resolution 1 -load_type step -test_duration_mode seconds -iteration_count 1 -test_duration 30 -load_end 100 -enable_learning 0 -latency_type LILO -l3_learning_retry_count 5 -load_start 100]>
+[2020-09-08 09:54:50]: Return value: <{status 1} {handle rfc2544framelossconfig2}>
+[2020-09-08 09:54:50]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:54:50]: Return value: <>
+[2020-09-08 09:54:50]: Executing: <set hashkey>
+[2020-09-08 09:54:50]: Return value: <status handle>
+[2020-09-08 09:54:50]: Executing: <set hashvalue>
+[2020-09-08 09:54:50]: Return value: <1 rfc2544framelossconfig2>
+[2020-09-08 09:54:50]: Executing: <set ret [sth::test_rfc2544_control -action run -wait 1]>
+[2020-09-08 09:56:29]: Return value: <{status 1}>
+[2020-09-08 09:56:29]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:56:29]: Return value: <>
+[2020-09-08 09:56:29]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:56:29]: Return value: <>
+[2020-09-08 09:56:29]: Executing: <set hashkey>
+[2020-09-08 09:56:29]: Return value: <status>
+[2020-09-08 09:56:29]: Executing: <set hashvalue>
+[2020-09-08 09:56:29]: Return value: <1>
+[2020-09-08 09:56:29]: Executing: <set ret [sth::test_rfc2544_info -test_type fl -clear_result 1]>
+[2020-09-08 09:56:29]: Return value: <{rfc2544fl {{detail {{iteration {{1 {{frame_size {{frame_size_value {68 9100}} {68 {{load {{100 {{tx_frames 852272728} {rx_frames 852272728} {frame_lost 0} {frame_loss 0.0}}}}}}} {9100 {{load {{100 {{tx_frames 8223686} {rx_frames 8192528} {frame_lost 31158} {frame_loss 0.3788811975554514}}}}}}}}}}}}}}} {summary {{total_iteration_count 1} {frame_size {{frame_size_value {68 9100}} {68 {{load {{100 {{tx_frames 852272728} {rx_frames 852272728} {frame_lost 0} {frame_loss 0.0}}}}}}} {9100 {{load {{100 {{tx_frames 8223686} {rx_frames 8192528} {frame_lost 31158} {frame_loss 0.3788811975554514}}}}}}}}}}}}} {status 1}>
+[2020-09-08 09:56:29]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:56:29]: Return value: <>
+[2020-09-08 09:56:29]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:56:29]: Return value: <>
+[2020-09-08 09:56:29]: Executing: <set hashkey>
+[2020-09-08 09:56:29]: Return value: <{rfc2544fl . detail . iteration . 1 . frame_size . frame_size_value} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 68 . load . 100 . frame_loss} {rfc2544fl . detail . iteration . 1 . frame_size . 9100 . load . 100 . tx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 9100 . load . 100 . rx_frames} {rfc2544fl . detail . iteration . 1 . frame_size . 9100 . load . 100 . frame_lost} {rfc2544fl . detail . iteration . 1 . frame_size . 9100 . load . 100 . frame_loss} {rfc2544fl . summary . total_iteration_count} {rfc2544fl . summary . frame_size . frame_size_value} {rfc2544fl . summary . frame_size . 68 . load . 100 . tx_frames} {rfc2544fl . summary . frame_size . 68 . load . 100 . rx_frames} {rfc2544fl . summary . frame_size . 68 . load . 100 . frame_lost} {rfc2544fl . summary . frame_size . 68 . load . 100 . frame_loss} {rfc2544fl . summary . frame_size . 9100 . load . 100 . tx_frames} {rfc2544fl . summary . frame_size . 9100 . load . 100 . rx_frames} {rfc2544fl . summary . frame_size . 9100 . load . 100 . frame_lost} {rfc2544fl . summary . frame_size . 9100 . load . 100 . frame_loss} status>
+[2020-09-08 09:56:29]: Executing: <set hashvalue>
+[2020-09-08 09:56:29]: Return value: <{68 9100} 852272728 852272728 0 0.0 8223686 8192528 31158 0.3788811975554514 1 {68 9100} 852272728 852272728 0 0.0 8223686 8192528 31158 0.3788811975554514 1>
+[2020-09-08 09:56:29]: Executing: <set ret [sth::traffic_control -port_handle "port1 port2" -action reset]>
+[2020-09-08 09:56:41]: Return value: <{status 1}>
+[2020-09-08 09:56:41]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:56:41]: Return value: <>
+[2020-09-08 09:56:41]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:56:41]: Return value: <>
+[2020-09-08 09:56:41]: Executing: <set hashkey>
+[2020-09-08 09:56:41]: Return value: <status>
+[2020-09-08 09:56:41]: Executing: <set hashvalue>
+[2020-09-08 09:56:41]: Return value: <1>
+[2020-09-08 09:57:00]: Executing: <set ret [sth::cleanup_session -port_handle "port1 port2" -clean_dbfile 1]>
+[2020-09-08 09:57:00]: Return value: <{status 1}>
+[2020-09-08 09:57:00]: Executing: <set hashkey ""; set hashvalue ""; set nested_hashkey "">
+[2020-09-08 09:57:00]: Return value: <>
+[2020-09-08 09:57:00]: Executing: <ret_hash ret hashkey hashvalue nested_hashkey>
+[2020-09-08 09:57:00]: Return value: <>
+[2020-09-08 09:57:00]: Executing: <set hashkey>
+[2020-09-08 09:57:00]: Return value: <status>
+[2020-09-08 09:57:00]: Executing: <set hashvalue>
+[2020-09-08 09:57:00]: Return value: <1>
+[2020-09-08 09:57:19]: Client connection has been broken.  Exiting.
