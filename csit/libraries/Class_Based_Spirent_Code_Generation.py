@@ -11,6 +11,7 @@ import sys
 import yaml
 import re
 from pprint import pprint
+from service import Service
 
 
 # file_path =  os.path.pardir()
@@ -74,7 +75,8 @@ class Spirent_L2_Traffic_Gen:
 		self.rfc_frame_size = Spirent_Test_Infrastructure['rfc_frame_size']
 		self.rfc_load_end = Spirent_Test_Infrastructure['rfc_load_end']
 		self.rfc_load_start = Spirent_Test_Infrastructure['rfc_load_start']
-		self.rfc_load_step = Spirent_Test_Infrastructure['rfc_load_step']		
+		self.rfc_load_step = Spirent_Test_Infrastructure['rfc_load_step']
+		self.Frame_Size = Spirent_Test_Infrastructure['UC_BC_MC_Frame_Size']
 		port_list = list(Spirent_Test_Infrastructure['Port_Values'].values())
 		self.port_list = port_list
 		port_speed = list(Spirent_Test_Infrastructure['Port_Speed'].values())
@@ -147,7 +149,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 9100
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -221,7 +223,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 9100
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -291,7 +293,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 9100
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -354,7 +356,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 1500
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -417,7 +419,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 9100
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -511,7 +513,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 1500
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -606,7 +608,7 @@ class Spirent_L2_Traffic_Gen:
 		if 'Frame_Size' in kwargs.keys():
 			self.Frame_Size = kwargs['Frame_Size']
 		else:
-			self.Frame_Size = 9100
+			pass
 		if 'MAC_Src' in kwargs.keys():
 			self.mac_src = kwargs['MAC_Src']
 		else:
@@ -678,26 +680,18 @@ class Spirent_L2_Traffic_Gen:
 		return(streamblock_ret)
 	# config part is finished
 	def Generate_Stream_Traffic(self,StreamBlock1,StreamBlock2):
-		#############################################################
-		# start traffic
-		##############################################################
-		# pprint(StreamBlock)
-		# print("Printed StreamBlock")
-		# time.sleep(60)
-		# stream_handle = StreamBlock['stream_id']
 		self.StreamBlock1 = StreamBlock1['stream_id']
 		self.StreamBlock2 = StreamBlock2['stream_id']
-		print("**** Traffic Started First Time for 10 sec to help mac learning")
-		traffic_ctrl_ret = sth.traffic_control(
-			stream_handle=[self.StreamBlock1,self.StreamBlock2],
-			action='run', duration='8');
-		time.sleep(10)
-		print("**** Clear stats of 10 seconds traffic")
-		traffic_ctrl_ret = sth.traffic_control(
-			stream_handle=[self.StreamBlock1,self.StreamBlock2],
-			action='clear_stats');
-		print("**** hold your breathe for 10 seconds, traffic is on its the way")
-		time.sleep(10)
+		# print("**** Traffic Started First Time for 10 sec to help mac learning")
+		# traffic_ctrl_ret = sth.traffic_control(
+		# 	stream_handle=[self.StreamBlock1,self.StreamBlock2],
+		# 	action='run', duration='8');
+		# time.sleep(10)
+		# print("**** Clear stats of 10 seconds traffic")
+		# traffic_ctrl_ret = sth.traffic_control(
+		# 	stream_handle=[self.StreamBlock1,self.StreamBlock2],
+		# 	action='clear_stats');
+		# time.sleep(2)
 		traffic_ctrl_ret = sth.traffic_control(
 			stream_handle=[self.StreamBlock1,self.StreamBlock2],
 			action='run',
@@ -748,7 +742,7 @@ class Spirent_L2_Traffic_Gen:
 		status = traffic_results_ret['status']
 		if (status == '0'):
 			print("run sth.traffic_stats failed")
-		#pprint(traffic_results_ret)
+		pprint(traffic_results_ret)
 		self.traffic_result = traffic_results_ret
 	
 	def delete_streams_clear_counters(self):
@@ -1359,19 +1353,21 @@ class Spirent_L2_Traffic_Gen:
 		deviceB_rx = self.traffic_result[portB]['aggregate']['rx']['pkt_count']
 		if deviceA_tx == deviceB_rx and deviceB_tx == deviceA_rx:
 			print("***************** Test has Passed")
-			print("**** No of Tx packets on deviceA are: " + str(deviceA_tx))
-			print("**** No of Rx packets on deviceB are: " + str(deviceB_rx))
+			print(f"**** No of Tx packets on {self.port_list[0]} are: {deviceA_tx}")
+			print(f"**** No of Rx packets on {self.port_list[1]} are: {deviceB_rx}")
 			print("*****************")
-			print("**** No of Tx packets on deviceB are: " + str(deviceB_tx))
-			print("**** No of Rx packets on deviceA are: " + str(deviceA_rx))
+			print(f"**** No of Tx packets on {self.port_list[1]} are: {deviceB_tx}")
+			print(f"**** No of Rx packets on {self.port_list[0]} are: {deviceA_rx}")
 			test_result1 = 'pass'
 		else:
 			print("***************** Test has failed")
-			print("**** No of Tx packets on deviceA are: " + str(deviceA_tx))
-			print("**** No of Rx packets on deviceB are: " + str(deviceB_rx))
+			print(f"**** No of Tx packets on {self.port_list[0]} are: {deviceA_tx}")
+			print(f"**** No of Rx packets on {self.port_list[1]} are: {deviceB_rx}")
 			print("*****************")
-			print("**** No of Tx packets on deviceB are: " + str(deviceB_tx))
-			print("**** No of Rx packets on deviceA are: " + str(deviceA_rx))
+			print(f"**** No of Tx packets on {self.port_list[1]} are: {deviceB_tx}")
+			print(f"**** No of Rx packets on {self.port_list[0]} are: {deviceA_rx}")
+			print(f"**** No of packets dropped from {self.port_list[0]} to {self.port_list[1]} is : {int(deviceA_tx) - int(deviceB_rx) }")
+			print(f"**** No of packets dropped from {self.port_list[1]} to {self.port_list[0]} is : {int(deviceB_tx) - int(deviceA_rx) }")
 			test_result1 = 'fail'
 		
 		dict_local = {}
@@ -1380,8 +1376,10 @@ class Spirent_L2_Traffic_Gen:
 		dict_local['Rate_Mbps'] = self.Rate_Mbps
 		dict_local[self.port_list[0]]['tx'] = deviceA_tx
 		dict_local[self.port_list[0]]['rx'] = deviceA_rx
+		dict_local[self.port_list[0]]['drop'] = int(deviceA_tx) - int(deviceB_rx)		
 		dict_local[self.port_list[1]]['tx'] = deviceB_tx
 		dict_local[self.port_list[1]]['rx'] = deviceB_rx
+		dict_local[self.port_list[1]]['drop'] = int(deviceB_tx) - int(deviceA_rx)
 		dict_local['result'] = test_result1
 		return dict_local
 
@@ -1697,6 +1695,36 @@ class Spirent_L2_Traffic_Gen:
 				else:
 					dict_local[k1][k2] = 'fail'
 		return dict_local
+	# def perfrom_LAG_test(self,StreamBlock1,StreamBlock2,**kwargs):
+	# 	self.dict1 = kwargs
+	# 	my_config = Service(**self.dict1)
+	# 	my_config.connect_nodes()
+	# 	my_config.get_Lag_Status()
+	# 	self.StreamBlock1 = StreamBlock1['stream_id']
+	# 	self.StreamBlock2 = StreamBlock2['stream_id']
+	# 	print("**** Traffic Started First Time for 10 sec to help mac learning")
+	# 	traffic_ctrl_ret = sth.traffic_control(
+	# 		stream_handle=[self.StreamBlock1,self.StreamBlock2],
+	# 		action='run', duration='8');
+	# 	time.sleep(10)
+	# 	print("**** Clear stats of 10 seconds traffic")
+	# 	traffic_ctrl_ret = sth.traffic_control(
+	# 		stream_handle=[self.StreamBlock1,self.StreamBlock2],
+	# 		action='clear_stats');
+	# 	print("**** hold your breathe for 10 seconds, traffic is on its the way")
+	# 	time.sleep(10)
+	# 	traffic_ctrl_ret = sth.traffic_control(
+	# 		stream_handle=[self.StreamBlock1,self.StreamBlock2],
+	# 		action='run',
+	# 		duration= self.traffic_duration);
+	# 	status = traffic_ctrl_ret['status']
+	# 	if (status == '0'):
+	# 		print("run sth.traffic_control failed")
+	# 	pprint(traffic_ctrl_ret)
+	# 	print(f"**** Traffic Started Second Time for {self.traffic_duration} seconds")
+	# 	time.sleep(self.traffic_duration + 10)
+	# 	print("**** checking traffic statistic")	
+
 def Create_Spirent_L2_Gen(**kwargs):
 	Spirent_L2_Gen = Spirent_L2_Traffic_Gen (**kwargs)
 	return (Spirent_L2_Gen)

@@ -32,7 +32,6 @@ class Service:
         for node in self.data["site_list"]:
             node['connect_obj'] = Netmiko(**node['login'])
             print("**** connection established with node {}".format(node['Node_name']))
-            time.sleep(3)
     def disconnect_nodes(self):
         for node in self.data["site_list"]:
             node['connect_obj'].disconnect()
@@ -195,20 +194,25 @@ class Service:
                     output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
                     print(output)
             print("****  Configration completed on {}".format(node['Node_name']))
-        print("**** wait for 30 seconds")
+        print("**** wait for 10 seconds")
+        time.sleep(10)
 
     def check_QOS_counters_config(self):
+        dict13 = {}
         for node in self.data["site_list"]:
             if 'EP' in node['side']:
                 if node['login']['device_type'] == 'cisco_xr':
                     output = node['connect_obj'].send_command("show policy-map interface {}.{}".format(node["main_interface"],self.data['item']))
                     print(output)
+                    x = re.findall("Total Dropped\s+:\s+\d+", output)
+                    dict13[node['Node_name']] = int(x[0].split(' ')[-1])
                     output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
                     print(output)
                 else:
                     pass
             else:
-                pass             
+                pass
+        return dict13             
 
     def check_Mac_table(self):
         for node in self.data["site_list"]:
@@ -217,7 +221,26 @@ class Service:
                 output = node['connect_obj'].send_command("show evpn evi mac | include {}".format(self.data['item'] + 50000))
                 print(output)
             else:
-                pass    
+                pass
+    def get_Lag_Status(self):
+        for node in self.data["site_list"]:
+            if node['login']['device_type'] == 'cisco_xr' and 'Bundle' in node['main_interface']:
+                print(node['Node_name'])
+                output = node['connect_obj'].send_command("show interface {} | utility egrep 'Active\|Configured\|Standby'".format(node['main_interface']))
+                x = re.findall("TenGigE0/0/\d+/\d+|GigabitEthernet0/0/\d+/\d+", output)
+                y = re.findall("Active|Standby|Configured", output)
+                print(output)
+                node['lag'] = {}
+                node['active_links'] = 0
+                for l,n in zip(x,y):
+                    node['lag'][l] = n
+                    if n == 'Active':
+                        node['link_to_shut'] = l
+                        node['active_links'] = node['active_links'] + 1
+                node['failure_command'] = ['int {}'.format(node['link_to_shut']),'shut']
+                node['repair_command'] = ['int {}'.format(node['link_to_shut']),'no shut']
+            else:
+                pass 
 
     def delete_config(self):
         for node in self.data["site_list"]:

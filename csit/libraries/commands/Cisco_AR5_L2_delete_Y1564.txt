@@ -1,0 +1,5 @@
+exit
+ethernet loopback stop local interface Bundle-Ether4000.2309 id 1
+configure terminal
+interface Bundle-Ether4000.2309 l2transport
+no ethernet loopback

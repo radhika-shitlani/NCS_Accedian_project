@@ -1,0 +1,6 @@
+int Bundle-Ether4000.2309 l2transport
+ethernet loopback permit internal
+commit
+exit
+exit
+ethernet loopback start local interface Bundle-Ether4000.2309 internal destination mac-address 0022.0022.0022 timeout 1800

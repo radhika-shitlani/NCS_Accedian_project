@@ -1,0 +1,3 @@
+no interface Bundle-Ether112.2309
+no l2vpn xconnect group ALX_NCS_LE-102309
+no evpn evi 52309

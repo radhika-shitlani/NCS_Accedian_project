@@ -1,4 +1,4 @@
-no interface Bundle-Ether581.2309
+no interface Bundle-Ether300.2309
 no l2vpn xconnect group ALX_NCS_LE-102309
 ethernet cfm domain COLT-1 level 1 id null
 no service ALX_NCS_LE-102309

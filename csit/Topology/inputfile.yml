@@ -6,7 +6,7 @@ total_BW: 20000000
 service_BW: 10000000
 CIR_percentage: 25
 MEG_level: 1
-QOS_type: "Business1"
+QOS_type: "Business2"
 colt_vlan_ethType: "s-vlan"
 customer_vlan_ethtype: "c-vlan"
 olo_eth_type: "s-vlan"
@@ -19,14 +19,14 @@ OLO_type: "P-OLO"
 olo_vlan: 2501
 site_list: 
  - 
-  main_interface: "Bundle-Ether581"
+  main_interface: "Bundle-Ether4000"
   side: "L2PE_EP"
-  Node_name: "AR15"
+  Node_name: "AR5"
   port_type: "F-type"
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.126.201"
+   host: "10.91.126.115"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
