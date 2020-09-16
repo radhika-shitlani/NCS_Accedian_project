@@ -1,0 +1,821 @@
+
+OS: Linux, 4.15.0-112-generic, unix; Tcl version: 8.5.19
+
+SpirentTestCenter Automation Version: 4.70.9706.0000
+Hlt Api (Ver. 4.67) was successfully loaded and initialized
+Internal Version: 4.67GA.0116
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 64, Load Size: 100
+
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 1518, Load Size: 100
+
+rfc2544frameloss test is running, Trial 1 of 1, Frame Size: 9100, Load Size: 100
+
+the exit state is COMPLETED
+Current OS: Linux,4.15.0-112-generic,#113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020; python version: 3.6.9
+Connecting Tcl server via port 38331
+Loading SpirentHltApi...
+Loaded SpirentHltApi: STCSERVER_RET_SUCCESS:4.67
+
+!
+!!
+************** Test XX type EP ************* 
+!!!!!!
+**** connection established with node AR15
+**** connection established with node AR5
+****  Logged in node : AR15
+configure terminal
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport encapsulation dot1q 2309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar15.BLB(config)#interface TenGigE0/0/0/5.2309 l2transport
+
+RP/0/RP0/CPU0:ar15.BLB(config-subif)#interface TenGigE0/0/0/5.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar15.BLB(config-l2vpn-bg-bd)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit maximum 100
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit action no-flood
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mtu 1500
+
+RP/0/RP0/CPU0:ar15.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 interface TenGigE0/0/0/5.2309
+
+RP/0/RP0/CPU0:ar15.BLB(config-l2vpn-bg-bd-ac)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 evi 52309
+
+RP/0/RP0/CPU0:ar15.BLB(config-l2vpn-bg-bd-evi)#evpn evi 52309 advertise-mac
+
+RP/0/RP0/CPU0:ar15.BLB(config-evpn-instance-mac)#evpn evi 52309 bgp rd 8220001:7510
+
+RP/0/RP0/CPU0:ar15.BLB(config)#evpn evi 52309 bgp route-target import 8220001:52309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#evpn evi 52309 bgp route-target export 8220001:52309
+
+RP/0/RP0/CPU0:ar15.BLB(config)#policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)#  police rate 10000000 kbps burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c-police)#  set traffic-class 4
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)#  set qos-group 2
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar15.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar15.BLB(config)#!
+
+RP/0/RP0/CPU0:ar15.BLB(config)#
+****  Configration completed on AR15
+****  Logged in node : AR5
+configure terminal
+
+Tue Sep 15 19:15:42.109 UTC
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport encapsulation dot1q 2309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport rewrite ingress tag pop 1 symmetric
+
+RP/0/RP0/CPU0:ar5.BLB(config)#interface TenGigE0/0/1/3/2.2309 l2transport
+
+RP/0/RP0/CPU0:ar5.BLB(config-subif)#interface TenGigE0/0/1/3/2.2309 l2transport service-policy input 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309
+
+RP/0/RP0/CPU0:ar5.BLB(config-l2vpn-bg-bd)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit maximum 100
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mac limit action no-flood
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 mtu 1500
+
+RP/0/RP0/CPU0:ar5.BLB(config)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 interface TenGigE0/0/1/3/2.2309
+
+RP/0/RP0/CPU0:ar5.BLB(config-l2vpn-bg-bd-ac)#l2vpn bridge group ALX_NCS_LE-102309 bridge-domain ALX_NCS_LE-102309 evi 52309
+
+RP/0/RP0/CPU0:ar5.BLB(config-l2vpn-bg-bd-evi)#evpn evi 52309 advertise-mac
+
+RP/0/RP0/CPU0:ar5.BLB(config-evpn-instance-mac)#evpn evi 52309 bgp rd 8220001:7424
+
+RP/0/RP0/CPU0:ar5.BLB(config)#evpn evi 52309 bgp route-target import 8220001:52309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#evpn evi 52309 bgp route-target export 8220001:52309
+
+RP/0/RP0/CPU0:ar5.BLB(config)#policy-map 10000000-Business2-DIPNKR
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap)# class class-default
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)#  police rate 10000000 kbps burst 1100 kbytes
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c-police)#  !
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c-police)#  set traffic-class 4
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)#  set qos-group 2
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)# !
+
+RP/0/RP0/CPU0:ar5.BLB(config-pmap-c)# end-policy-map
+
+RP/0/RP0/CPU0:ar5.BLB(config)#!
+
+RP/0/RP0/CPU0:ar5.BLB(config)#
+****  Configration completed on AR5
+**** wait for 10 seconds
+{'CCM_REQUIRED': 'NO',
+ 'CCM_interval': '1s',
+ 'CIR_percentage': 25,
+ 'ELAN': True,
+ 'Flat_QOS': 'YES',
+ 'MEG_level': 1,
+ 'OLO_type': 'P-OLO',
+ 'QOS_REQUIRED': 'YES',
+ 'QOS_type': 'Business2',
+ 'STP_percentage': 100,
+ 'colt_vlan_ethType': 's-vlan',
+ 'config_test': 15,
+ 'customer_vlan_ethtype': 'c-vlan',
+ 'item': 2309,
+ 'olo_eth_type': 's-vlan',
+ 'olo_vlan': 2501,
+ 'performance_test': 5,
+ 'service_BW': 10000000,
+ 'site_list': [{'Local_MEP': 2,
+                'Node_name': 'AR15',
+                'Remote_MEP': 1,
+                'UID': 201,
+                'connect_obj': <netmiko.cisco.cisco_xr.CiscoXrSSH object at 0x7fa833c38a58>,
+                'login': {'device_type': 'cisco_xr',
+                          'host': '10.91.126.201',
+                          'password': 'N0@ught33b0y',
+                          'username': 'dshaw1'},
+                'main_interface': 'TenGigE0/0/0/5',
+                'port_type': 'X-type',
+                'side': 'L2PE_EP'},
+               {'Local_MEP': 1,
+                'Node_name': 'AR5',
+                'Remote_MEP': 2,
+                'UID': 115,
+                'connect_obj': <netmiko.cisco.cisco_xr.CiscoXrSSH object at 0x7fa833b96978>,
+                'login': {'device_type': 'cisco_xr',
+                          'host': '10.91.126.115',
+                          'password': 'N0@ught33b0y',
+                          'username': 'dshaw1'},
+                'main_interface': 'TenGigE0/0/1/3/2',
+                'port_type': 'X-type',
+                'side': 'L2PE_EP'}],
+ 'total_BW': 30000000}
+**** port1 is 7/7
+**** port2 is 7/8
+**** streamblock1:> DMAC:> is 00:10:94:00:00:02 & SMAC:> 00:10:94:00:00:01 , Traffic rate:> 10000
+**** streamblock2:> DMAC:> is 00:10:94:00:00:01 & SMAC:> 00:10:94:00:00:02 , Traffic rate:> 10000
+***** run sth.test_rfc2544_config successfully
+***** run sth.test_rfc2544_control successfully
+***** run sth.test_rfc2544_info successfully, and results is:
+{'rfc2544fl': {'detail': {'iteration': {'1': {'frame_size': {'1518': {'load': {'100': {'frame_loss': '0.0',
+                                                                                       'frame_lost': '0',
+                                                                                       'rx_frames': '324675326',
+                                                                                       'tx_frames': '324675326'}}},
+                                                             '64': {'load': {'100': {'frame_loss': '0.0',
+                                                                                     'frame_lost': '0',
+                                                                                     'rx_frames': '5952380954',
+                                                                                     'tx_frames': '5952380954'}}},
+                                                             '9100': {'load': {'100': {'frame_loss': '0.3800851158646739',
+                                                                                       'frame_lost': '208380',
+                                                                                       'rx_frames': '54616182',
+                                                                                       'tx_frames': '54824562'}}},
+                                                             'frame_size_value': '64 '
+                                                                                 '1518 '
+                                                                                 '9100'}}}},
+               'summary': {'frame_size': {'1518': {'load': {'100': {'frame_loss': '0.0',
+                                                                    'frame_lost': '0',
+                                                                    'rx_frames': '324675326',
+                                                                    'tx_frames': '324675326'}}},
+                                          '64': {'load': {'100': {'frame_loss': '0.0',
+                                                                  'frame_lost': '0',
+                                                                  'rx_frames': '5952380954',
+                                                                  'tx_frames': '5952380954'}}},
+                                          '9100': {'load': {'100': {'frame_loss': '0.3800851158646739',
+                                                                    'frame_lost': '208380',
+                                                                    'rx_frames': '54616182',
+                                                                    'tx_frames': '54824562'}}},
+                                          'frame_size_value': '64 1518 9100'},
+                           'total_iteration_count': '1'}},
+ 'status': '1'}
+***** frame lost(packets) for Frame size 64 and load 100 is 0
+***** frame lost(packets) for Frame size 1518 and load 100 is 0
+***** frame lost(packets) for Frame size 9100 and load 100 is 208380
+**** All streams and Traffic stats are cleared
+**** streamblock3:> DMAC:> is 00:10:94:00:00:02 & SMAC:> 00:10:94:00:00:01 , Traffic rate:> 10000
+**** streamblock4:> DMAC:> is 00:10:94:00:00:01 & SMAC:> 00:10:94:00:00:02 , Traffic rate:> 10000
+**** Traffic Started Second Time for 200 seconds
+**** checking traffic statistic
+**** Traffic collection completed
+{'port1': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190506695040',
+                                'pkt_count': '2976667110',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2976667110',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190506695040',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2976667110',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190671344448',
+                                'pkt_count': '2979239757',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2979239757',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190671344448',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2979239757'}},
+           'stream': {'streamblock3': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '161.693',
+                                              'dropped_pkts': '0',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '299.91',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '18.78',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-8 '
+                                                         '//7/8',
+                                              'rx_sig_count': '2979239757',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190671344448',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2979239757',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190671344448',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2979239757',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'port2': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190671344448',
+                                'pkt_count': '2979239757',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2979239757',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190671344448',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2979239757',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190506695040',
+                                'pkt_count': '2976667110',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2976667110',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190506695040',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2976667110'}},
+           'stream': {'streamblock4': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '30.756',
+                                              'dropped_pkts': '0',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '32.08',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '22.23',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-7 '
+                                                         '//7/7',
+                                              'rx_sig_count': '2976667110',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190506695040',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2976667110',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190506695040',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2976667110',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'status': '1'}
+***************** Test has Passed
+**** No of Tx packets on 7/7 are: 2979239757
+**** No of Rx packets on 7/8 are: 2979239757
+*****************
+**** No of Tx packets on 7/8 are: 2976667110
+**** No of Rx packets on 7/7 are: 2976667110
+**** All streams and Traffic stats are cleared
+**** streamblock5:> DMAC:> is 01:00:5E:0B:01:02 & SMAC:> 00:10:94:00:00:01 , Traffic rate:> 10000
+**** streamblock6:> DMAC:> is 01:00:5E:0B:01:02 & SMAC:> 00:10:94:00:00:02 , Traffic rate:> 10000
+**** Traffic Started Second Time for 200 seconds
+**** checking traffic statistic
+**** Traffic collection completed
+{'port1': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190561795904',
+                                'pkt_count': '2977528061',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977528061',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190561795904',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977528061',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190546776960',
+                                'pkt_count': '2977293390',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977293390',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190546776960',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977293390'}},
+           'stream': {'streamblock5': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '49.728',
+                                              'dropped_pkts': '3744',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '50.78',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '14.08',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-8 '
+                                                         '//7/8',
+                                              'rx_sig_count': '2977289646',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190546537344',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977289646',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190546776960',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977293390',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'port2': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190546537344',
+                                'pkt_count': '2977289646',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977289646',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190546537344',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977289646',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190561795904',
+                                'pkt_count': '2977528061',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977528061',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190561795904',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977528061'}},
+           'stream': {'streamblock6': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '30.49',
+                                              'dropped_pkts': '0',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '32.44',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '15.08',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-7 '
+                                                         '//7/7',
+                                              'rx_sig_count': '2977528061',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190561795904',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977528061',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190561795904',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977528061',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'status': '1'}
+***************** Test has failed
+**** No of Tx packets on 7/7 are: 2977293390
+**** No of Rx packets on 7/8 are: 2977289646
+*****************
+**** No of Tx packets on 7/8 are: 2977528061
+**** No of Rx packets on 7/7 are: 2977528061
+**** No of packets dropped from 7/7 to 7/8 is : 3744
+**** No of packets dropped from 7/8 to 7/7 is : 0
+**** All streams and Traffic stats are cleared
+**** streamblock7:> DMAC:> is FF:FF:FF:FF:FF:FF & SMAC:> 00:10:94:00:00:01 , Traffic rate:> 10000
+**** streamblock8:> DMAC:> is FF:FF:FF:FF:FF:FF & SMAC:> 00:10:94:00:00:02 , Traffic rate:> 10000
+**** Traffic Started Second Time for 200 seconds
+**** checking traffic statistic
+**** Traffic collection completed
+{'port1': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190552447040',
+                                'pkt_count': '2977381985',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977381985',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190552447040',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977381985',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190663891712',
+                                'pkt_count': '2979123308',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2979123308',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190663891712',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2979123308'}},
+           'stream': {'streamblock7': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '49.712',
+                                              'dropped_pkts': '3890',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '50.77',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '14.02',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-8 '
+                                                         '//7/8',
+                                              'rx_sig_count': '2979119418',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190663642752',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2979119418',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190663891712',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2979123308',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'port2': {'aggregate': {'rx': {'fcoe_frame_count': '0',
+                                'fcoe_frame_rate': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pfc_frame_rate': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190663642752',
+                                'pkt_count': '2979119418',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2979119418',
+                                'tcp_checksum_errors': '0',
+                                'tcp_pkts': '0',
+                                'total_pkt_bytes': '190663642752',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2979119418',
+                                'udp_pkts': '0'},
+                         'tx': {'elapsed_time': '0',
+                                'ip_pkts': '0',
+                                'pfc_frame_count': '0',
+                                'pkt_bit_rate': '0',
+                                'pkt_byte_count': '190552447040',
+                                'pkt_count': '2977381985',
+                                'pkt_rate': '0',
+                                'raw_pkt_count': '2977381985',
+                                'raw_pkt_rate': '0',
+                                'total_pkt_bytes': '190552447040',
+                                'total_pkt_rate': '0',
+                                'total_pkts': '2977381985'}},
+           'stream': {'streamblock8': {'rx': {'Max': '64',
+                                              'Min': '64',
+                                              'avg_delay': '30.327',
+                                              'dropped_pkts': '0',
+                                              'duplicate_pkts': '0',
+                                              'first_tstamp': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'last_tstamp': '0',
+                                              'max_delay': '32.94',
+                                              'max_pkt_length': '64',
+                                              'min_delay': '15.19',
+                                              'min_pkt_length': '64',
+                                              'misinserted_pkt_rate': '0',
+                                              'misinserted_pkts': '0',
+                                              'out_of_pkt_frame_rate': '0',
+                                              'out_of_sequence_pkts': '0',
+                                              'pkt_byte_rate': '0',
+                                              'prbs_bit_error_rate': '0',
+                                              'prbs_bit_errors': '0',
+                                              'rx_port': '10.91.113.124-7-7 '
+                                                         '//7/7',
+                                              'rx_sig_count': '2977381985',
+                                              'rx_sig_rate': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190552447040',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977381985',
+                                              'udp_present': '0'},
+                                       'tx': {'elapsed_time': '0',
+                                              'ipv4_outer_present': '0',
+                                              'ipv4_present': '0',
+                                              'ipv6_outer_present': '0',
+                                              'ipv6_present': '0',
+                                              'tcp_present': '0',
+                                              'total_pkt_bit_rate': '0',
+                                              'total_pkt_bytes': '190552447040',
+                                              'total_pkt_rate': '0',
+                                              'total_pkts': '2977381985',
+                                              'udp_present': '0'}},
+                      'unknown': {'rx': {'good_pkt_bit_rate': '0',
+                                         'max_pkt_length': '0',
+                                         'min_pkt_length': '0',
+                                         'total_pkt_bytes': '0',
+                                         'total_pkt_rate': '0',
+                                         'total_pkts': '0'}}}},
+ 'status': '1'}
+***************** Test has failed
+**** No of Tx packets on 7/7 are: 2979123308
+**** No of Rx packets on 7/8 are: 2979119418
+*****************
+**** No of Tx packets on 7/8 are: 2977381985
+**** No of Rx packets on 7/7 are: 2977381985
+**** No of packets dropped from 7/7 to 7/8 is : 3890
+**** No of packets dropped from 7/8 to 7/7 is : 0
+**** All streams and Traffic stats are cleared
+**** connection established with node AR15
+**** connection established with node AR5
+AR15
+52309      MPLS       0010.9400.0001 ::                                       TenGigE0/0/0/5.2309                     24010   
+52309      MPLS       0010.9400.0002 ::                                       10.91.126.115                           24054   
+AR5
+Tue Sep 15 19:50:00.548 UTC
+52309      MPLS   0010.9400.0001 ::                                       10.91.126.201                           24010   
+52309      MPLS   0010.9400.0002 ::                                       TenGigE0/0/1/3/2.2309                   24054   
+
+TenGigE0/0/0/5.2309 input: 10000000-Business2-DIPNKR
+
+Class class-default
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    Matched             :         24200487537/2516303868604        2357
+    Transmitted         :         24200070778/2512511361704        2357
+    Total Dropped       :              416759/3792506900           0
+  Policing statistics                (packets/bytes)     (rate - kbps) 
+    Policed(conform)    :         24200070778/2512511361704        2357
+    Policed(exceed)     :              416759/3792506900           0
+    Policed(violate)    :                   0/0                    0
+    Policed and dropped :              416759/3792506900         
+Policy Bag Stats time: 1600199398358  [Local Time: 09/15/20 19:49:58.358] 
+TenGigE0/0/0/5.2309 direction output: Service Policy not installed
+NOTE:- Configured values are displayed within parentheses
+Interface TenGigE0/0/0/5.2309 ifh 0x50da  -- input policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           10000000 kbps
+Policy Name:                   10000000-Business2-DIPNKR
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+New traffic class                        =   4
+New qos group                            =   2
+
+Policer Bucket ID                        =   0x8
+Policer Stats Handle                     =   0x0
+Policer committed rate                   =   9900000 kbps (10000000 kbits/sec)
+Policer conform burst                    =   1090432 bytes (1100 kilobytes)
+Tue Sep 15 19:50:03.867 UTC
+
+TenGigE0/0/1/3/2.2309 input: 10000000-Business2-DIPNKR
+
+Class class-default
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    Matched             :         24198247070/2516160478716        2817
+    Transmitted         :         24198247070/2516160478716        2817
+    Total Dropped       :                   0/0                    0
+  Policing statistics                (packets/bytes)     (rate - kbps) 
+    Policed(conform)    :         24198247070/2516160478716        2817
+    Policed(exceed)     :                   0/0                    0
+    Policed(violate)    :                   0/0                    0
+    Policed and dropped :                   0/0                  
+Policy Bag Stats time: 1600199392849  [Local Time: 09/15/20 19:49:52.849] 
+TenGigE0/0/1/3/2.2309 direction output: Service Policy not installed
+Tue Sep 15 19:50:04.973 UTC
+NOTE:- Configured values are displayed within parentheses
+Interface TenGigE0/0/1/3/2.2309 ifh 0x2b32  -- input policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           10000000 kbps
+Policy Name:                   10000000-Business2-DIPNKR
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+New traffic class                        =   4
+New qos group                            =   2
+
+Policer Bucket ID                        =   0x10150
+Policer Stats Handle                     =   0x0
+Policer committed rate                   =   9990000 kbps (10000000 kbits/sec)
+Policer conform burst                    =   1090432 bytes (1100 kilobytes)
+**** disconnected successfully from node AR15
+**** disconnected successfully from node AR5
+{'XX': {'Polier_drop': {'AR15': 416759, 'AR5': 0},
+        'Spirent_BC_traffic': {'7/7': {'drop': 3890,
+                                       'rx': '2977381985',
+                                       'tx': '2979123308'},
+                               '7/8': {'drop': 0,
+                                       'rx': '2979119418',
+                                       'tx': '2977381985'},
+                               'Rate_Mbps': 10000,
+                               'result': 'fail'},
+        'Spirent_MC_traffic': {'7/7': {'drop': 3744,
+                                       'rx': '2977528061',
+                                       'tx': '2977293390'},
+                               '7/8': {'drop': 0,
+                                       'rx': '2977289646',
+                                       'tx': '2977528061'},
+                               'Rate_Mbps': 10000,
+                               'result': 'fail'},
+        'Spirent_UC_traffic': {'7/7': {'drop': 0,
+                                       'rx': '2976667110',
+                                       'tx': '2979239757'},
+                               '7/8': {'drop': 0,
+                                       'rx': '2979239757',
+                                       'tx': '2976667110'},
+                               'Rate_Mbps': 10000,
+                               'result': 'pass'},
+        'rfc_fl_test': {'1518': {'100': 'pass'},
+                        '64': {'100': 'pass'},
+                        '9100': {'100': 'fail'},
+                        'test_duration': 200}}}

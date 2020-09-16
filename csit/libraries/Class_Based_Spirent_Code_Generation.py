@@ -365,6 +365,12 @@ class Spirent_L2_Traffic_Gen:
 			self.mac_dst = kwargs['MAC_Dest']
 		else:
 			self.mac_dst = '00:10:94:00:00:03'
+
+		if 'mac_dst_count' in kwargs.keys():
+			self.mac_dst_count = kwargs['mac_dst_count']
+		else:
+			self.mac_dst_count = '1000'
+
 		if 'Rate_PPS' in kwargs.keys():
 			self.rate_pps = kwargs['Rate_PPS']
 		else:
@@ -373,17 +379,10 @@ class Spirent_L2_Traffic_Gen:
 		streamblock_ret = sth.traffic_config(
 			mode='create',
 			port_handle=self.port_handle[src_port_handle_index],
-			# l3_protocol='ipv4',
-			# ip_id='0',
-			# ip_src_addr='192.85.1.2',
-			# ip_dst_addr='192.0.0.1',
-			# ip_ttl='255',
-			# ip_hdr_length='5',
-			# ip_protocol='253',
-			# ip_fragment_offset='0',
-			# ip_mbz='0',
-			# ip_precedence='0',
-			# ip_tos_field='0',
+			l2_encap = 'ethernet_ii',
+			mac_dst_mode = 'increment',
+			mac_dst_repeat_count = '0',
+			mac_dst_count = self.mac_dst_count,
 			mac_src=self.mac_src,
 			mac_dst=self.mac_dst,
 			enable_control_plane='0',
@@ -406,7 +405,6 @@ class Spirent_L2_Traffic_Gen:
 			transmit_mode='continuous',
 			inter_stream_gap='12',
 			rate_pps=self.rate_pps,
-			# mac_discovery_gw='192.85.1.1',
 			enable_stream='false');
 		print("**** {}:> DMAC:> is {} & SMAC:> {} , Traffic rate:> {}".format(streamblock_ret['stream_id'],self.mac_dst,self.mac_src,self.Rate_Mbps))
 		return(streamblock_ret)
@@ -767,7 +765,7 @@ class Spirent_L2_Traffic_Gen:
 			self.Rate_Mbps = kwargs['Rate_Mbps']
 		else:
 			self.Rate_Mbps = 100
-		stream_code = {}	
+		l2CP_stream_handle = []	
 		streamblock_ret1 = sth.traffic_config(
 			mode='create',
 			port_handle=self.port_handle[src_port_handle_index],
@@ -800,8 +798,8 @@ class Spirent_L2_Traffic_Gen:
 			print(streamblock_ret1)
 		else:
 			print("***** run sth.traffic_config LACP_Stream_/Slow_Protocol successfully")
-			print(streamblock_ret1)
-			stream_code['1'] = streamblock_ret1['stream_id']
+			streamblock_ret1['name'] = 'LACP_Stream_/Slow_Protocol'
+			l2CP_stream_handle.append(streamblock_ret1)
 
 		streamblock_ret2 = sth.traffic_config(
 			mode='create',
@@ -836,78 +834,80 @@ class Spirent_L2_Traffic_Gen:
 			print(streamblock_ret2)
 		else:
 			print("***** run sth.traffic_config Port_Authentication successfully")
-			print(streamblock_ret2)
-			stream_code['2'] = streamblock_ret2['stream_id']
+			streamblock_ret2['name'] = 'Port_Authentication'
+			l2CP_stream_handle.append(streamblock_ret2)
+		
 
-		return stream_code
+		streamblock_ret3 = sth.traffic_config(
+			mode='create',
+			port_handle=self.port_handle[src_port_handle_index],
+			l2_encap='ethernet_ii',
+			mac_src='00:10:94:00:00:02',
+			ether_type='88EE',
+			mac_dst='01:80:C2:00:00:07',
+			enable_control_plane='0',
+			l3_length='537',
+			name='E-LMI',
+			fill_type='constant',
+			fcs_error='0',
+			fill_value='0',
+			frame_size='555',
+			traffic_state='1',
+			high_speed_result_analysis='1',
+			length_mode='fixed',
+			tx_port_sending_traffic_to_self_en='false',
+			disable_signature='0',
+			enable_stream_only_gen='1',
+			pkts_per_burst='1',
+			inter_stream_gap_unit='bytes',
+			burst_loop_count='30',
+			transmit_mode='continuous',
+			inter_stream_gap='12',
+			rate_pps='9148');
 
-		# streamblock_ret3 = sth.traffic_config(
-		# 	mode='create',
-		# 	port_handle=self.port_handle[src_port_handle_index],
-		# 	l2_encap='ethernet_ii',
-		# 	mac_src='00:10:94:00:00:02',
-		# 	ether_type='88EE',
-		# 	mac_dst='01:80:C2:00:00:07',
-		# 	enable_control_plane='0',
-		# 	l3_length='537',
-		# 	name='E-LMI',
-		# 	fill_type='constant',
-		# 	fcs_error='0',
-		# 	fill_value='0',
-		# 	frame_size='555',
-		# 	traffic_state='1',
-		# 	high_speed_result_analysis='1',
-		# 	length_mode='fixed',
-		# 	tx_port_sending_traffic_to_self_en='false',
-		# 	disable_signature='0',
-		# 	enable_stream_only_gen='1',
-		# 	pkts_per_burst='1',
-		# 	inter_stream_gap_unit='bytes',
-		# 	burst_loop_count='30',
-		# 	transmit_mode='continuous',
-		# 	inter_stream_gap='12',
-		# 	rate_pps='9148');
+		status = streamblock_ret3['status']
+		if (status == '0'):
+			print("run sth.traffic_config failed")
+			print(streamblock_ret3)
+		else:
+			print("***** run sth.traffic_config E-LMI successfully")
+			streamblock_ret3['name'] = 'E-LMI'
+			l2CP_stream_handle.append(streamblock_ret3)
 
-		# status = streamblock_ret3['status']
-		# if (status == '0'):
-		# 	print("run sth.traffic_config failed")
-		# 	print(streamblock_ret3)
-		# else:
-		# 	print("***** run sth.traffic_config E-LMI successfully")
+		streamblock_ret4 = sth.traffic_config(
+			mode='create',
+			port_handle=self.port_handle[src_port_handle_index],
+			l2_encap='ethernet_ii',
+			mac_src='00:10:94:00:00:02',
+			mac_dst='01:80:C2:00:00:0E',
+			enable_control_plane='0',
+			l3_length='982',
+			name='LLDP',
+			fill_type='constant',
+			fcs_error='0',
+			fill_value='0',
+			frame_size='1000',
+			traffic_state='1',
+			high_speed_result_analysis='1',
+			length_mode='fixed',
+			tx_port_sending_traffic_to_self_en='false',
+			disable_signature='0',
+			enable_stream_only_gen='1',
+			pkts_per_burst='1',
+			inter_stream_gap_unit='bytes',
+			burst_loop_count='30',
+			transmit_mode='continuous',
+			inter_stream_gap='12',
+			rate_pps='9199');
 
-		# streamblock_ret4 = sth.traffic_config(
-		# 	mode='create',
-		# 	port_handle=self.port_handle[src_port_handle_index],
-		# 	l2_encap='ethernet_ii',
-		# 	mac_src='00:10:94:00:00:02',
-		# 	mac_dst='01:80:C2:00:00:0E',
-		# 	enable_control_plane='0',
-		# 	l3_length='982',
-		# 	name='LLDP',
-		# 	fill_type='constant',
-		# 	fcs_error='0',
-		# 	fill_value='0',
-		# 	frame_size='1000',
-		# 	traffic_state='1',
-		# 	high_speed_result_analysis='1',
-		# 	length_mode='fixed',
-		# 	tx_port_sending_traffic_to_self_en='false',
-		# 	disable_signature='0',
-		# 	enable_stream_only_gen='1',
-		# 	pkts_per_burst='1',
-		# 	inter_stream_gap_unit='bytes',
-		# 	burst_loop_count='30',
-		# 	transmit_mode='continuous',
-		# 	inter_stream_gap='12',
-		# 	rate_pps='9199');
-
-		# status = streamblock_ret4['status']
-		# if (status == '0'):
-		# 	print("run sth.traffic_config failed")
-		# 	print(streamblock_ret4)
-		# else:
-		# 	print("***** run sth.traffic_config LLDP successfully")
-
+		status = streamblock_ret4['status']
+		if (status == '0'):
+			print("run sth.traffic_config failed")
+			print(streamblock_ret4)
+		else:
+			print("***** run sth.traffic_config LLDP successfully")
+			streamblock_ret4['name'] = 'LLDP'
+			l2CP_stream_handle.append(streamblock_ret4)
 		# streamblock_ret5 = sth.traffic_config(
 		# 	mode='create',
 		# 	port_handle=self.port_handle[src_port_handle_index],
@@ -1303,6 +1303,7 @@ class Spirent_L2_Traffic_Gen:
 		# 	print(streamblock_ret15)
 		# else:
 		# 	print("***** run sth.traffic_config Provider_Bridge_MVRP_Address successfully")
+		return l2CP_stream_handle
 	def Validate_Traffic_Result(self):
 
 		# regex to get rx, tx and streams from traffic_results_ret

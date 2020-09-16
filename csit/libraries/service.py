@@ -77,7 +77,6 @@ class Service:
         dict10['Spirent_0TAG_ZA']['MC'] = {'Rate_Mbps': (self.data['service_BW']*self.data['STP_percentage'])//100000, 'MAC_Dest':'01:00:5E:0B:01:02','MAC_Src': '00:10:94:00:00:02'}
 
         return dict10
-
     def mep_statistic_accedian(self):
         mep_name = 100000 + self.data['item']
         dict3 = {}
@@ -131,7 +130,6 @@ class Service:
                 except:
                     print("*** something went Wrong, Cisco MEP Stats Could not be checked")
         return dict4
-
     def create_commands_OLO(self):
         for create_delete in create_delete_list:
             for olo in self.data["OLO_site_list"]:
@@ -151,7 +149,6 @@ class Service:
                 print(output)
                 olo['connect_obj'].commit()
                 olo['connect_obj'].exit_config_mode()
-
     def delete_OLO_config(self):
         for olo in self.data["OLO_site_list"]:
             print("****  Logged in node : {}".format(olo['Node_name']))
@@ -161,8 +158,6 @@ class Service:
                 print(output)
                 olo['connect_obj'].commit()
                 olo['connect_obj'].exit_config_mode()               
-
-
     def Command_Creation(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr':
@@ -176,8 +171,6 @@ class Service:
                     file_open.write(failure_command)
                     file_open.write('\n')
                     file_open.close()
-
-
     def push_config(self):
         for node in self.data["site_list"]:  
             print("****  Logged in node : {}".format(node['Node_name']))
@@ -196,7 +189,6 @@ class Service:
             print("****  Configration completed on {}".format(node['Node_name']))
         print("**** wait for 10 seconds")
         time.sleep(10)
-
     def check_QOS_counters_config(self):
         dict13 = {}
         for node in self.data["site_list"]:
@@ -213,7 +205,6 @@ class Service:
             else:
                 pass
         return dict13             
-
     def check_Mac_table(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr':
@@ -232,16 +223,29 @@ class Service:
                 print(output)
                 node['lag'] = {}
                 node['active_links'] = 0
+                node['Standby_links'] = 0
+                node['Configured_links'] = 0                
                 for l,n in zip(x,y):
                     node['lag'][l] = n
                     if n == 'Active':
                         node['link_to_shut'] = l
                         node['active_links'] = node['active_links'] + 1
+                    elif n == 'Standby':
+                        node['Standby_links'] = node['Standby_links'] + 1
+                    elif n == 'Configured':
+                        node['Configured_links'] = node['Configured_links'] + 1
+                    else:
+                        pass
                 node['failure_command'] = ['int {}'.format(node['link_to_shut']),'shut']
                 node['repair_command'] = ['int {}'.format(node['link_to_shut']),'no shut']
+                if node['active_links'] > 1:
+                    node['Lag_test_eligible'] = True
+                elif node['active_links'] == 1 and node['Standby_links'] == 1:
+                    node['Lag_test_eligible'] = True
+                else:
+                    node['Lag_test_eligible'] = False                   
             else:
                 pass 
-
     def delete_config(self):
         for node in self.data["site_list"]:
             with open(file_path + '/commands/XC_command_{}_delete.txt'.format(node["Node_name"]),'r') as f:
@@ -256,7 +260,6 @@ class Service:
                 else:
                     output = node['connect_obj'].send_config_set(f2,cmd_verify=False)
                     print(output)
-
     def parse_accedian(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr':
@@ -289,8 +292,6 @@ class Service:
                 print(node['index'])
 
         return node['index']
-
-
     def Validate_ccm(self):
         test_result = {}
         for node in self.data["site_list"]:

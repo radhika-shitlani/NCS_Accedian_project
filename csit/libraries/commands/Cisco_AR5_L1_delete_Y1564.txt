@@ -1,2 +1,0 @@
-int Bundle-Ether4000
-no loopback internal
