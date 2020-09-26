@@ -18,27 +18,47 @@
 {% if port_type == 'Y-type'-%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation dot1ad {{ item + 100 }} dot1q {{ item }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+interface {{ main_interface }}.{{ item }} l2transport service-policy input {{service_BW}}-{{QOS_type}}-DIPNKR
 {% elif port_type == 'P-type' -%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation default
+interface {{ main_interface }}.{{ item }} l2transport service-policy input {{service_BW}}-{{QOS_type}}-DIPNKR
+{% elif port_type == 'PL-type' -%}
+no interface {{ main_interface }}*
+commit
+interface {{ main_interface }} mtu 9186
+interface {{ main_interface }} l2transport service-policy output egr account user-defined 26
+interface {{ main_interface }} lldp receive disable
+interface {{ main_interface }} lldp transmit disable
+interface {{ main_interface }} load-interval 30
+interface {{ main_interface }} l2transport
+interface {{ main_interface }} l2transport service-policy input {{service_BW}}-{{QOS_type}}-DIPNKR
+interface {{ main_interface }} l2transport propagate remote-status
 {% elif port_type == 'X-type' -%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation dot1q {{ item }}
 interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+interface {{ main_interface }}.{{ item }} l2transport service-policy input {{service_BW}}-{{QOS_type}}-DIPNKR
 {% else -%}
 interface {{ main_interface }}.{{ item }} l2transport encapsulation dot1q {{ item }}
-{% endif -%}
-interface {{ main_interface }}.{{ item }} l2transport
 interface {{ main_interface }}.{{ item }} l2transport service-policy input {{service_BW}}-{{QOS_type}}-DIPNKR
+{% endif -%}
 {% if ELAN -%}
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }}
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit maximum 100
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit action no-flood
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mtu 1500
+{% if port_type == 'PL-type'-%}
+l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}
+{% else -%}
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+{% endif -%}
 l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} evi {{ 50000 + item|int }}
 evpn evi {{ 50000 + item|int }} advertise-mac
 {% else -%}
-l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
+{% if port_type == 'PL-type'-%}
+l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}
+{% else -%}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+{% endif -%}
 l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
 evpn evi {{ 50000 + item|int }}
 {% endif -%}
@@ -52,17 +72,23 @@ ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|i
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log continuity-check errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log crosscheck errors
 ethernet cfm domain COLT-1 level 1 id null service ALX_NCS_LE-{{ 100000 + item|int }} xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} id icc-based LE XXX-{{ 100000 + item|int }} log continuity-check mep changes
+{% if port_type == 'PL-type'-%}
+interface {{ main_interface }}  ethernet cfm mep domain COLT-1 service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{ Local_MEP}} cos {{ EXP }}
+interface {{ main_interface }}  ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile DMM{{ EXP }} target mep-id {{ Remote_MEP }}
+interface {{ main_interface }}  ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile SLM{{ EXP }} target mep-id {{ Remote_MEP }}
+{% else -%}
 interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-1 service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{ Local_MEP}} cos {{ EXP }}
 interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile DMM{{ EXP }} target mep-id {{ Remote_MEP }}
 interface {{ main_interface }}.{{ item }} l2transport ethernet cfm mep domain COLT-{{MEG_level}} service ALX_NCS_LE-{{ 100000 + item|int }} mep-id {{Local_MEP}} sla operation profile SLM{{ EXP }} target mep-id {{ Remote_MEP }}
+{% endif -%}
 {% else -%}
 {% endif -%}
 policy-map {{service_BW}}-{{QOS_type}}-DIPNKR
  class class-default
   {% if 'Bundle' in main_interface and QOS_type!= 'Standard' -%}
-  police rate percent {{  service_BW * 100 // total_BW }} burst 1100 kbytes
+  police rate percent {{  service_BW * 100 // Lag_bw }} burst 1100 kbytes
   {% elif 'Bundle' in main_interface and QOS_type== 'Standard' -%}
-  police rate percent {{ service_BW * CIR_percentage// total_BW }} burst 1200 kbytes peak-rate percent {{ service_BW * 100// total_BW }} peak-burst 1000 kbytes
+  police rate percent {{ service_BW * CIR_percentage// Lag_bw }} burst 1200 kbytes peak-rate percent {{ service_BW * 100// Lag_bw }} peak-burst 1000 kbytes
   {% elif  QOS_type== 'Standard' -%}
   police rate {{ service_BW* CIR_percentage //100 }} kbps burst 1200 kbytes peak-rate {{ service_BW }} kbps peak-burst 1000 kbytes
   {% else -%}

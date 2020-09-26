@@ -2,8 +2,8 @@ QOS_REQUIRED: "YES"
 Flat_QOS: "YES"
 CCM_REQUIRED: "YES"
 item: 2309
-total_BW: 20000000
-service_BW: 10000000
+# total_BW: 20000000
+service_BW: 500000
 CIR_percentage: 25
 MEG_level: 1
 QOS_type: "Business2"
@@ -17,40 +17,78 @@ STP_percentage: 98
 ELAN: False
 OLO_type: "P-OLO"
 olo_vlan: 2501
+# site_list: 
+#  - 
+#   main_interface: "Bundle-Ether4000"
+#   side: "L2PE_EP"
+#   Node_name: "AR5"
+#   port_type: "F-type"
+#   Local_MEP: 2
+#   Remote_MEP: 1
+#   login: 
+#    host: "10.91.126.115"
+#    username: "dshaw1"
+#    password: "N0@ught33b0y"
+#    device_type: "cisco_xr"
+#  - 
+#   main_interface: "Bundle-Ether112"
+#   side: "L2PE_IP"
+#   port_type: "P-type"
+#   Node_name: "AR11"
+#   login: 
+#    host: "10.91.126.195"
+#    username: "dshaw1"
+#    password: "N0@ught33b0y"
+#    device_type: "cisco_xr"
+#  - 
+#   side: "CPE_EP"
+#   Node_name: "LTS_144"
+#   port_type: "P-type"
+#   Uni_port: 9
+#   Protected: "YES"
+#   Nni_port: 5
+#   Local_MEP: 1
+#   Remote_MEP: 2
+#   login: 
+#    host: "10.91.243.144"
+#    username: "admin"
+#    password: "admin"
+#    device_type: "accedian"
+#    port: 22
 site_list: 
  - 
-  main_interface: "Bundle-Ether4000"
+  main_interface: "GigabitEthernet0/0/0/6"
   side: "L2PE_EP"
-  Node_name: "AR5"
+  Node_name: "AR15"
   port_type: "F-type"
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.126.115"
-   username: "dshaw1"
-   password: "N0@ught33b0y"
+   host: "10.91.126.201"
+   username: "rshitlani"
+   password: "G0d@bl3ss"
    device_type: "cisco_xr"
  - 
-  main_interface: "Bundle-Ether112"
+  main_interface: "Bundle-Ether5"
   side: "L2PE_IP"
   port_type: "P-type"
-  Node_name: "AR11"
+  Node_name: "AR17"
   login: 
-   host: "10.91.126.195"
-   username: "dshaw1"
-   password: "N0@ught33b0y"
+   host: "10.91.126.203"
+   username: "rshitlani"
+   password: "G0d@bl3ss"
    device_type: "cisco_xr"
  - 
   side: "CPE_EP"
-  Node_name: "LTS_144"
+  Node_name: "LTS_130"
   port_type: "P-type"
-  Uni_port: 9
+  Uni_port: 1
   Protected: "YES"
   Nni_port: 5
   Local_MEP: 1
   Remote_MEP: 2
   login: 
-   host: "10.91.243.144"
+   host: "10.91.243.130"
    username: "admin"
    password: "admin"
    device_type: "accedian"

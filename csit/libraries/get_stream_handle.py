@@ -74,3 +74,21 @@ def get_MT_VT_l2CP_stream_handle(mt_vt,Spirent_L2_Gen,**input_dict):
     MT_VT_l2CP_stream_handle.append(StreamHandle2)
     return MT_VT_l2CP_stream_handle
 
+def get_switchover_stream_handle(A,B,Spirent_L2_Gen,**input_dict):
+    if A == 'Y':
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_PPS(0,1,**input_dict['Spirent_2TAG_AZ']['UC'])
+    elif A == 'F' or A == 'X':
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_PPS(0,1,**input_dict['Spirent_1TAG_AZ']['UC'])
+    else:                 
+        StreamHandle1 = Spirent_L2_Gen.Stream_Config_Creation_Without_VLAN_PPS(0,1,**input_dict['Spirent_0TAG_AZ']['UC'])
+    
+    if B == 'Y':
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Dual_Tagged_VLAN_dot1ad_PPS(1,0,**input_dict['Spirent_2TAG_ZA']['UC'])
+    elif B == 'F' or B == 'X':
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Single_Tagged_VLAN_PPS(1,0,**input_dict['Spirent_1TAG_ZA']['UC'])
+    else:
+        StreamHandle2 = Spirent_L2_Gen.Stream_Config_Creation_Without_VLAN_PPS(1,0,**input_dict['Spirent_0TAG_ZA']['UC'])   
+    switchover_stream_handle = []
+    switchover_stream_handle.append(StreamHandle1)
+    switchover_stream_handle.append(StreamHandle2)
+    return switchover_stream_handle

@@ -1,4 +1,14 @@
+{% if port_type == 'PL-type'-%}
+no interface {{ main_interface }}
+commit
+interface {{ main_interface }} mtu 9186
+interface {{ main_interface }} service-policy output egr account user-defined 26
+interface {{ main_interface }} lldp receive disable
+interface {{ main_interface }} lldp transmit disable
+interface {{ main_interface }} load-interval 30
+{% else -%}
 no interface {{ main_interface }}.{{ item }}
+{% endif -%}
 {% if ELAN -%}
 no l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }}
 {% else -%}

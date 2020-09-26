@@ -30,7 +30,7 @@ class Service:
 
     def connect_nodes(self):
         for node in self.data["site_list"]:
-            node['connect_obj'] = Netmiko(**node['login'])
+            node['connect_obj'] = Netmiko(keepalive = 40, **node['login'])
             print("**** connection established with node {}".format(node['Node_name']))
     def disconnect_nodes(self):
         for node in self.data["site_list"]:
@@ -75,6 +75,31 @@ class Service:
         dict10['Spirent_0TAG_ZA']['UC'] = {'Rate_Mbps': (self.data['service_BW']*self.data['STP_percentage'])//100000, 'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
         dict10['Spirent_0TAG_ZA']['BC'] = {'Rate_Mbps': (self.data['service_BW']*self.data['STP_percentage'])//100000, 'MAC_Dest':'FF:FF:FF:FF:FF:FF','MAC_Src': '00:10:94:00:00:02'}
         dict10['Spirent_0TAG_ZA']['MC'] = {'Rate_Mbps': (self.data['service_BW']*self.data['STP_percentage'])//100000, 'MAC_Dest':'01:00:5E:0B:01:02','MAC_Src': '00:10:94:00:00:02'}
+
+        return dict10
+
+    def create_spirent_input_dict_PPS(self,**kwargs):
+
+        self.node = kwargs
+
+        dict10 = {}
+        dict10['Spirent_2TAG_AZ'] = {}
+        dict10['Spirent_2TAG_ZA'] = {}
+        dict10['Spirent_1TAG_AZ'] = {}
+        dict10['Spirent_1TAG_ZA'] = {}
+        dict10['Spirent_0TAG_AZ'] = {}
+        dict10['Spirent_0TAG_ZA'] = {}
+
+        dict10['Spirent_2TAG_AZ']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'Outer_VLAN_ID': str(self.data['item'] + 100), 'Inner_VLAN_ID': str(self.data['item']),'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_2TAG_ZA']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'Outer_VLAN_ID': str(self.data['item'] + 100), 'Inner_VLAN_ID': str(self.data['item']),'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
+        dict10['Spirent_1TAG_AZ']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'VLAN_ID': str(self.data['item']), 'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_1TAG_ZA']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'VLAN_ID': str(self.data['item']), 'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
+
+        dict10['Spirent_0TAG_AZ']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_0TAG_ZA']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
 
         return dict10
     def mep_statistic_accedian(self):
@@ -194,11 +219,17 @@ class Service:
         for node in self.data["site_list"]:
             if 'EP' in node['side']:
                 if node['login']['device_type'] == 'cisco_xr':
-                    output = node['connect_obj'].send_command("show policy-map interface {}.{}".format(node["main_interface"],self.data['item']))
+                    if node['port_type'] == 'PL-type':
+                        output = node['connect_obj'].send_command("show policy-map interface {} input".format(node["main_interface"]))
+                    else:
+                        output = node['connect_obj'].send_command("show policy-map interface {}.{} input".format(node["main_interface"],self.data['item']))
                     print(output)
                     x = re.findall("Total Dropped\s+:\s+\d+", output)
                     dict13[node['Node_name']] = int(x[0].split(' ')[-1])
-                    output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
+                    if node['port_type'] == 'PL-type':
+                        output = node['connect_obj'].send_command("show qos interface {} input".format(node["main_interface"]))    
+                    else:
+                        output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
                     print(output)
                 else:
                     pass
@@ -216,11 +247,11 @@ class Service:
     def get_Lag_Status(self):
         for node in self.data["site_list"]:
             if node['login']['device_type'] == 'cisco_xr' and 'Bundle' in node['main_interface']:
-                print(node['Node_name'])
+                # print(node['Node_name'])
                 output = node['connect_obj'].send_command("show interface {} | utility egrep 'Active\|Configured\|Standby'".format(node['main_interface']))
                 x = re.findall("TenGigE0/0/\d+/\d+|GigabitEthernet0/0/\d+/\d+", output)
                 y = re.findall("Active|Standby|Configured", output)
-                print(output)
+                # print(output)
                 node['lag'] = {}
                 node['active_links'] = 0
                 node['Standby_links'] = 0
@@ -240,10 +271,22 @@ class Service:
                 node['repair_command'] = ['int {}'.format(node['link_to_shut']),'no shut']
                 if node['active_links'] > 1:
                     node['Lag_test_eligible'] = True
+                    if "Te" in node['link_to_shut']:
+                        node['Lag_bw'] = 10000000 * node['active_links']
+                    elif "Gi" in node['link_to_shut']:
+                        node['Lag_bw'] = 1000000 * node['active_links']
                 elif node['active_links'] == 1 and node['Standby_links'] == 1:
                     node['Lag_test_eligible'] = True
+                    if "Te" in node['link_to_shut']:
+                        node['Lag_bw'] = 10000000 * node['active_links']
+                    elif "Gi" in node['link_to_shut']:
+                        node['Lag_bw'] = 1000000 * node['active_links']
                 else:
-                    node['Lag_test_eligible'] = False                   
+                    node['Lag_test_eligible'] = False
+                    if "Te" in node['link_to_shut']:
+                        node['Lag_bw'] = 10000000 * node['active_links']
+                    elif "Gi" in node['link_to_shut']:
+                        node['Lag_bw'] = 1000000 * node['active_links']                   
             else:
                 pass 
     def delete_config(self):

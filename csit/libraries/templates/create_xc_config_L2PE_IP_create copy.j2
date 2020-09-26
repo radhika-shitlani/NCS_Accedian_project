@@ -1,69 +1,69 @@
 {% if OLO_type == 'U-OLO' -%}
-{% if olo_eth_type == 's-vlan' -%}
-{% set ethtag1 = 'dot1ad' -%}
-{% set ethtag2 = 'dot1q' -%}
-{% else -%}
-{% set ethtag1 = 'dot1q' -%}
-{% set ethtag2 = 'second-dot1q' -%}
-{% endif -%}
+    {% if olo_eth_type == 's-vlan' -%}
+        {% set ethtag1 = 'dot1ad' -%}
+        {% set ethtag2 = 'dot1q' -%}
+    {% else -%}
+        {% set ethtag1 = 'dot1q' -%}
+        {% set ethtag2 = 'second-dot1q' -%}
+    {% endif -%}
 {% elif OLO_type == 'E-OLO' -%}
-{% if olo_eth_type == 's-vlan' -%}
-{% set ethtag1 = 'dot1ad' -%}
-{% set ethtag2 = 'dot1q' -%}
+    {% if olo_eth_type == 's-vlan' -%}
+        {% set ethtag1 = 'dot1ad' -%}
+        {% set ethtag2 = 'dot1q' -%}
+    {% else -%}
+        {% set ethtag1 = 'dot1q' -%}
+        {% set ethtag2 = 'second-dot1q' -%}
+    {% endif -%}
 {% else -%}
-{% set ethtag1 = 'dot1q' -%}
-{% set ethtag2 = 'second-dot1q' -%}
-{% endif -%}
-{% else -%}
-{% if colt_vlan_ethType == 's-vlan' -%}
-{% set ethtag1 = 'dot1ad' -%}
-{% set ethtag2 = 'dot1q' -%}
-{% else -%}
-{% set ethtag1 = 'dot1q' -%}
-{% set ethtag2 = 'second-dot1q' -%}
-{% endif -%}
-{% endif -%}
+    {% if colt_vlan_ethType == 's-vlan' -%}
+        {% set ethtag1 = 'dot1ad' -%}
+        {% set ethtag2 = 'dot1q' -%}
+    {% else -%}
+        {% set ethtag1 = 'dot1q' -%}
+        {% set ethtag2 = 'second-dot1q' -%}
+    {% endif -%}
+    {% endif -%}
 {% if OLO_type == 'U-OLO' -%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan}} {{ethtag2}} {{ item + 100 }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+    interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan}} {{ethtag2}} {{ item + 100 }}
+    interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
 {% elif OLO_type == 'E-OLO'-%}
-{% if port_type == 'F-type' or port_type == 'Y-type' -%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
-{% elif port_type == 'P-type'-%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item + 100 }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
-{% elif port_type == 'X-type'-%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+    {% if port_type == 'F-type' or port_type == 'Y-type' -%}
+        interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
+        interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+    {% elif port_type == 'P-type' or port_type == 'PL-type'-%}
+        interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item + 100 }}
+        interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+    {% elif port_type == 'X-type'-%}
+        interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{olo_vlan }} {{ethtag2}} {{ item }}
+        interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 2 symmetric
+    {% else -%}
+    {% endif -%}
 {% else -%}
-{% endif -%}
-{% else -%}
-{% if port_type == 'Y-type'-%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
-{% elif port_type == 'P-type' or port_type == 'X-type' or port_type == 'F-type' -%}
-interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
-interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
-{% else -%}
-{% endif -%}
+    {% if port_type == 'Y-type'-%}
+        interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
+        interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+    {% elif port_type == 'P-type' or port_type == 'X-type' or port_type == 'F-type' or port_type == 'PL-type' -%}
+        interface {{ main_interface }}.{{ item }} l2transport encapsulation {{ethtag1}} {{ item + 100 }}
+        interface {{ main_interface }}.{{ item }} l2transport rewrite ingress tag pop 1 symmetric
+    {% else -%}
+    {% endif -%}
 {% endif -%}
 interface {{ main_interface }}.{{ item }} l2transport
 interface {{ main_interface }}.{{ item }} l2transport service-policy input NNI-QOS-INGRESS
 interface {{ main_interface }}.{{ item }} l2transport service-policy output NNI-QOS-EGRESS
 {% if ELAN -%}
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }}
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit maximum 100
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit action no-flood
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mtu 1500
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
-l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} evi {{ 50000 + item|int }}
-evpn evi {{ 50000 + item|int }} advertise-mac
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }}
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit maximum 100
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mac limit action no-flood
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} mtu 1500
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+    l2vpn bridge group ALX_NCS_LE-{{ 100000 + item|int }} bridge-domain ALX_NCS_LE-{{ 100000 + item|int }} evi {{ 50000 + item|int }}
+    evpn evi {{ 50000 + item|int }} advertise-mac
 {% else -%}
-l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
-l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
-l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
-evpn evi {{ 50000 + item|int }}
+    l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }}
+    l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} interface {{ main_interface }}.{{ item }}
+    l2vpn xconnect group ALX_NCS_LE-{{ 100000 + item|int }} p2p ALX_NCS_LE-{{ 100000 + item|int }} neighbor evpn evi {{ 50000 + item|int }} target {{ 50000 + item|int }} source {{ 50000 + item|int }}
+    evpn evi {{ 50000 + item|int }}
 {% endif -%}
 evpn evi {{ 50000 + item|int }} bgp rd 8220001:{{ 5000 + UID|int + item|int }}
 evpn evi {{ 50000 + item|int }} bgp route-target import 8220001:{{ 50000 + item|int }}
