@@ -14,7 +14,9 @@ import csv
 import textfsm
 from service import Service
 import yaml
-#from Class_Based_Spirent_Code_Generation import Spirent_L2_Traffic_Gen,Get_Spirent_Config,Create_Spirent_L2_Gen
+from Class_Based_Spirent_Code_Generation import Spirent_L2_Traffic_Gen,Get_Spirent_Config,Create_Spirent_L2_Gen
+from get_stream_handle import *
+from switchover import *
 
 file_path = os.path.dirname(os.path.realpath(__file__))
 result = {}
@@ -41,10 +43,13 @@ def onnet_CCM_Y1564_ACCA(A,B):
     test_result['ccm_status'] = my_config.Validate_ccm()
     # test_result['Loop_test'] = my_config.Y1564_test()
     my_config.disconnect_nodes()
+    username = input("Enter username:")
+    print("Username is: " + username)
     # input_dict = {}
     # input_dict = my_config.create_spirent_input_dict() # create the required dictionary for spirent Traffic.
     # Spirent_L2_Gen = Create_Spirent_L2_Gen() ## create the spirent object.
     # Spirent_L2_Gen.Port_Init() # reserve the port
+    # test_result['LLF_test'] = LLF_test(my_config,Spirent_L2_Gen,A,B,1)
 
     # test_result['lag_test'] = lag_test(my_config,Spirent_L2_Gen,A,B,5)
     # ####  Perform RFC test 
@@ -83,16 +88,17 @@ def onnet_CCM_Y1564_ACCA(A,B):
 
     # Spirent_L2_Gen.Clean_Up_Spirent()
     my_config.connect_nodes()
+    my_config.check_Mac_table()
     test_result['CFM_Stats_ACC'] = my_config.mep_statistic_accedian()
     my_config.check_QOS_counters_config()
     my_config.delete_config()
     my_config.disconnect_nodes()
     return test_result
 
-#result['FF'] = onnet_CCM_Y1564_ACCA('F','F')
+result['FF'] = onnet_CCM_Y1564_ACCA('F','F')
 # result['XX'] = onnet_CCM_Y1564_ACCA('X','X')
 # result['PP'] = onnet_CCM_Y1564_ACCA('P','P')
-result['PP'] = onnet_CCM_Y1564_ACCA('PL','PL')
+# result['PP'] = onnet_CCM_Y1564_ACCA('PL','PL')
 # result['XP'] = onnet_CCM_Y1564_ACCA('X','P')
 # result['PX'] = onnet_CCM_Y1564_ACCA('P','X')
 # result['FY'] = onnet_CCM_Y1564_ACCA('F','Y')

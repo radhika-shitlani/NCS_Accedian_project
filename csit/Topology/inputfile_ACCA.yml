@@ -16,14 +16,65 @@ STP_percentage: 100
 ELAN: True
 OLO_type: "P-OLO"
 olo_vlan: 2501
+# site_list: 
+#  - 
+#   main_interface: "TenGigE0/0/0/5"
+#   side: "L2PE_IP"
+#   port_type: "P-type"
+#   Node_name: "AR18"
+#   login: 
+#    host: "10.91.126.204"
+#    username: "dshaw1"
+#    password: "N0@ught33b0y"
+#    device_type: "cisco_xr"
+#  - 
+#   main_interface: "Bundle-Ether112"
+#   side: "L2PE_IP"
+#   port_type: "P-type"
+#   Node_name: "AR11"
+#   login: 
+#    host: "10.91.126.195"
+#    username: "dshaw1"
+#    password: "N0@ught33b0y"
+#    device_type: "cisco_xr"
+#  - 
+#   side: "CPE_EP"
+#   Node_name: "LX_135"
+#   port_type: "F-type"
+#   Uni_port: 8
+#   Protected: "NO"
+#   Nni_port: 5
+#   Local_MEP: 2
+#   Remote_MEP: 1
+#   login: 
+#    host: "10.91.243.135"
+#    username: "admin"
+#    password: "admin"
+#    device_type: "accedian"
+#    port: 22
+#  - 
+#   side: "CPE_EP"
+#   Node_name: "LTS_144"
+#   port_type: "P-type"
+#   Uni_port: 9
+#   Protected: "YES"
+#   Nni_port: 5
+#   Local_MEP: 1
+#   Remote_MEP: 2
+#   login: 
+#    host: "10.91.243.144"
+#    username: "admin"
+#    password: "admin"
+#    device_type: "accedian"
+#    port: 22
 site_list: 
  - 
-  main_interface: "TenGigE0/0/0/5"
+  main_interface: "Bundle-Ether250"
   side: "L2PE_IP"
   port_type: "P-type"
-  Node_name: "AR18"
+  Node_name: "AR16"
   login: 
-   host: "10.91.126.204"
+   host: "10.91.126.202"
    username: "dshaw1"
    password: "N0@ught33b0y"
    device_type: "cisco_xr"
@@ -39,15 +90,15 @@ site_list:
    device_type: "cisco_xr"
  - 
   side: "CPE_EP"
-  Node_name: "LX_135"
+  Node_name: "LX_141"
   port_type: "F-type"
   Uni_port: 8
-  Protected: "NO"
+  Protected: "YES"
   Nni_port: 5
   Local_MEP: 2
   Remote_MEP: 1
   login: 
-   host: "10.91.243.135"
+   host: "10.91.243.141"
    username: "admin"
    password: "admin"
    device_type: "accedian"

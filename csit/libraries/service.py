@@ -13,6 +13,7 @@ from jinja2 import Template
 import csv
 import textfsm
 from multiprocessing import Pool
+from ttp import ttp
 
 create_delete_list = ['create','delete']
 Loop_list = ['L1','L2']
@@ -77,8 +78,7 @@ class Service:
         dict10['Spirent_0TAG_ZA']['MC'] = {'Rate_Mbps': (self.data['service_BW']*self.data['STP_percentage'])//100000, 'MAC_Dest':'01:00:5E:0B:01:02','MAC_Src': '00:10:94:00:00:02'}
 
         return dict10
-
-    def create_spirent_input_dict_PPS(self,**kwargs):
+    def create_spirent_input_dict_PPS_LAG(self,**kwargs):
 
         self.node = kwargs
 
@@ -99,6 +99,30 @@ class Service:
 
         dict10['Spirent_0TAG_AZ']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
         dict10['Spirent_0TAG_ZA']['UC'] = {'Rate_PPS': self.node['active_links'] * 1000,'mac_dst_count' : self.node['active_links'] * 1000,'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
+
+        return dict10
+    def create_spirent_input_dict_PPS_FRR(self,**kwargs):
+
+        self.node = kwargs
+
+        dict10 = {}
+        dict10['Spirent_2TAG_AZ'] = {}
+        dict10['Spirent_2TAG_ZA'] = {}
+        dict10['Spirent_1TAG_AZ'] = {}
+        dict10['Spirent_1TAG_ZA'] = {}
+        dict10['Spirent_0TAG_AZ'] = {}
+        dict10['Spirent_0TAG_ZA'] = {}
+
+        dict10['Spirent_2TAG_AZ']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'Outer_VLAN_ID': str(self.data['item'] + 100), 'Inner_VLAN_ID': str(self.data['item']),'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_2TAG_ZA']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'Outer_VLAN_ID': str(self.data['item'] + 100), 'Inner_VLAN_ID': str(self.data['item']),'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
+        dict10['Spirent_1TAG_AZ']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'VLAN_ID': str(self.data['item']), 'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_1TAG_ZA']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'VLAN_ID': str(self.data['item']), 'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
+
+
+        dict10['Spirent_0TAG_AZ']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'MAC_Dest':'00:10:94:00:00:02','MAC_Src': '00:10:94:00:00:01'}
+        dict10['Spirent_0TAG_ZA']['UC'] = {'Rate_PPS': self.node['frr_main_links'] * 1000,'mac_dst_count' : self.node['frr_main_links'] * 1000,'MAC_Dest':'00:10:94:00:00:01','MAC_Src': '00:10:94:00:00:02'}
 
 
         return dict10
@@ -219,18 +243,21 @@ class Service:
         for node in self.data["site_list"]:
             if 'EP' in node['side']:
                 if node['login']['device_type'] == 'cisco_xr':
-                    if node['port_type'] == 'PL-type':
-                        output = node['connect_obj'].send_command("show policy-map interface {} input".format(node["main_interface"]))
-                    else:
-                        output = node['connect_obj'].send_command("show policy-map interface {}.{} input".format(node["main_interface"],self.data['item']))
-                    print(output)
-                    x = re.findall("Total Dropped\s+:\s+\d+", output)
-                    dict13[node['Node_name']] = int(x[0].split(' ')[-1])
-                    if node['port_type'] == 'PL-type':
-                        output = node['connect_obj'].send_command("show qos interface {} input".format(node["main_interface"]))    
-                    else:
-                        output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
-                    print(output)
+                    try:
+                        if node['port_type'] == 'PL-type':
+                            output = node['connect_obj'].send_command("show policy-map interface {} input".format(node["main_interface"]))
+                        else:
+                            output = node['connect_obj'].send_command("show policy-map interface {}.{} input".format(node["main_interface"],self.data['item']))
+                        print(output)
+                        x = re.findall("Total Dropped\s+:\s+\d+", output)
+                        dict13[node['Node_name']] = int(x[0].split(' ')[-1])
+                        if node['port_type'] == 'PL-type':
+                            output = node['connect_obj'].send_command("show qos interface {} input".format(node["main_interface"]))    
+                        else:
+                            output = node['connect_obj'].send_command("show qos interface {}.{} input".format(node["main_interface"],self.data['item']))
+                        print(output)
+                    except:
+                        print("*** something went Wrong, input Policy drops can not be checked")                    
                 else:
                     pass
             else:
@@ -507,8 +534,44 @@ class Service:
         else:
             pass
         return test_result
+    def get_frr_status(self):
+        for node in self.data["site_list"]:
+            if node['login']['device_type'] == 'cisco_xr':
+                for node2 in self.data["site_list"]:
+                    if node2['login']['device_type'] == 'cisco_xr':
+                        if node['login']['host'] == node2['login']['host']:
+                            pass
+                        else:
+                            node['remote_rid'] = node2['login']['host']
+        for node in self.data["site_list"]:
+            if node['login']['device_type'] == 'cisco_xr':
+                output = node['connect_obj'].send_command(f"show route ipv4 {node['remote_rid']}/32 | include , via")
+                print(output)
+                x = re.findall("HundredGigE\d/\d/\d/\d", output)
+                y = re.findall("Protected| Backup",output)
+                if len(x) == 1:
+                    node['frr_main_links'] = 1
+                    node['frr_primary'] = x[0]
+                    node['frr_test_eligible'] = False
+                else:
+                    node['frr_main_links'] = 0
+                    node['frr_test_eligible'] = True                        
+                    for l,n in zip(x,y):
+                        if "Protected" in n:
+                            node['frr_primary'] = l
+                            node['frr_main_links'] = node['frr_main_links'] + 1
+                            
+            # pprint(node)
+    def count_XC_service(self):
+        for node in self.data["site_list"]:
+           output = node['connect_obj'].send_command("show l2vpn xconnect summary  | include groups",use_ttp=True, ttp_template="xc_count.j2")
+           print(f"**** no of xconnect on node {node['Node_name']} is {output[0][0]['no_of_XC']}")
+    def count_ELAN_service(self):
+        for node in self.data["site_list"]:
+           output = node['connect_obj'].send_command("show l2vpn bridge-domain summary  | include groups",use_ttp=True, ttp_template="BD_count.j2")
+           print(f"**** no of Bridge-domains on node {node['Node_name']} is {output[0][0]['no_of_BD']}")                            
 
-
+                
 
 
 
